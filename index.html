@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa z Edytowalnymi Znacznikami</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {
+            margin: 0;
+        }
+        #map {
+            height: 100vh;
+            background: linear-gradient(0deg, rgba(5, 5, 5, 1) 0%, rgb(32, 32, 32) 48%, rgba(5, 5, 5, 1) 100%);
+        }
+        #menu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #292929c0;
+            backdrop-filter: blur(6px);
+            color: rgb(150, 150, 150);
+            padding: 0 20px;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            font-family: 'Cinzel', serif;
+            transition: transform 0.3s ease-in-out;
+        }
+        .menu-section {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgb(150, 150, 150);
+        }
+        .menu-logo {
+    	    display: block;
+            border-radius: 50%;
+    	    margin: auto; /* Wyśrodkowanie i odstęp pod logo */
+	    padding-top: 10px;
+	}
+        #menu .login-btn {
+            display: block;
+            margin: 20px auto 10px;
+            padding: 10px;
+            text-align: center;
+            background: #6b4226;
+            color: #f4e9c5;
+            border: 2px solid #c69c6d;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        #menu .login-btn:hover {
+            background: #8b5e3c;
+        }
+        #menu h2 {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+        #menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+        #menu ul li {
+            color: rgb(215, 215, 215);
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+        
+        #menu ul li input {
+            margin-right: 10px;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #c69c6d;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+        }
+        #menu ul li input:checked {
+            background-color: #c69c6d;
+        }
+        #menu ul li input:checked::before {
+            content: '✓'; /* Znak wyboru */
+    	    color: #fff;
+    	    font-size: 16px;
+    	    position: absolute;
+    	    top: 50%;
+    	    left: 50%;
+    	    transform: translate(-50%, -50%);
+        }
+        
+        #dialog {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border: 5px solid #c69c6d;
+            box-shadow: 0 0 15px #000, 0 0 25px #6b4226;
+            border-radius: 15px;
+            color: #f4e9c5;
+            display: none;
+            z-index: 1000;
+            font-family: 'Cinzel', serif;
+        }
+        #dialog h3 {
+            color: #f4e9c5;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            font-size: 1.5em;
+        }
+        #dialog input, #dialog select {
+            display: block;
+            margin: 10px 0;
+            width: 100%;
+    	    width: -moz-available;          /* WebKit-based browsers will ignore this. */
+    	    width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+    	    width: fill-available;
+            padding: 8px;
+            border: 2px solid #c69c6d;
+            background-color: #f4e9c5;
+            color: #3e2723;
+            border-radius: 5px;
+            outline: none;
+            font-family: 'Cinzel', serif;
+            box-shadow: inset 0 0 5px #000;
+        }
+        #dialog button {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: #6b4226;
+            border: 1px solid rgba(128, 64, 0, 0.9);
+            color: #f4e9c5;
+            font-family: 'Cinzel', serif;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #000, 0 0 15px #6b4226;
+        }
+        #dialog button:hover {
+            background-color: #8b5e3c;
+            box-shadow: 0 0 20px #000, 0 0 25px #8b5e3c;
+        }
+        #deleteMarkerButton {
+            background: linear-gradient(145deg, rgba(128, 0, 0, 1) 0%, rgba(80, 0, 0, 1) 100%);
+            color: #6b4226;
+        }
+        #deleteMarkerButton:hover {
+            background: linear-gradient(145deg, rgba(150, 0, 0, 1) 0%, rgba(100, 0, 0, 1) 100%);
+        }
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 999;
+        }
+	#cursor-coordinates {
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 5px;
+            padding: 10px;
+    	    font-size: 14px;
+    	    color: rgb(215, 215, 215);
+    	    margin: 10px 0;
+    	    text-align: center;
+	}
+        #marker-section input {
+    	    width: 100%;
+    	    width: -moz-available;          /* WebKit-based browsers will ignore this. */
+    	    width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+    	    width: fill-available;
+    	    margin: 5px 0;
+    	    padding: 8px;
+    	    border: 2px solid #c69c6d;
+    	    border-radius: 5px;
+    	    background-color: #f4e9c5;
+    	    color: #3e2723;
+    	    font-family: 'Cinzel', serif;
+    	    box-shadow: inset 0 0 5px #000;
+	}
+
+	#marker-section button {
+    	    width: 100%;
+    	    padding: 10px;
+    	    background-color: #6b4226;
+    	    border: 2px solid #c69c6d;
+    	    color: #f4e9c5;
+    	    border-radius: 5px;
+    	    cursor: pointer;
+    	    font-family: 'Cinzel', serif;
+	}
+
+	#marker-section button:hover {
+    	    background-color: #8b5e3c;
+	}
+        .blinking-marker {
+    	    animation: blink 1s steps(2, start) 5; /* 5 cykli */
+	}
+
+	@keyframes blink {
+    	    to {
+        	visibility: hidden;
+    	    }
+	}
+    .toggle-menu-button {
+    	position: absolute;
+    	top: 20px;
+    	left: 290px; /* Pozycja przy krawędzi menu */
+    	z-index: 1001;
+    	background-color: #6b4226;
+    	color: #f4e9c5;
+    	border: none;
+    	padding: 10px 15px;
+    	font-size: 18px;
+    	cursor: pointer;
+    	border-radius: 5px;
+    	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+    	transition: left 0.3s;
+	}
+
+	.toggle-menu-button:hover {
+    	background-color: #8b5e3c;
+	}
+
+    </style>
+</head>
+<body>
+    <div id="menu">
+    	<div class="menu-section">
+        	<img src="media/wikilogofinal.gif" alt="Logo" class="menu-logo">
+        </div>
+        <div class="menu-section">
+        	<a href="#" class="login-btn">Zaloguj się</a>
+        </div>
+        <div class="menu-section">
+        	<ul>
+            		<li><input type="checkbox" id="showDefault" checked /> Domyślny</li>
+            		<li><input type="checkbox" id="showLoch" checked /> Loch</li>
+            		<li><input type="checkbox" id="showMiasto" checked /> Miasto</li>
+        	</ul>
+        </div>
+     	<div class="menu-section" id="coordinates-section">
+    		<p id="cursor-coordinates">Współrzędne: (0, 0)</p>
+	    </div>
+        <div class="menu-section" id="marker-section">
+    		<label for="lat-input">Szerokość geograficzna:</label>
+    		<input type="number" id="lat-input" step="0.01" placeholder="Np. 50.00">
+    		<label for="lng-input">Długość geograficzna:</label>
+    		<input type="number" id="lng-input" step="0.01" placeholder="Np. 20.00">
+    		<button id="add-temp-marker">Idź do</button>
+	    </div>   
+    </div>
+    <button id="toggle-menu-button" class="toggle-menu-button">☰</button>
+    <button id="rotate-map-button" class="toggle-menu-button" style="top: 70px;">⟳</button>
+    <div id="overlay"></div>
+    <div id="dialog">
+        <h3>Dodaj lub edytuj znacznik</h3>
+        <label for="markerTitle">Nazwa znacznika:</label>
+        <input type="text" id="markerTitle" placeholder="Wprowadź nazwę">
+        <label for="markerIcon">Wybierz ikonę:</label>
+        <select id="markerIcon">
+            <option value="default">Domyślna</option>
+            <option value="loch">Loch</option>
+            <option value="miasto">Miasto</option>
+        </select>
+        <button id="addMarkerButton">Dodaj znacznik</button>
+        <button id="deleteMarkerButton" style="display: none;">Usuń znacznik</button>
+    </div>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map', { minZoom: 1, maxZoom: 4 }).setView([0, 0], 1);
+        const imageBounds = [[-85, -256], [85, 256]];
+        L.imageOverlay('mapa.png', imageBounds).addTo(map);
+        map.fitBounds(imageBounds);
+
+        const markers = [];
+        const icons = {
+            default: L.icon({
+                iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+                shadowSize: [41, 41]
+            }),
+            loch: L.icon({ iconUrl: 'ikony/loch.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+            miasto: L.icon({ iconUrl: 'ikony/miasto.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] })
+        };
+
+        const dialog = document.getElementById('dialog');
+        const overlay = document.getElementById('overlay');
+        const markerTitleInput = document.getElementById('markerTitle');
+        const markerIconSelect = document.getElementById('markerIcon');
+        const addMarkerButton = document.getElementById('addMarkerButton');
+        const deleteMarkerButton = document.getElementById('deleteMarkerButton');
+
+        const showDefaultCheckbox = document.getElementById('showDefault');
+        const showLochCheckbox = document.getElementById('showLoch');
+        const showMiastoCheckbox = document.getElementById('showMiasto');
+
+        let pendingLatLng = null;
+
+        function openDialog(lat, lng, markerToEdit = null) {
+            pendingLatLng = { lat, lng, markerToEdit };
+            markerTitleInput.value = markerToEdit ? markerToEdit.title : '';
+            markerIconSelect.value = markerToEdit ? Object.keys(icons).find(key => icons[key] === markerToEdit.icon) : 'default';
+            addMarkerButton.textContent = markerToEdit ? "Zapisz zmiany" : "Dodaj znacznik";
+            deleteMarkerButton.style.display = markerToEdit ? 'block' : 'none';
+            dialog.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+
+        function closeDialog() {
+            dialog.style.display = 'none';
+            overlay.style.display = 'none';
+        }
+
+        function addOrUpdateMarker() {
+            const title = markerTitleInput.value;
+            const iconType = markerIconSelect.value;
+            const icon = icons[iconType] || icons.default;
+
+            if (!title) {
+                alert("Proszę podać nazwę znacznika.");
+                return;
+            }
+
+            if (pendingLatLng.markerToEdit) {
+                const markerData = pendingLatLng.markerToEdit;
+                markerData.title = title;
+                markerData.icon = icon;
+                markerData.marker.setIcon(icon);
+                markerData.marker
+                    .unbindTooltip()
+                    .bindTooltip(`<strong>${title}</strong><br>Pozycja: [${pendingLatLng.lat}, ${pendingLatLng.lng}]`)
+                    .openTooltip();
+            } else {
+                const marker = L.marker([pendingLatLng.lat, pendingLatLng.lng], { icon }).addTo(map);
+                marker.bindTooltip(`<strong>${title}</strong><br>Pozycja: [${pendingLatLng.lat}, ${pendingLatLng.lng}]`).openTooltip();
+                marker.on('click', () => {
+                    openDialog(pendingLatLng.lat, pendingLatLng.lng, { marker, title, icon });
+                });
+                markers.push({ marker, title, icon, lat: pendingLatLng.lat, lon: pendingLatLng.lng, iconType });
+            }
+
+            closeDialog();
+        }
+
+        function removeMarker(markerToEdit) {
+            if (confirm("Czy na pewno chcesz usunąć ten znacznik?")) {
+                map.removeLayer(markerToEdit.marker);
+                const index = markers.findIndex(m => m.marker === markerToEdit.marker);
+                if (index !== -1) {
+                    markers.splice(index, 1);
+                }
+                closeDialog();
+            }
+        }
+
+        function toggleMarkers(type, isVisible) {
+            markers.forEach(({ marker, iconType }) => {
+                if (iconType === type) {
+                    isVisible ? marker.addTo(map) : map.removeLayer(marker);
+                }
+            });
+        }
+
+        showDefaultCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('default', e.target.checked);
+        });
+        showLochCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('loch', e.target.checked);
+        });
+        showMiastoCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('miasto', e.target.checked);
+        });
+
+        deleteMarkerButton.addEventListener('click', () => {
+            if (pendingLatLng.markerToEdit) {
+                removeMarker(pendingLatLng.markerToEdit);
+            }
+        });
+        
+        const cursorCoordinates = document.getElementById('cursor-coordinates');
+
+		map.on('mousemove', (e) => {
+    		const lat = e.latlng.lat;
+    		const lng = e.latlng.lng;
+
+    		// Sprawdź, czy współrzędne mieszczą się w granicach mapy
+    		if (
+        		lat >= imageBounds[0][0] && lat <= imageBounds[1][0] &&
+        		lng >= imageBounds[0][1] && lng <= imageBounds[1][1]
+            ) {
+        		cursorCoordinates.textContent = `Współrzędne: (${lat.toFixed(2)}, ${lng.toFixed(2)})`;
+    		} else {
+        		cursorCoordinates.textContent = "Współrzędne: (0, 0)";
+    		}
+		});
+
+		map.on('mouseout', () => {
+    		cursorCoordinates.textContent = "Współrzędne: (0, 0)";
+		});
+        
+        document.getElementById('add-temp-marker').addEventListener('click', () => {
+    		const lat = parseFloat(document.getElementById('lat-input').value);
+    		const lng = parseFloat(document.getElementById('lng-input').value);
+
+    		// Walidacja współrzędnych
+    		if (isNaN(lat) || isNaN(lng)) {
+        		alert("Proszę wprowadzić poprawne współrzędne.");
+        		return;
+    		}
+
+    		// Sprawdź, czy współrzędne są w granicach mapy
+    		if (
+        		lat < imageBounds[0][0] || lat > imageBounds[1][0] ||
+        		lng < imageBounds[0][1] || lng > imageBounds[1][1]
+    		) {
+        		alert("Współrzędne znajdują się poza obszarem mapy.");
+        		return;
+    		}
+
+    		// Dodaj znacznik
+    		const tempMarker = L.marker([lat, lng], {
+        		icon: L.icon({
+            		iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+            		iconSize: [25, 41],
+            		iconAnchor: [12, 41],
+            		popupAnchor: [1, -34],
+            		shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+            		shadowSize: [41, 41],
+            		className: 'blinking-marker' // Klasa do migania
+        		})
+    		}).addTo(map);
+
+    		// Przybliż mapę
+    		map.setView([lat, lng], 4);
+
+    		// Efekt migania
+    		let blinkCount = 0;
+    		const blinkInterval = setInterval(() => {
+        		const markerElement = tempMarker._icon;
+        		if (markerElement) {
+            		markerElement.style.visibility = (markerElement.style.visibility === 'hidden') ? 'visible' : 'hidden';
+        		}
+        		blinkCount++;
+        		if (blinkCount >= 10) { // 5 migań (widoczne/niewidoczne)
+            		clearInterval(blinkInterval);
+            		map.removeLayer(tempMarker); // Usuń znacznik
+        		}
+    		}, 500);
+		});
+        
+        const menu = document.getElementById('menu');
+		const toggleButton = document.getElementById('toggle-menu-button');
+        const rotateMapButton = document.getElementById('rotate-map-button');
+
+// Flaga określająca, czy menu jest widoczne
+let menuVisible = true;
+
+toggleButton.addEventListener('click', () => {
+    if (menuVisible) {
+        menu.style.transform = 'translateX(-100%)'; // Ukryj menu
+        toggleButton.style.left = '50px'; // Przesuń przycisk w lewo
+        rotateMapButton.style.left = '50px'; // Przesuń nowy przycisk w lewo
+        menuVisible = false;
+    } else {
+        menu.style.transform = 'translateX(0)'; // Pokaż menu
+        toggleButton.style.left = '290px'; // Przywróć pozycję przycisku
+        rotateMapButton.style.left = '290px'; // Przywróć pozycję nowego przycisku
+        menuVisible = true;
+    }
+});
+
+
+        map.on('click', (e) => {
+            const lat = e.latlng.lat;
+            const lng = e.latlng.lng;
+            if (lat < imageBounds[0][0] || lat > imageBounds[1][0] || lng < imageBounds[0][1] || lng > imageBounds[1][1]) {
+                alert("Znacznik można dodać tylko w obszarze mapy.");
+                return;
+            }
+            openDialog(lat, lng);
+        });
+
+        addMarkerButton.addEventListener('click', addOrUpdateMarker);
+        overlay.addEventListener('click', closeDialog);
+
+        // Example markers
+        markers.push(
+            { marker: L.marker([0, 0], { icon: icons.default }).addTo(map), iconType: 'default', title: 'Domyślny' },
+            { marker: L.marker([50, 50], { icon: icons.loch }).addTo(map), iconType: 'loch', title: 'Loch' },
+            { marker: L.marker([-50, -50], { icon: icons.miasto }).addTo(map), iconType: 'miasto', title: 'Miasto' }
+        );
+    </script>
+</body>
+</html>
