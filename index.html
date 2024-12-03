@@ -93,7 +93,6 @@
     	    left: 50%;
     	    transform: translate(-50%, -50%);
         }
-        
         #dialog {
             position: absolute;
             top: 50%;
@@ -208,7 +207,7 @@
     	    }
 	}
     	.toggle-menu-button {
-    	    position: absolute;
+    	   position: absolute;
     	    top: 20px;
     	    left: 290px; /* Pozycja przy krawędzi menu */
     	    z-index: 1001;
@@ -225,6 +224,7 @@
 	.toggle-menu-button:hover {
     	    background-color: #8b5e3c;
 	}
+
     </style>
 </head>
 <body>
@@ -273,9 +273,9 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        const map = L.map('map.bmp', { minZoom: 1, maxZoom: 4 }).setView([0, 0], 1);
+        const map = L.map('map', { minZoom: 1, maxZoom: 4 }).setView([0, 0], 1);
         const imageBounds = [[-85, -256], [85, 256]];
-        L.imageOverlay('mapa.tiff', imageBounds).addTo(map);
+        L.imageOverlay('mapa.jpg', imageBounds).addTo(map);
         map.fitBounds(imageBounds);
 
         const markers = [];
@@ -477,6 +477,7 @@ toggleButton.addEventListener('click', () => {
         menuVisible = true;
     }
 });
+
 
         map.on('click', (e) => {
             const lat = e.latlng.lat;
