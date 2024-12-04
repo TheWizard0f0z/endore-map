@@ -27,6 +27,8 @@
             z-index: 1000;
             font-family: 'Cinzel', serif;
             transition: transform 0.3s ease-in-out;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
         .menu-section {
             margin-bottom: 20px;
@@ -37,8 +39,8 @@
     	    display: block;
             border-radius: 50%;
     	    margin: auto; /* Wyśrodkowanie i odstęp pod logo */
-	    padding-top: 10px;
-	}
+	        padding-top: 10px;
+	    }
         #menu .login-btn {
             display: block;
             margin: 20px auto 10px;
@@ -204,10 +206,10 @@
 	@keyframes blink {
     	    to {
         	visibility: hidden;
-    	    }
+            }
 	}
     	.toggle-menu-button {
-    	   position: absolute;
+    	    position: absolute;
     	    top: 20px;
     	    left: 290px; /* Pozycja przy krawędzi menu */
     	    z-index: 1001;
@@ -230,7 +232,7 @@
 <body>
     <div id="menu">
     	<div class="menu-section">
-        	<img src="media/wikilogofinal.gif" alt="Logo" class="menu-logo">
+        	<img src="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/media/wikilogofinal.gif" alt="Logo" class="menu-logo">
         </div>
         <div class="menu-section">
         	<a href="#" class="login-btn">Zaloguj się</a>
@@ -238,8 +240,9 @@
         <div class="menu-section">
         	<ul>
             		<li><input type="checkbox" id="showDefault" checked /> Domyślny</li>
-            		<li><input type="checkbox" id="showLoch" checked /> Loch</li>
-            		<li><input type="checkbox" id="showMiasto" checked /> Miasto</li>
+            		<li><input type="checkbox" id="showMiasto" checked /> Miasta</li>
+                    <li><input type="checkbox" id="showZamek" checked /> Zamki</li>
+                    <li><input type="checkbox" id="showMost" checked /> Mosty</li>
         	</ul>
         </div>
      	<div class="menu-section" id="coordinates-section">
@@ -263,8 +266,9 @@
         <label for="markerIcon">Wybierz ikonę:</label>
         <select id="markerIcon">
             <option value="default">Domyślna</option>
-            <option value="loch">Loch</option>
             <option value="miasto">Miasto</option>
+            <option value="zamek">Zamek</option>
+            <option value="most">Most</option>
         </select>
         <button id="addMarkerButton">Dodaj znacznik</button>
         <button id="deleteMarkerButton" style="display: none;">Usuń znacznik</button>
@@ -275,7 +279,7 @@
     <script>
         const map = L.map('map', { minZoom: 1, maxZoom: 4 }).setView([0, 0], 1);
         const imageBounds = [[-85, -256], [85, 256]];
-        L.imageOverlay('mapa.jpg', imageBounds).addTo(map);
+        L.imageOverlay('https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/mapa.jpg', imageBounds).addTo(map);
         map.fitBounds(imageBounds);
 
         const markers = [];
@@ -288,8 +292,9 @@
                 shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
                 shadowSize: [41, 41]
             }),
-            loch: L.icon({ iconUrl: 'ikony/loch.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-            miasto: L.icon({ iconUrl: 'ikony/miasto.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] })
+            miasto: L.icon({ iconUrl: 'ikony/miasto.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+            zamek: L.icon({ iconUrl: 'ikony/zamek.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+            most: L.icon({ iconUrl: 'ikony/most.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] })
         };
 
         const dialog = document.getElementById('dialog');
@@ -300,8 +305,9 @@
         const deleteMarkerButton = document.getElementById('deleteMarkerButton');
 
         const showDefaultCheckbox = document.getElementById('showDefault');
-        const showLochCheckbox = document.getElementById('showLoch');
         const showMiastoCheckbox = document.getElementById('showMiasto');
+        const showZamekCheckbox = document.getElementById('showZamek');
+        const showMostCheckbox = document.getElementById('showMost');
 
         let pendingLatLng = null;
 
@@ -373,11 +379,14 @@
         showDefaultCheckbox.addEventListener('change', (e) => {
             toggleMarkers('default', e.target.checked);
         });
-        showLochCheckbox.addEventListener('change', (e) => {
-            toggleMarkers('loch', e.target.checked);
-        });
         showMiastoCheckbox.addEventListener('change', (e) => {
             toggleMarkers('miasto', e.target.checked);
+        });
+        showZamekCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('zamek', e.target.checked);
+        });
+        showMostCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('most', e.target.checked);
         });
 
         deleteMarkerButton.addEventListener('click', () => {
@@ -495,8 +504,9 @@ toggleButton.addEventListener('click', () => {
         // Example markers
         markers.push(
             { marker: L.marker([0, 0], { icon: icons.default }).addTo(map), iconType: 'default', title: 'Domyślny' },
-            { marker: L.marker([50, 50], { icon: icons.loch }).addTo(map), iconType: 'loch', title: 'Loch' },
-            { marker: L.marker([-50, -50], { icon: icons.miasto }).addTo(map), iconType: 'miasto', title: 'Miasto' }
+            { marker: L.marker([-50, -50], { icon: icons.miasto }).addTo(map), iconType: 'miasto', title: 'Miasto' },
+            { marker: L.marker([50, 50], { icon: icons.zamek }).addTo(map), iconType: 'zamek', title: 'Zamek' },
+            { marker: L.marker([20, 80], { icon: icons.most }).addTo(map), iconType: 'most', title: 'Most' }
         );
     </script>
 </body>
