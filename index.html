@@ -30,6 +30,8 @@
             transition: transform 0.3s ease-in-out;
             overflow-y: auto;
             overflow-x: hidden;
+            scrollbar-color: #8b5e3c #2a2a2a;
+    	    scrollbar-width: thin;
         }
         .menu-section {
             margin-bottom: 20px;
@@ -39,9 +41,14 @@
         .menu-logo {
     	    display: block;
             border-radius: 50%;
-    	    margin: auto; /* Wyśrodkowanie i odstęp pod logo */
+    	    margin: auto;
 	    padding-top: 10px;
-	    }
+	    transition: box-shadow 0.3s ease, transform 0.3s ease;
+	}
+	.menu-logo:hover {
+	    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+	    
+	}
         #menu .login-btn {
             display: block;
             margin: 20px auto 10px;
@@ -73,7 +80,6 @@
             align-items: center;
             margin: 5px 0;
         }
-        
         #menu ul li input {
             margin-right: 10px;
             appearance: none;
@@ -212,7 +218,7 @@
     	.toggle-menu-button {
     	    position: absolute;
     	    top: 10px;
-    	    left: 290px; /* Pozycja przy krawędzi menu */
+    	    left: 291px;
     	    z-index: 1001;
     	    background-color: #6b4226;
     	    color: #f4e9c5;
@@ -228,8 +234,20 @@
     	    background-color: #8b5e3c;
 	}
 	.leaflet-left {
-    	    left: 278px;
+    	    left: 281px;
 	    top: 50px;
+            transition: left 0.3s;
+	}
+    	.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+    	    border: none;
+    	    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+	}
+    	.leaflet-touch .leaflet-bar a:first-child, .leaflet-touch .leaflet-bar a:last-child {
+    	    background-color: #6b4226;
+    	    color: #f4e9c5;
+	}
+    	.leaflet-touch .leaflet-bar a:first-child:hover, .leaflet-touch .leaflet-bar a:last-child:hover {
+    	    background-color: #8b5e3c;
 	}
 
     </style>
@@ -237,7 +255,9 @@
 <body>
     <div id="menu">
     	<div class="menu-section">
-        	<img src="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/media/wikilogofinal.gif" alt="Logo" class="menu-logo">
+		<a href="https://wiki.endore.pl" target="_blank">
+        		<img src="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/media/wikilogofinal.gif" alt="Logo" class="menu-logo">
+		</a>
         </div>
         <div class="menu-section">
         	<a href="#" class="login-btn">Zaloguj się</a>
@@ -472,6 +492,7 @@
         
         const menu = document.getElementById('menu');
 	const toggleButton = document.getElementById('toggle-menu-button');
+    	const zoomButton = document.querySelector('.leaflet-left');
 
 // Flaga określająca, czy menu jest widoczne
 let menuVisible = true;
@@ -480,14 +501,15 @@ toggleButton.addEventListener('click', () => {
     if (menuVisible) {
         menu.style.transform = 'translateX(-100%)'; // Ukryj menu
         toggleButton.style.left = '10px'; // Przesuń przycisk w lewo
+        zoomButton.style.left = '15px';
         menuVisible = false;
     } else {
         menu.style.transform = 'translateX(0)'; // Pokaż menu
-        toggleButton.style.left = '290px'; // Przywróć pozycję przycisku
+        toggleButton.style.left = '291px'; // Przywróć pozycję przycisku
+        zoomButton.style.left = '281px'; // Przywróć pozycję przycisku
         menuVisible = true;
     }
 });
-
 
         map.on('click', (e) => {
             const lat = e.latlng.lat;
