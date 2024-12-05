@@ -274,10 +274,10 @@
     		<p id="cursor-coordinates">Współrzędne: (0, 0)</p>
 	</div>
         <div class="menu-section" id="marker-section">
+        	<label for="lng-input">Długość geograficzna:</label>
+    		<input type="number" id="lng-input" step="0.01" placeholder="Np. 20.00">
     		<label for="lat-input">Szerokość geograficzna:</label>
     		<input type="number" id="lat-input" step="0.01" placeholder="Np. 50.00">
-    		<label for="lng-input">Długość geograficzna:</label>
-    		<input type="number" id="lng-input" step="0.01" placeholder="Np. 20.00">
     		<button id="add-temp-marker">Idź do</button>
 	</div>   
     </div>
@@ -419,38 +419,55 @@
             }
         });
         
+        function transformCoordinates(lat, lng) {
+    		const radians = lat * (Math.PI / 180); // Przelicz szerokość na radiany
+    		const mercatorY = Math.log(Math.tan(Math.PI / 4 + radians / 2)); // Pseudomerkator
+    		const normalizedY = (1 - (mercatorY / Math.PI)) / 2; // Normalizacja do [0, 1]
+
+    		const visualX = ((lng + 256) / 512) * 6144; // Bez zmian
+    		const visualY = normalizedY * 4096; // Dopasowanie do wysokości mapy
+
+    		return { x: visualX.toFixed(0), y: visualY.toFixed(0) };
+		}
+        
         const cursorCoordinates = document.getElementById('cursor-coordinates');
 
 		map.on('mousemove', (e) => {
     		const lat = e.latlng.lat;
     		const lng = e.latlng.lng;
 
-    		// Sprawdź, czy współrzędne mieszczą się w granicach mapy
     		if (
         		lat >= imageBounds[0][0] && lat <= imageBounds[1][0] &&
         		lng >= imageBounds[0][1] && lng <= imageBounds[1][1]
-            ) {
-        		cursorCoordinates.textContent = `Współrzędne: (${lat.toFixed(2)}, ${lng.toFixed(2)})`;
+    		) {
+        		const transformed = transformCoordinates(lat, lng);
+        		cursorCoordinates.textContent = `Współrzędne: (${transformed.x}, ${transformed.y})`;
     		} else {
         		cursorCoordinates.textContent = "Współrzędne: (0, 0)";
     		}
 		});
+
+		function inverseTransformCoordinates(x, y) {
+    		const lng = (x / 6144) * 512 - 256;
+    		const lat = 85 - (y / 4096) * 170;
+    		return { lat: lat.toFixed(2), lng: lng.toFixed(2) };
+		}
 
 		map.on('mouseout', () => {
     		cursorCoordinates.textContent = "Współrzędne: (0, 0)";
 		});
         
         document.getElementById('add-temp-marker').addEventListener('click', () => {
-    		const lat = parseFloat(document.getElementById('lat-input').value);
-    		const lng = parseFloat(document.getElementById('lng-input').value);
+    		const x = parseFloat(document.getElementById('lng-input').value);
+    		const y = parseFloat(document.getElementById('lat-input').value);
 
-    		// Walidacja współrzędnych
-    		if (isNaN(lat) || isNaN(lng)) {
+    		if (isNaN(x) || isNaN(y)) {
         		alert("Proszę wprowadzić poprawne współrzędne.");
         		return;
     		}
 
-    		// Sprawdź, czy współrzędne są w granicach mapy
+    		const { lat, lng } = inverseTransformCoordinates(x, y);
+
     		if (
         		lat < imageBounds[0][0] || lat > imageBounds[1][0] ||
         		lng < imageBounds[0][1] || lng > imageBounds[1][1]
@@ -527,7 +544,7 @@ toggleButton.addEventListener('click', () => {
         // Example markers
         markers.push(
             { marker: L.marker([0, 0], { icon: icons.default }).addTo(map), iconType: 'default', title: 'Domyślny' },
-            { marker: L.marker([-50, -50], { icon: icons.miasto }).addTo(map), iconType: 'miasto', title: 'Miasto' },
+            { marker: L.marker([40, 40], { icon: icons.miasto }).addTo(map), iconType: 'miasto', title: 'Miasto' },
             { marker: L.marker([50, 50], { icon: icons.zamek }).addTo(map), iconType: 'zamek', title: 'Zamek' },
             { marker: L.marker([20, 80], { icon: icons.most }).addTo(map), iconType: 'most', title: 'Most' }
         );
