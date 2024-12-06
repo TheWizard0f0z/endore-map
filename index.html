@@ -43,11 +43,6 @@
             border-radius: 50%;
     	    margin: auto;
 	    padding-top: 10px;
-	    transition: box-shadow 0.3s ease, transform 0.3s ease;
-	}
-	.menu-logo:hover {
-	    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
-	    
 	}
         #menu .login-btn {
             display: block;
@@ -272,14 +267,18 @@
         </div>
      	<div class="menu-section" id="coordinates-section">
     		<p id="cursor-coordinates">Współrzędne: (0, 0)</p>
-	</div>
+            <label>
+        		<input type="checkbox" id="showRawCoordinates" />
+        		Pokaż surowe współrzędne
+    		</label>
+		</div>
         <div class="menu-section" id="marker-section">
         	<label for="lng-input">Długość geograficzna:</label>
     		<input type="number" id="lng-input" step="0.01" placeholder="Np. 20.00">
     		<label for="lat-input">Szerokość geograficzna:</label>
     		<input type="number" id="lat-input" step="0.01" placeholder="Np. 50.00">
     		<button id="add-temp-marker">Idź do</button>
-	</div>   
+		</div>   
     </div>
     <button id="toggle-menu-button" class="toggle-menu-button">☰</button>
     <div id="overlay"></div>
@@ -290,7 +289,8 @@
         <label for="markerIcon">Wybierz ikonę:</label>
         <select id="markerIcon">
             <option value="default">Domyślna</option>
-            <option value="miasto">Miasto</option>
+            <option value="miasto1">Miasto1</option>
+            <option value="miasto2">Miasto2</option>
             <option value="zamek">Zamek</option>
             <option value="most">Most</option>
         </select>
@@ -316,7 +316,8 @@
                 shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
                 shadowSize: [41, 41]
             }),
-            miasto: L.icon({ iconUrl: 'ikony/miasto.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+            miasto1: L.icon({ iconUrl: 'ikony/miasta/miasto1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+            miasto2: L.icon({ iconUrl: 'ikony/miasta/miasto2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
             zamek: L.icon({ iconUrl: 'ikony/zamek.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
             most: L.icon({ iconUrl: 'ikony/most.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] })
         };
@@ -379,6 +380,9 @@
             }
 
             closeDialog();
+            
+            // Zaktualizuj dymki dla wszystkich znaczników
+    		updateMarkersWithTransformedCoordinates();
         }
 
         function removeMarker(markerToEdit) {
@@ -432,6 +436,7 @@
         
         const cursorCoordinates = document.getElementById('cursor-coordinates');
 
+/* oryginalna funckja bez pokazywania surowych współrzędnych
 		map.on('mousemove', (e) => {
     		const lat = e.latlng.lat;
     		const lng = e.latlng.lng;
@@ -442,6 +447,28 @@
     		) {
         		const transformed = transformCoordinates(lat, lng);
         		cursorCoordinates.textContent = `Współrzędne: (${transformed.x}, ${transformed.y})`;
+    		} else {
+        		cursorCoordinates.textContent = "Współrzędne: (0, 0)";
+    		}
+		});
+*/
+
+		const showRawCoordinatesCheckbox = document.getElementById('showRawCoordinates');
+
+		map.on('mousemove', (e) => {
+    		const lat = e.latlng.lat;
+    		const lng = e.latlng.lng;
+
+    		if (
+        		lat >= imageBounds[0][0] && lat <= imageBounds[1][0] &&
+        		lng >= imageBounds[0][1] && lng <= imageBounds[1][1]
+    		) {
+        		if (showRawCoordinatesCheckbox.checked) {
+            		cursorCoordinates.textContent = `Współrzędne surowe: (${lat.toFixed(0)}, ${lng.toFixed(0)})`;
+        		} else {
+            		const transformed = transformCoordinates(lat, lng);
+            		cursorCoordinates.textContent = `Współrzędne: (${transformed.x}, ${transformed.y})`;
+        		}
     		} else {
         		cursorCoordinates.textContent = "Współrzędne: (0, 0)";
     		}
@@ -518,43 +545,70 @@
 	const toggleButton = document.getElementById('toggle-menu-button');
     	const zoomButton = document.querySelector('.leaflet-left');
 
-// Flaga określająca, czy menu jest widoczne
-let menuVisible = true;
+	// Flaga określająca, czy menu jest widoczne
+	let menuVisible = true;
 
-toggleButton.addEventListener('click', () => {
-    if (menuVisible) {
-        menu.style.transform = 'translateX(-100%)'; // Ukryj menu
-        toggleButton.style.left = '10px'; // Przesuń przycisk w lewo
-        zoomButton.style.left = '15px';
-        menuVisible = false;
-    } else {
-        menu.style.transform = 'translateX(0)'; // Pokaż menu
-        toggleButton.style.left = '291px'; // Przywróć pozycję przycisku
-        zoomButton.style.left = '281px'; // Przywróć pozycję przycisku
-        menuVisible = true;
-    }
-});
+	toggleButton.addEventListener('click', () => {
+    		if (menuVisible) {
+        		menu.style.transform = 'translateX(-100%)'; // Ukryj menu
+        		toggleButton.style.left = '10px'; // Przesuń przycisk w lewo
+        		zoomButton.style.left = '15px';
+        		menuVisible = false;
+    		} else {
+        		menu.style.transform = 'translateX(0)'; // Pokaż menu
+        		toggleButton.style.left = '291px'; // Przywróć pozycję przycisku
+        		zoomButton.style.left = '281px'; // Przywróć pozycję przycisku
+        		menuVisible = true;
+    		}
+	});
 
         map.on('click', (e) => {
-            const lat = e.latlng.lat;
-            const lng = e.latlng.lng;
-            if (lat < imageBounds[0][0] || lat > imageBounds[1][0] || lng < imageBounds[0][1] || lng > imageBounds[1][1]) {
-                alert("Znacznik można dodać tylko w obszarze mapy.");
-                return;
-            }
-            openDialog(lat, lng);
+		const lat = e.latlng.lat;
+		const lng = e.latlng.lng;
+		if (lat < imageBounds[0][0] || lat > imageBounds[1][0] || lng < imageBounds[0][1] || lng > imageBounds[1][1]) {
+			alert("Znacznik można dodać tylko w obszarze mapy.");
+			return;
+		}
+		openDialog(lat, lng);
         });
 
         addMarkerButton.addEventListener('click', addOrUpdateMarker);
         overlay.addEventListener('click', closeDialog);
 
+        function updateMarkersWithTransformedCoordinates() {
+    		markers.forEach(({ marker, title, lat, lon }) => {
+        		// Transformacja współrzędnych
+        		const { x, y } = transformCoordinates(lat, lon);
+
+        		// Dodanie dymka
+        		marker.unbindTooltip(); // Usuń poprzedni dymek, jeśli istnieje
+        		marker.bindTooltip(`<strong>${title}</strong><br>Pozycja: [${x}, ${y}]`);
+    		});
+		}
+        
+        function addMarker(lat, lng, icon, title, iconType) {
+    		// Transformacja współrzędnych
+    		const { x, y } = transformCoordinates(lat, lng);
+
+    		// Tworzenie znacznika
+    		const marker = L.marker([lat, lng], { icon }).addTo(map);
+
+    		// Dodanie dymka
+    		marker.bindTooltip(`<strong>${title}</strong><br>Pozycja: [${x}, ${y}]`);
+
+    		// Dodanie znacznika do tablicy
+    		markers.push({ marker, title, iconType, lat, lon: lng });
+		}
+
         // Example markers
-        markers.push(
-            { marker: L.marker([0, 0], { icon: icons.default }).addTo(map), iconType: 'default', title: 'Domyślny' },
-            { marker: L.marker([40, 40], { icon: icons.miasto }).addTo(map), iconType: 'miasto', title: 'Miasto' },
-            { marker: L.marker([50, 50], { icon: icons.zamek }).addTo(map), iconType: 'zamek', title: 'Zamek' },
-            { marker: L.marker([20, 80], { icon: icons.most }).addTo(map), iconType: 'most', title: 'Most' }
-        );
+        addMarker(0, 0, icons.default, 'Domyślny', 'default');
+	addMarker(63, -71, icons.miasto2, 'Bree', 'miasto');
+        addMarker(67, -195, icons.miasto2, 'Ered Luin', 'miasto');
+        addMarker(67, 2, icons.miasto2, 'Rivendell', 'miasto');
+        addMarker(20, -41, icons.miasto2, 'Tharbad', 'miasto');
+        addMarker(50, 50, icons.zamek, 'Zamek', 'zamek');
+        addMarker(20, 80, icons.most, 'Most', 'most');
+
     </script>
 </body>
 </html>
