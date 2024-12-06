@@ -356,38 +356,41 @@
         }
 
         function addOrUpdateMarker() {
-            const title = markerTitleInput.value;
-            const iconType = markerIconSelect.value;
-            const icon = icons[iconType] || icons.default;
+    		const title = markerTitleInput.value;
+    		const iconType = markerIconSelect.value;
+    		const icon = icons[iconType] || icons.default;
 
-            if (!title) {
-                alert("Proszę podać nazwę znacznika.");
-                return;
-            }
+    		if (!title) {
+        		alert("Proszę podać nazwę znacznika.");
+        		return;
+    		}
 
-            if (pendingLatLng.markerToEdit) {
-                const markerData = pendingLatLng.markerToEdit;
-                markerData.title = title;
-                markerData.icon = icon;
-                markerData.marker.setIcon(icon);
-                markerData.marker
-                    .unbindTooltip()
-                    .bindTooltip(`<strong>${title}</strong><br>Pozycja: [${pendingLatLng.lat}, ${pendingLatLng.lng}]`)
-                    .openTooltip();
-            } else {
-                const marker = L.marker([pendingLatLng.lat, pendingLatLng.lng], { icon }).addTo(map);
-                marker.bindTooltip(`<strong>${title}</strong><br>Pozycja: [${pendingLatLng.lat}, ${pendingLatLng.lng}]`).openTooltip();
-                marker.on('click', () => {
-                    openDialog(pendingLatLng.lat, pendingLatLng.lng, { marker, title, icon });
-                });
-                markers.push({ marker, title, icon, lat: pendingLatLng.lat, lon: pendingLatLng.lng, iconType });
-            }
+    		if (pendingLatLng.markerToEdit) {
+        		const markerData = pendingLatLng.markerToEdit;
+        		markerData.title = title;
+        		markerData.icon = icon;
+        		markerData.marker.setIcon(icon);
+        
+        		// Transformacja współrzędnych
+        		const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
 
-            closeDialog();
-            
-            // Zaktualizuj dymki dla wszystkich znaczników
-    	    updateMarkersWithTransformedCoordinates();
-        }
+        		// Aktualizacja dymka
+        		markerData.marker
+            		.unbindTooltip()
+            		.bindTooltip(`<strong>${title}</strong><br>Pozycja: [${x}, ${y}]`)
+            		.openTooltip();
+    		} else {
+        		const marker = L.marker([pendingLatLng.lat, pendingLatLng.lng], { icon }).addTo(map);
+        		const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
+        		marker.bindTooltip(`<strong>${title}</strong><br>Pozycja: [${x}, ${y}]`).openTooltip();
+        		marker.on('click', () => {
+            		openDialog(pendingLatLng.lat, pendingLatLng.lng, { marker, title, icon });
+        		});
+        		markers.push({ marker, title, icon, lat: pendingLatLng.lat, lon: pendingLatLng.lng, iconType });
+    		}
+
+    		closeDialog();
+		}
 
         function removeMarker(markerToEdit) {
             if (confirm("Czy na pewno chcesz usunąć ten znacznik?")) {
