@@ -305,6 +305,10 @@
                 	<li><input type="checkbox" id="showMost" checked /> Mosty</li>
                 	<li><input type="checkbox" id="showWoda" checked /> Woda</li>
         	</ul>
+		<label>
+        		<input type="checkbox" id="toggleMarkerTooltips" />
+        		Pokaż dymki znaczników
+    		</label>
         </div>
      	<div class="menu-section" id="coordinates-section">
     		<p id="cursor-coordinates">Współrzędne: (0, 0)</p>
@@ -677,6 +681,25 @@
                 removeMarker(pendingLatLng.markerToEdit);
             }
         });
+
+	// Pobierz referencję do checkboxa
+	const toggleMarkerTooltipsCheckbox = document.getElementById('toggleMarkerTooltips');
+
+	// Funkcja do pokazywania lub ukrywania dymków
+	function toggleMarkerTooltips(showTooltips) {
+    		markers.forEach(({ marker }) => {
+        		if (showTooltips) {
+            			marker.openTooltip();
+        		} else {
+            			marker.closeTooltip();
+       			 }
+    		});
+	}
+
+	// Nasłuch na zmianę stanu checkboxa
+	toggleMarkerTooltipsCheckbox.addEventListener('change', (e) => {
+    		toggleMarkerTooltips(e.target.checked);
+	});
         
         function transformCoordinates(lat, lng) {
     		const radians = lat * (Math.PI / 180); // Przelicz szerokość na radiany
