@@ -5,246 +5,281 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapa z Edytowalnymi Znacznikami</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         body {
-            margin: 0;
-	    background-color: #2a2a2a;
+            	margin: 0;
+	    	background-color: #2a2a2a;
         }
         #map {
-            height: 100vh;
-            background-color: #2a2a2a;
+            	height: 100vh;
+            	background-color: #2a2a2a;
         }
         #menu {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 250px;
-            height: 100%;
-            background-color: #292929c0;
-            backdrop-filter: blur(6px);
-            color: rgb(150, 150, 150);
-            padding: 0 20px;
-            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            font-family: 'Cinzel', serif;
-            transition: transform 0.3s ease-in-out;
-            overflow-y: auto;
-            overflow-x: hidden;
-            scrollbar-color: #8b5e3c #2a2a2a;
-    	    scrollbar-width: thin;
+		position: absolute;
+            	top: 0;
+            	left: 0;
+            	width: 250px;
+            	height: 100%;
+            	background-color: #292929c0;
+            	backdrop-filter: blur(6px);
+            	color: rgb(150, 150, 150);
+            	padding: 0 20px;
+            	box-shadow: 5px 0 15px rgba(0, 0, 0, 0.7);
+            	z-index: 1000;
+            	font-family: 'Cinzel', serif;
+            	transition: transform 0.3s ease-in-out;
+            	overflow-y: auto;
+            	overflow-x: hidden;
+            	scrollbar-color: #8b5e3c #2a2a2a;
+    	    	scrollbar-width: thin;
         }
         .menu-section {
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgb(150, 150, 150);
+            	margin-bottom: 20px;
+            	padding-bottom: 10px;
+            	border-bottom: 1px solid rgb(150, 150, 150);
         }
         .menu-logo {
-    	    display: block;
-            border-radius: 50%;
-    	    margin: auto;
-	    padding-top: 10px;
+    	    	display: block;
+            	border-radius: 50%;
+    	    	margin: auto;
+	    	padding-top: 10px;
 	}
         #menu .login-btn {
-            display: block;
-            margin: 20px auto 10px;
-            padding: 10px;
-            text-align: center;
-            background: #6b4226;
-            color: #f4e9c5;
-            border: 2px solid #c69c6d;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
+            	display: block;
+            	margin: 20px auto 10px;
+            	padding: 10px;
+            	text-align: center;
+            	background: #6b4226;
+            	color: #f4e9c5;
+            	border: 2px solid #c69c6d;
+            	border-radius: 5px;
+            	cursor: pointer;
+            	text-decoration: none;
         }
         #menu .login-btn:hover {
-            background: #8b5e3c;
+            	background: #8b5e3c;
         }
         #menu h2 {
-            margin-top: 20px;
-            font-size: 1.2em;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            	margin-top: 20px;
+            	font-size: 1.2em;
+            	text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
         }
         #menu ul {
-            list-style: none;
-            padding: 0;
-            margin: 10px 0;
+            	list-style: none;
+            	padding: 0;
+            	margin: 10px 0;
         }
         #menu ul li {
-            color: rgb(215, 215, 215);
-            display: flex;
-            align-items: center;
-            margin: 5px 0;
+            	color: rgb(215, 215, 215);
+            	display: flex;
+            	align-items: center;
+            	margin: 5px 0;
         }
         #menu ul li input {
-            margin-right: 10px;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #c69c6d;
-            border-radius: 5px;
-            cursor: pointer;
-            position: relative;
+            	margin-right: 10px;
+            	appearance: none;
+            	width: 20px;
+            	height: 20px;
+            	border: 2px solid #c69c6d;
+            	border-radius: 5px;
+            	cursor: pointer;
+            	position: relative;
         }
         #menu ul li input:checked {
-            background-color: #c69c6d;
+            	background-color: #c69c6d;
         }
         #menu ul li input:checked::before {
-            content: '✓'; /* Znak wyboru */
-    	    color: #fff;
-    	    font-size: 16px;
-    	    position: absolute;
-    	    top: 50%;
-    	    left: 50%;
-    	    transform: translate(-50%, -50%);
+            	content: '✓'; /* Znak wyboru */
+    	    	color: #fff;
+    	    	font-size: 16px;
+    	    	position: absolute;
+    	    	top: 50%;
+    	    	left: 50%;
+    	    	transform: translate(-50%, -50%);
         }
         #dialog {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.4);
-            padding: 20px;
-            border: 5px solid #c69c6d;
-            box-shadow: 0 0 15px #000, 0 0 25px #6b4226;
-            border-radius: 15px;
-            color: #f4e9c5;
-            display: none;
-            z-index: 1000;
-            font-family: 'Cinzel', serif;
+            	position: absolute;
+            	top: 50%;
+            	left: 50%;
+            	transform: translate(-50%, -50%);
+            	background: rgba(0, 0, 0, 0.4);
+            	padding: 20px;
+            	border: 5px solid #c69c6d;
+            	box-shadow: 0 0 15px #000, 0 0 25px #6b4226;
+            	border-radius: 15px;
+            	color: #f4e9c5;
+            	display: none;
+            	z-index: 1000;
+            	font-family: 'Cinzel', serif;
         }
         #dialog h3 {
-            color: #f4e9c5;
-            margin-bottom: 15px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
-            font-size: 1.5em;
+            	color: #f4e9c5;
+            	margin-bottom: 15px;
+            	text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            	font-size: 1.5em;
         }
         #dialog input, #dialog select {
-            display: block;
-            margin: 10px 0;
-            width: 100%;
-    	    width: -moz-available;          /* WebKit-based browsers will ignore this. */
-    	    width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
-    	    width: fill-available;
-            padding: 8px;
-            border: 2px solid #c69c6d;
-            background-color: #f4e9c5;
-            color: #3e2723;
-            border-radius: 5px;
-            outline: none;
-            font-family: 'Cinzel', serif;
-            box-shadow: inset 0 0 5px #000;
+            	display: block;
+            	margin: 10px 0;
+            	width: 100%;
+    	    	width: -moz-available;          /* WebKit-based browsers will ignore this. */
+    	    	width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+    	    	width: fill-available;
+            	padding: 8px;
+            	border: 2px solid #c69c6d;
+            	background-color: #f4e9c5;
+            	color: #3e2723;
+            	border-radius: 5px;
+            	outline: none;
+            	font-family: 'Cinzel', serif;
+            	box-shadow: inset 0 0 5px #000;
         }
         #dialog button {
-            margin-top: 10px;
-            padding: 8px 12px;
-            background-color: #6b4226;
-            border: 1px solid rgba(128, 64, 0, 0.9);
-            color: #f4e9c5;
-            font-family: 'Cinzel', serif;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 0 10px #000, 0 0 15px #6b4226;
+            	margin-top: 10px;
+            	padding: 8px 12px;
+            	background-color: #6b4226;
+            	border: 1px solid rgba(128, 64, 0, 0.9);
+            	color: #f4e9c5;
+            	font-family: 'Cinzel', serif;
+            	border-radius: 5px;
+            	cursor: pointer;
+            	box-shadow: 0 0 10px #000, 0 0 15px #6b4226;
         }
         #dialog button:hover {
-            background-color: #8b5e3c;
-            box-shadow: 0 0 20px #000, 0 0 25px #8b5e3c;
+            	background-color: #8b5e3c;
+            	box-shadow: 0 0 20px #000, 0 0 25px #8b5e3c;
         }
         #deleteMarkerButton {
-            background: linear-gradient(145deg, rgba(128, 0, 0, 1) 0%, rgba(80, 0, 0, 1) 100%);
-            color: #6b4226;
+            	background: linear-gradient(145deg, rgba(128, 0, 0, 1) 0%, rgba(80, 0, 0, 1) 100%);
+            	color: #6b4226;
         }
         #deleteMarkerButton:hover {
-            background: linear-gradient(145deg, rgba(150, 0, 0, 1) 0%, rgba(100, 0, 0, 1) 100%);
+            	background: linear-gradient(145deg, rgba(150, 0, 0, 1) 0%, rgba(100, 0, 0, 1) 100%);
         }
         #overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            z-index: 999;
+            	position: absolute;
+            	top: 0;
+            	left: 0;
+            	width: 100%;
+            	height: 100%;
+            	background: rgba(0, 0, 0, 0.5);
+            	display: none;
+            	z-index: 999;
         }
 	#cursor-coordinates {
-            background-color: rgba(0, 0, 0, 0.4);
-            border-radius: 5px;
-            padding: 10px;
-    	    font-size: 14px;
-    	    color: rgb(215, 215, 215);
-    	    margin: 10px 0;
-    	    text-align: center;
+            	background-color: rgba(0, 0, 0, 0.4);
+            	border-radius: 5px;
+            	padding: 10px;
+    	    	font-size: 14px;
+    	    	color: rgb(215, 215, 215);
+    	    	margin: 10px 0;
+    	    	text-align: center;
 	}
-        #marker-section input {
-    	    width: 100%;
-    	    width: -moz-available;          /* WebKit-based browsers will ignore this. */
-    	    width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
-    	    width: fill-available;
-    	    margin: 5px 0;
-    	    padding: 8px;
-    	    border: 2px solid #c69c6d;
-    	    border-radius: 5px;
-    	    background-color: #f4e9c5;
-    	    color: #3e2723;
-    	    font-family: 'Cinzel', serif;
-    	    box-shadow: inset 0 0 5px #000;
+    	#marker-section input {
+    	    	width: 100%;
+    	    	width: -moz-available;          /* WebKit-based browsers will ignore this. */
+    	    	width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+    	    	width: fill-available;
+    	    	margin: 5px 0;
+    	    	padding: 8px;
+    	    	border: 2px solid #c69c6d;
+    	    	border-radius: 5px;
+    	    	background-color: #f4e9c5;
+    	    	color: #3e2723;
+    	    	font-family: 'Cinzel', serif;
+    	    	box-shadow: inset 0 0 5px #000;
 	}
 	#marker-section button {
-    	    width: 100%;
-    	    padding: 10px;
-    	    background-color: #6b4226;
-    	    border: 2px solid #c69c6d;
-    	    color: #f4e9c5;
-    	    border-radius: 5px;
-    	    cursor: pointer;
-    	    font-family: 'Cinzel', serif;
+    	    	width: 100%;
+    	    	padding: 10px;
+    	    	background-color: #6b4226;
+    	    	border: 2px solid #c69c6d;
+    	    	color: #f4e9c5;
+    	    	border-radius: 5px;
+    	    	cursor: pointer;
+    	    	font-family: 'Cinzel', serif;
 	}
 	#marker-section button:hover {
-    	    background-color: #8b5e3c;
+    	    	background-color: #8b5e3c;
 	}
         .blinking-marker {
-    	    animation: blink 1s steps(2, start) 5; /* 5 cykli */
+    	    	animation: blink 1s steps(2, start) 5; /* 5 cykli */
 	}
 	@keyframes blink {
-    	    to {
-        	visibility: hidden;
-            }
+    	    	to {
+        		visibility: hidden;
+            	}
 	}
     	.toggle-menu-button {
-    	    position: absolute;
-    	    top: 10px;
-    	    left: 291px;
-    	    z-index: 1001;
-    	    background-color: #6b4226;
-    	    color: #f4e9c5;
-    	    border: none;
-    	    padding: 10px 15px;
-    	    font-size: 18px;
-    	    cursor: pointer;
-    	    border-radius: 2px;
-    	    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
-    	    transition: left 0.3s;
+    	    	position: absolute;
+    	    	top: 10px;
+    	    	left: 291px;
+    	    	z-index: 1001;
+    	    	background-color: #6b4226;
+    	    	color: #f4e9c5;
+    	    	border: none;
+    	    	padding: 10px 15px;
+    	    	font-size: 18px;
+    	    	cursor: pointer;
+    	    	border-radius: 2px;
+    	    	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+    	    	transition: left 0.3s;
 	}
 	.toggle-menu-button:hover {
-    	    background-color: #8b5e3c;
+    	    	background-color: #8b5e3c;
 	}
 	.leaflet-left {
-    	    left: 281px;
-	    top: 50px;
-            transition: left 0.3s;
+    	    	left: 281px;
+	    	top: 50px;
+            	transition: left 0.3s;
 	}
     	.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
-    	    border: none;
-    	    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+    	    	border: none;
+    	    	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
 	}
     	.leaflet-touch .leaflet-bar a:first-child, .leaflet-touch .leaflet-bar a:last-child {
-    	    background-color: #6b4226;
-    	    color: #f4e9c5;
+    	    	background-color: #6b4226;
+    	    	color: #f4e9c5;
 	}
     	.leaflet-touch .leaflet-bar a:first-child:hover, .leaflet-touch .leaflet-bar a:last-child:hover {
-    	    background-color: #8b5e3c;
+		background-color: #8b5e3c;
 	}
-
+    	.select2-container {
+		padding: 8px 0;
+	}
+	.select2-container .select2-selection--single {
+	    	height: 36px;
+	    	line-height: 38px;
+            	background-color: #f4e9c5;
+            	box-shadow: inset 0 0 5px #000;
+            	border: 2px solid #c69c6d;
+            	border-radius: 5px;
+	}
+	.select2-container--default .select2-selection--single .select2-selection__rendered {
+	    	color: #404040;
+	    	font-family: 'Cinzel', serif;
+            	font-size: 16px;
+            	line-height: 33px;
+	}
+    	.select2-container--default .select2-selection--single .select2-selection__arrow {
+        	top: 12px;
+    	}
+    	input::placeholder {
+        	color: rgb(150, 150, 150);
+	}
+    	.select2-dropdown {
+    		background-color: #f4e9c5; /* Tło listy */
+    		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Cień */
+    		color: #404040; /* Kolor tekstu */
+	}
+    	.select2-results__option {
+    		height: 32px;
+    		padding: 0; /* Wewnętrzne marginesy */
+	}
+    	.select2-results__option:hover {
+    		background-color: #928B76 !important; /* Kolor tła przy najechaniu */
+	}
     </style>
 </head>
 <body>
@@ -263,6 +298,7 @@
             	    <li><input type="checkbox" id="showMiasto" checked /> Miasta</li>
                     <li><input type="checkbox" id="showZamek" checked /> Zamki</li>
                     <li><input type="checkbox" id="showMost" checked /> Mosty</li>
+                    <li><input type="checkbox" id="showWoda" checked /> Woda</li>
         	</ul>
         </div>
      	<div class="menu-section" id="coordinates-section">
@@ -270,8 +306,8 @@
             <label>
         		<input type="checkbox" id="showRawCoordinates" />
         		Pokaż surowe współrzędne
-    		</label>
-		</div>
+	    </label>
+	</div>
         <div class="menu-section" id="marker-section">
         	<label for="lng-input">Długość geograficzna:</label>
     		<input type="number" id="lng-input" step="0.01" placeholder="Np. 20.00">
@@ -287,21 +323,24 @@
         <label for="markerTitle">Nazwa znacznika:</label>
         <input type="text" id="markerTitle" placeholder="Wprowadź nazwę">
         <label for="markerIcon">Wybierz ikonę:</label>
-        <select id="markerIcon">
-            <option value="default">Domyślna</option>
-            <option value="miasto1">Miasto1</option>
-            <option value="miasto2">Miasto2</option>
-            <option value="miasto3">Miasto3</option>
-            <option value="miasto4">Miasto4</option>
-            <option value="zamek">Zamek</option>
-            <option value="most">Most</option>
-        </select>
+        <select id="markerIcon" style="width: 100%;">
+    		<option value="default" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default.png">Domyślna</option>
+    		<option value="miasto1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png">Miasto 1</option>
+    		<option value="miasto2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png">Miasto 2</option>
+		<option value="miasto3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png">Miasto 3</option>
+    		<option value="miasto4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png">Miasto 4</option>
+    		<option value="zamek" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamek.png">Zamek</option>
+    		<option value="most" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/most.png">Most</option>
+            <option value="woda" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/woda.png">Woda</option>
+	</select>
         <button id="addMarkerButton">Dodaj znacznik</button>
         <button id="deleteMarkerButton" style="display: none;">Usuń znacznik</button>
     </div>
     <div id="map"></div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         const map = L.map('map', { minZoom: 1, maxZoom: 4 }).setView([0, 0], 1);
         const imageBounds = [[-85, -256], [85, 256]];
@@ -311,19 +350,20 @@
         const markers = [];
         const icons = {
             default: L.icon({
-                iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-                iconSize: [25, 41],
-                iconAnchor: [12, 41],
-                popupAnchor: [1, -34],
-                shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-                shadowSize: [41, 41]
+                iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default.png',
+                iconSize: [31, 31],
+                iconAnchor: [15, 31],
+                popupAnchor: [0, -31],
+                shadowUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default-shadow.png',
+                shadowSize: [31, 31]
             }),
-            miasto1: L.icon({ iconUrl: 'ikony/miasta/miasto1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-            miasto2: L.icon({ iconUrl: 'ikony/miasta/miasto2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-            miasto3: L.icon({ iconUrl: 'ikony/miasta/miasto3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-            miasto4: L.icon({ iconUrl: 'ikony/miasta/miasto4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-            zamek: L.icon({ iconUrl: 'ikony/zamek.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-            most: L.icon({ iconUrl: 'ikony/most.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] })
+            miasto1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+            miasto2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+            miasto3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+            miasto4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+            zamek: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamek.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+            most: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/most.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+            woda: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/woda.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] })
         };
 
         const dialog = document.getElementById('dialog');
@@ -339,6 +379,34 @@
         const showMostCheckbox = document.getElementById('showMost');
 
         let pendingLatLng = null;
+
+	$(document).ready(function() {
+    		function formatIcon(option) {
+        		if (!option.id) {
+            			return option.text;
+        		}
+        		const iconUrl = $(option.element).data('icon');
+        		return $('<span>')
+            			.append($('<img>', {
+                			src: iconUrl,
+                			css: {
+                    				width: '30px',
+                    				height: '30px',
+                    				marginRight: '8px',
+                                    		paddingBottom: '4px',
+                    				verticalAlign: 'middle'
+                			}
+            			}))
+            			.append(option.text);
+    		}
+
+    		$('#markerIcon').select2({
+        		templateResult: formatIcon,
+        		templateSelection: formatIcon,
+        		minimumResultsForSearch: -1, // Ukrycie pola wyszukiwania
+        		dropdownCssClass: 'custom-dropdown'
+    		});
+	});
 
         function openDialog(lat, lng, markerToEdit = null) {
             pendingLatLng = { lat, lng, markerToEdit };
