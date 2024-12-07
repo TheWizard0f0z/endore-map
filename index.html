@@ -294,11 +294,16 @@
         </div>
         <div class="menu-section">
         	<ul>
-            	    <li><input type="checkbox" id="showDefault" checked /> Domyślny</li>
-            	    <li><input type="checkbox" id="showMiasto" checked /> Miasta</li>
-                    <li><input type="checkbox" id="showZamek" checked /> Zamki</li>
-                    <li><input type="checkbox" id="showMost" checked /> Mosty</li>
-                    <li><input type="checkbox" id="showWoda" checked /> Woda</li>
+            		<li><input type="checkbox" id="showDefault" checked /> Domyślny</li>
+            		<li><input type="checkbox" id="showMiasto" checked /> Miasta</li>
+			<li><input type="checkbox" id="showArena" checked /> Areny</li>
+			<li><input type="checkbox" id="showLoch" checked /> Lochy</li>
+			<li><input type="checkbox" id="showMob" checked /> Niebezpieczne lokacje</li>
+			<li><input type="checkbox" id="showPotwor" checked /> Potwory</li>
+			<li><input type="checkbox" id="showSkarb" checked /> Skarby</li>
+                	<li><input type="checkbox" id="showZamek" checked /> Zamki</li>
+                	<li><input type="checkbox" id="showMost" checked /> Mosty</li>
+                	<li><input type="checkbox" id="showWoda" checked /> Woda</li>
         	</ul>
         </div>
      	<div class="menu-section" id="coordinates-section">
@@ -325,10 +330,86 @@
         <label for="markerIcon">Wybierz ikonę:</label>
         <select id="markerIcon" style="width: 100%;">
     		<option value="default" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/default.png">Domyślna</option>
-    		<option value="miasto1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png">Miasto 1</option>
-    		<option value="miasto2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png">Miasto 2</option>
-		<option value="miasto3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png">Miasto 3</option>
-    		<option value="miasto4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png">Miasto 4</option>
+		
+    		<option value="miasto1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png">Miasto</option>
+    		<option value="miasto2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png">Miasto</option>
+		<option value="miasto3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png">Miasto</option>
+    		<option value="miasto4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png">Miasto</option>
+
+		<option value="arena1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/areny/arena1.png">Loch</option>
+		<option value="arena2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/areny/arena2.png">Loch</option>
+		<option value="arena3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/areny/arena3.png">Loch</option>
+		<option value="arena4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/areny/arena4.png">Loch</option>
+		<option value="arena5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/areny/arena5.png">Loch</option>
+		<option value="arena6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/areny/arena6.png">Loch</option>
+		<option value="arena7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/areny/arena7.png">Loch</option>
+
+		<option value="loch1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch1.png">Loch</option>
+		<option value="loch2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch2.png">Loch</option>
+		<option value="loch3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch3.png">Loch</option>
+		<option value="loch4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch4.png">Loch</option>
+		<option value="loch5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch5.png">Loch</option>
+		<option value="loch6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch6.png">Loch</option>
+		<option value="loch7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch7.png">Loch</option>
+
+		<option value="mob1nm" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB1NM.png">Niebezpieczna lokacja poz.1</option>
+		<option value="mob2nm" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB2NM.png">Niebezpieczna lokacja poz.2</option>
+		<option value="mob3nm" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB3NM.png">Niebezpieczna lokacja poz.3</option>
+		<option value="mob4nm" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB4NM.png">Niebezpieczna lokacja poz.4</option>
+		<option value="mob5nm" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB5NM.png">Niebezpieczna lokacja poz.5</option>
+		<option value="mob6nm" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB6NM.png">Niebezpieczna lokacja poz.6</option>
+		<option value="mob7nm" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB7NM.png">Niebezpieczna lokacja poz.7</option>
+
+		<option value="mob1ps" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB1PS.png">Niebezpieczna lokacja poz.1</option>
+		<option value="mob2ps" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB2PS.png">Niebezpieczna lokacja poz.2</option>
+		<option value="mob3ps" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB3PS.png">Niebezpieczna lokacja poz.3</option>
+		<option value="mob4ps" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB4PS.png">Niebezpieczna lokacja poz.4</option>
+		<option value="mob5ps" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB5PS.png">Niebezpieczna lokacja poz.5</option>
+		<option value="mob6ps" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB6PS.png">Niebezpieczna lokacja poz.6</option>
+		<option value="mob7ps" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB7SP.png">Niebezpieczna lokacja poz.7</option>
+
+		<option value="mob1sa" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB1SA.png">Niebezpieczna lokacja poz.1</option>
+		<option value="mob2sa" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB2SA.png">Niebezpieczna lokacja poz.2</option>
+		<option value="mob3sa" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB3SA.png">Niebezpieczna lokacja poz.3</option>
+		<option value="mob4sa" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB4SA.png">Niebezpieczna lokacja poz.4</option>
+		<option value="mob5sa" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB5SA.png">Niebezpieczna lokacja poz.5</option>
+		<option value="mob6sa" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB6SA.png">Niebezpieczna lokacja poz.6</option>
+		<option value="mob7sa" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB7SA.png">Niebezpieczna lokacja poz.7</option>
+
+		<option value="mob1sp" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB1SP.png">Niebezpieczna lokacja poz.1</option>
+		<option value="mob2sp" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB2SP.png">Niebezpieczna lokacja poz.2</option>
+		<option value="mob3sp" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB3SP.png">Niebezpieczna lokacja poz.3</option>
+		<option value="mob4sp" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB4SP.png">Niebezpieczna lokacja poz.4</option>
+		<option value="mob5sp" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB5SP.png">Niebezpieczna lokacja poz.5</option>
+		<option value="mob6sp" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB6SP.png">Niebezpieczna lokacja poz.6</option>
+		<option value="mob7sp" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB7SP.png">Niebezpieczna lokacja poz.7</option>
+
+		<option value="potworcyklop" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/cyklop.png">Cyklop</option>
+		<option value="potworduch" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/duch.png">Duch</option>
+		<option value="potworettin" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/ettin.png">Ettin</option>
+		<option value="potworharpia" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/harpia.png">Harpia</option>
+		<option value="potworlicz" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/licz.png">Licz</option>
+		<option value="potwormumia" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/mumia.png">Mumia</option>
+		<option value="potworogr" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/ogr.png">Ogr</option>
+		<option value="potworork" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/ork.png">Ork</option>
+		<option value="potwororkkapitan" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/orkkapitan.png">Uruk-hai</option>
+		<option value="potworpająk" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/pająk.png">Pająk</option>
+		<option value="potworskorpion" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/skorpion.png">Skorpion</option>
+		<option value="potworsmok" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/smok.png">Smok</option>
+		<option value="potworszkielet" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/szkielet.png">Szkielet</option>
+		<option value="potwortroll" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/troll.png">Troll</option>
+		<option value="potworwąż" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/wąż.png">Wąż</option>
+		<option value="potworzombi" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/zombi.png">Zombi</option>
+
+		<option value="skarb1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb1.png">Skarb poz.1</option>
+		<option value="skarb2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb2.png">Skarb poz.2</option>
+		<option value="skarb3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb3.png">Skarb poz.3</option>
+		<option value="skarb4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb4.png">Skarb poz.4</option>
+		<option value="skarb5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb5.png">Skarb poz.5</option>
+		<option value="skarb6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb6.png">Skarb poz.6</option>
+		<option value="skarb7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb7.png">Skarb poz.7</option>
+		<option value="skarb8" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb8.png">Skarb poz.8</option>
+		
     		<option value="zamek" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/zamek.png">Zamek</option>
     		<option value="most" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/most.png">Most</option>
             	<option value="woda" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/woda.png">Woda</option>
@@ -357,27 +438,108 @@
                 shadowUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/robocze/default-shadow.png',
                 shadowSize: [31, 31]
             }),
-            miasto1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-            miasto2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-            miasto3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-            miasto4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-            zamek: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/zamek.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-            most: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/most.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-            woda: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/woda.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] })
+            	miasto1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+            	miasto2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+            	miasto3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+            	miasto4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
+	    	arena1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/areny/arena1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		arena2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/areny/arena2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		arena3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/areny/arena3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		arena4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/areny/arena4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		arena5: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/areny/arena5.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		arena6: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/areny/arena6.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		arena7: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/areny/arena7.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
+		loch1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		loch2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		loch3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		loch4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		loch5: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch5.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		loch6: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch6.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		loch7: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch7.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
+		mob1nm: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB1NM.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob2nm: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB2NM.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob3nm: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB3NM.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob4nm: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB4NM.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob5nm: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB5NM.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob6nm: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB6NM.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob7nm: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB7NM.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
+		mob1ps: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB1PS.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob2ps: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB2PS.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob3ps: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB3PS.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob4ps: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB4PS.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob5ps: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB5PS.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob6ps: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB6PS.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob7ps: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB7PS.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
+		mob1sa: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB1SA.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob2sa: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB2SA.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob3sa: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB3SA.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob4sa: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB4SA.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob5sa: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB5SA.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob6sa: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB6SA.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob7sa: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB7SA.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
+		mob1sp: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB1SP.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob2sp: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB2SP.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob3sp: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB3SP.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob4sp: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB4SP.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob5sp: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB5SP.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob6sp: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB6SP.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		mob7sp: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB7SP.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
+		potworcyklop: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/cyklop.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		potworduch: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/duch.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		potworettin: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/ettin.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		potworharpia: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/harpia.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		potworlicz: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/licz.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		potwormumia: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/mumia.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		potworogr: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/ogr.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		potworork: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/ork.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		potwororkkapitan: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/orkkapitan.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		potworpająk: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/pająk.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		potworskorpion: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/skorpion.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		potworsmok: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/smok.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		potworszkielet: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/szkielet.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		potwortroll: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/troll.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		potworwąż: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/wąż.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		potworzombi: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/zombi.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
+		skarb1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		skarb2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		skarb3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		skarb4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		skarb5: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb5.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		skarb6: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb6.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		skarb7: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb7.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		skarb8: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb8.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
+            	zamek: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/zamek.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+            	most: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/most.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+            	woda: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/woda.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] })
         };
 
-        const dialog = document.getElementById('dialog');
-        const overlay = document.getElementById('overlay');
-        const markerTitleInput = document.getElementById('markerTitle');
-        const markerIconSelect = document.getElementById('markerIcon');
-        const addMarkerButton = document.getElementById('addMarkerButton');
-        const deleteMarkerButton = document.getElementById('deleteMarkerButton');
+	    const dialog = document.getElementById('dialog');
+	    const overlay = document.getElementById('overlay');
+	    const markerTitleInput = document.getElementById('markerTitle');
+	    const markerIconSelect = document.getElementById('markerIcon');
+	    const addMarkerButton = document.getElementById('addMarkerButton');
+	    const deleteMarkerButton = document.getElementById('deleteMarkerButton');
 
-        const showDefaultCheckbox = document.getElementById('showDefault');
-        const showMiastoCheckbox = document.getElementById('showMiasto');
-        const showZamekCheckbox = document.getElementById('showZamek');
-        const showMostCheckbox = document.getElementById('showMost');
-
+	    const showDefaultCheckbox = document.getElementById('showDefault');
+	    const showMiastoCheckbox = document.getElementById('showMiasto');
+	    const showArenaCheckbox = document.getElementById('showArena');
+	    const showLochCheckbox = document.getElementById('showLoch');
+	    const showMobCheckbox = document.getElementById('showMob');
+	    const showPotworCheckbox = document.getElementById('showPotwor');
+	    const showSkarbCheckbox = document.getElementById('showSkarb');
+	    const showZamekCheckbox = document.getElementById('showZamek');
+	    const showMostCheckbox = document.getElementById('showMost');
+	    const showWodaCheckbox = document.getElementById('showWoda');
+	    
         let pendingLatLng = null;
 
 	$(document).ready(function() {
@@ -473,7 +635,7 @@
 
         function toggleMarkers(type, isVisible) {
             markers.forEach(({ marker, iconType }) => {
-                if (iconType === type) {
+                if (iconType.includes(type)) {
                     isVisible ? marker.addTo(map) : map.removeLayer(marker);
                 }
             });
@@ -485,11 +647,29 @@
         showMiastoCheckbox.addEventListener('change', (e) => {
             toggleMarkers('miasto', e.target.checked);
         });
+	showArenaCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('arena', e.target.checked);
+        });
+	showLochCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('loch', e.target.checked);
+        });
+	showMobCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('mob', e.target.checked);
+        });
+	showPotworCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('potwor', e.target.checked);
+        });
+	showSkarbCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('skarb', e.target.checked);
+        });
         showZamekCheckbox.addEventListener('change', (e) => {
             toggleMarkers('zamek', e.target.checked);
         });
         showMostCheckbox.addEventListener('change', (e) => {
             toggleMarkers('most', e.target.checked);
+        });
+	showWodaCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('woda', e.target.checked);
         });
 
         deleteMarkerButton.addEventListener('click', () => {
