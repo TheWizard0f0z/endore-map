@@ -725,7 +725,7 @@ $(document).ready(function() {
             dialog.style.display = 'none';
             overlay.style.display = 'none';
         }
-
+//ADDORUPDATEMARKER
         function addOrUpdateMarker() {
     const title = markerTitleInput.value; // Pobranie nazwy znacznika
     const selectedGroup = document.getElementById('groupSelect').value; // Wybrana grupa
@@ -745,20 +745,23 @@ $(document).ready(function() {
     }
 
     if (pendingLatLng.markerToEdit) {
-        // Aktualizacja istniejącego markera
-        const markerData = pendingLatLng.markerToEdit;
-        markerData.title = title;
-        markerData.icon = icon;
-        markerData.marker.setIcon(icon);
+        // Znajdź marker w tablicy markers[]
+        const markerIndex = markers.findIndex(m => m.marker === pendingLatLng.markerToEdit.marker);
+        if (markerIndex !== -1) {
+            const markerData = markers[markerIndex];
+            markerData.title = title; // 🛠️ AKTUALIZACJA TYTUŁU W markers[]
+            markerData.icon = icon;
+            markerData.iconType = iconType; // 🛠️ AKTUALIZACJA TYP ZNACZNIKA
+            markerData.marker.setIcon(icon);
 
-        // Aktualizacja tooltipa
-        const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
-        markerData.marker
-            .unbindTooltip()
-            .bindTooltip(`<strong>${title}</strong><br>Pozycja: [${x}, ${y}]`)
-            .openTooltip();
+            // 🛠️ AKTUALIZACJA TOOLTIPA
+            const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
+            markerData.marker
+                .unbindTooltip()
+                .bindTooltip(`<strong>${title}</strong><br>Pozycja: [${x}, ${y}]`)
+                .openTooltip();
+        }
     } else {
-        // Dodanie nowego markera
         const marker = L.marker([pendingLatLng.lat, pendingLatLng.lng], { icon }).addTo(map);
         const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
         marker.bindTooltip(`<strong>${title}</strong><br>Pozycja: [${x}, ${y}]`).openTooltip();
@@ -770,6 +773,9 @@ $(document).ready(function() {
 
     closeDialog();
 }
+
+
+
 
 
         function removeMarker(markerToEdit) {
