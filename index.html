@@ -600,7 +600,26 @@ function formatIcon(option) {
 
 // Inicjalizacja Select2 dla wszystkich grup
 $(document).ready(function() {
-    // Inicjalizujemy Select2 dla każdej grupy markerów
+    // Funkcja do formatowania opcji w Select2, w tym wyświetlanie ikon
+    function formatIcon(option) {
+        if (!option.id) {
+            return option.text; // Jeśli nie ma ID, zwraca tylko tekst
+        }
+        const iconUrl = $(option.element).data('icon'); // Pobranie URL ikony
+        return $('<span>')
+            .append($('<img>', {
+                src: iconUrl,
+                css: {
+                    width: '20px',  // Ustalamy rozmiar ikony
+                    height: '20px',
+                    marginRight: '8px',
+                    verticalAlign: 'middle'
+                }
+            }))
+            .append(option.text);
+    }
+
+    // Inicjalizacja Select2 dla każdej grupy markerów
     $('.marker-group').each(function () {
         $(this).select2({
             templateResult: formatIcon,
@@ -610,30 +629,43 @@ $(document).ready(function() {
         });
     });
 
-    // Funkcja obsługująca zmianę grupy
+    // Obsługa zmiany opcji w #groupSelect
     document.getElementById('groupSelect').addEventListener('change', function () {
-        const selectedGroup = this.value;
+        const selectedGroup = this.value; // Pobierz wybraną wartość grupy
+        
+        // Ukryj wszystkie grupy markerów i ich kontenery Select2
+        document.querySelectorAll('.marker-group').forEach(select => {
+            select.style.display = 'none'; // Ukryj <select>
+            select.disabled = true; // Dezaktywuj <select>
+            
+            // Ukryj kontener Select2 powiązany z <select>
+            const select2Container = $(select).next('.select2-container');
+            select2Container.hide(); // Ukryj kontener Select2
+        });
 
-        // Pokaż odpowiednią grupę <select> i aktywuj ją
+        // Pokaż i aktywuj odpowiednią grupę
         const activeSelect = document.getElementById(`markerIcon${selectedGroup}`);
         if (activeSelect) {
-            activeSelect.style.display = 'block'; // Pokazuje odpowiedni <select>
-            activeSelect.disabled = false; // Aktywuje wybrany <select>
+            activeSelect.style.display = 'block'; // Pokaż aktywny <select>
+            activeSelect.disabled = false; // Aktywuj <select>
+            
+            // Zainicjalizuj Select2 dla aktywnego selecta (jeśli jeszcze nie istnieje)
+            if (!$(activeSelect).data('select2')) {
+                $(activeSelect).select2({
+                    templateResult: formatIcon,
+                    templateSelection: formatIcon,
+                    minimumResultsForSearch: -1, // Ukrycie pola wyszukiwania
+                    dropdownCssClass: 'custom-dropdown'
+                });
+            }
 
-            // Inicjalizacja Select2 dla aktywnej grupy
-            $(activeSelect).select2({
-                templateResult: formatIcon,
-                templateSelection: formatIcon,
-                minimumResultsForSearch: -1,
-                dropdownCssClass: 'custom-dropdown'
-            });
-
-            // Pokazuje kontener Select2 dla aktywnej grupy
+            // Pokaż kontener Select2 dla aktywnego selecta
             const activeSelect2Container = $(activeSelect).next('.select2-container');
-            activeSelect2Container.show(); // Pokazuje kontener Select2
+            activeSelect2Container.show(); // Pokaż kontener Select2
         }
     });
 });
+
 
 
 // OPEN DIALOG
