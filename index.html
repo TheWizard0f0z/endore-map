@@ -44,12 +44,12 @@
             	border-radius: 50%;
     	    	margin: auto;
 	    	padding-top: 10px;
-	}
-	.auth-buttons {
+		}
+		.auth-buttons {
     		display: flex; /* Ustawia kontener na flexbox */
     		justify-content: center; /* Wyśrodkowanie przycisków */
     		gap: 10px; /* Odstęp między przyciskami */
-	}
+		}
         #menu .login-btn, #menu .register-btn {
             	display: block;
 		flex: none;
@@ -173,7 +173,7 @@
             	display: none;
             	z-index: 999;
         }
-	#cursor-coordinates {
+		#cursor-coordinates {
             	background-color: rgba(0, 0, 0, 0.4);
             	border-radius: 5px;
             	padding: 10px;
@@ -181,7 +181,7 @@
     	    	color: rgb(215, 215, 215);
     	    	margin: 10px 0;
     	    	text-align: center;
-	}
+		}
     	#marker-section input {
     	    	width: 100%;
     	    	width: -moz-available;          /* WebKit-based browsers will ignore this. */
@@ -195,8 +195,8 @@
     	    	color: #3e2723;
     	    	font-family: 'Cinzel', serif;
     	    	box-shadow: inset 0 0 5px #000;
-	}
-	#marker-section button {
+		}
+		#marker-section button {
     	    	width: 100%;
     	    	padding: 10px;
     	    	background-color: #6b4226;
@@ -205,18 +205,18 @@
     	    	border-radius: 5px;
     	    	cursor: pointer;
     	    	font-family: 'Cinzel', serif;
-	}
-	#marker-section button:hover {
+		}
+		#marker-section button:hover {
     	    	background-color: #8b5e3c;
-	}
-        .blinking-marker {
+		}
+    	.blinking-marker {
     	    	animation: blink 1s steps(2, start) 5; /* 5 cykli */
-	}
-	@keyframes blink {
+		}
+		@keyframes blink {
     	    	to {
         		visibility: hidden;
-            	}
-	}
+				}
+		}
     	.toggle-menu-button {
     	    	position: absolute;
     	    	top: 10px;
@@ -231,61 +231,60 @@
     	    	border-radius: 2px;
     	    	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
     	    	transition: left 0.3s;
-	}
-	.toggle-menu-button:hover {
+		}
+		.toggle-menu-button:hover {
     	    	background-color: #8b5e3c;
-	}
-	.leaflet-left {
+		}
+		.leaflet-left {
     	    	left: 281px;
 	    	top: 50px;
             	transition: left 0.3s;
-	}
+		}
     	.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
     	    	border: none;
     	    	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
-	}
+		}
     	.leaflet-touch .leaflet-bar a:first-child, .leaflet-touch .leaflet-bar a:last-child {
     	    	background-color: #6b4226;
     	    	color: #f4e9c5;
-	}
+		}
     	.leaflet-touch .leaflet-bar a:first-child:hover, .leaflet-touch .leaflet-bar a:last-child:hover {
 		background-color: #8b5e3c;
-	}
-    	.select2-container {
-		padding: 8px 0;
-	}
-	.select2-container .select2-selection--single {
+		}
+		.select2-container .select2-selection--single {
 	    	height: 36px;
 	    	line-height: 38px;
             	background-color: #f4e9c5;
             	box-shadow: inset 0 0 5px #000;
             	border: 2px solid #c69c6d;
             	border-radius: 5px;
-	}
-	.select2-container--default .select2-selection--single .select2-selection__rendered {
+		}
+		.select2-container--default .select2-selection--single .select2-selection__rendered {
 	    	color: #404040;
 	    	font-family: 'Cinzel', serif;
-            	font-size: 16px;
+            	font-size: 13px;
             	line-height: 33px;
-	}
+		}
     	.select2-container--default .select2-selection--single .select2-selection__arrow {
         	top: 12px;
     	}
     	input::placeholder {
         	color: rgb(150, 150, 150);
-	}
+		}
     	.select2-dropdown {
     		background-color: #f4e9c5; /* Tło listy */
     		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Cień */
     		color: #404040; /* Kolor tekstu */
-	}
+		}
     	.select2-results__option {
-    		height: 32px;
+    		height: 30px;
     		padding: 0; /* Wewnętrzne marginesy */
-	}
+            font-size: 13px;
+		}
     	.select2-results__option:hover {
     		background-color: #928B76 !important; /* Kolor tła przy najechaniu */
-	}
+		}
+        
     </style>
 </head>
 <body>
@@ -297,20 +296,20 @@
         </div>
         <div class="menu-section auth-buttons">
         	<a href="#" class="register-btn">Zarejestruj się</a>
-		<a href="#" class="login-btn">Zaloguj się</a>
+			<a href="#" class="login-btn">Zaloguj się</a>
         </div>
         <div class="menu-section">
         	<ul>
-            		<li><input type="checkbox" id="showDefault" checked /> Domyślny</li>
-            		<li><input type="checkbox" id="showMiasto" checked /> Miasta</li>
-			<li><input type="checkbox" id="showArena" checked /> Areny</li>
-			<li><input type="checkbox" id="showLoch" checked /> Lochy</li>
-			<li><input type="checkbox" id="showMob" checked /> Niebezpieczne lokacje</li>
-			<li><input type="checkbox" id="showPotwor" checked /> Potwory</li>
-			<li><input type="checkbox" id="showSkarb" checked /> Skarby</li>
-                	<li><input type="checkbox" id="showZamek" checked /> Zamki</li>
-                	<li><input type="checkbox" id="showMost" checked /> Mosty</li>
-                	<li><input type="checkbox" id="showWoda" checked /> Woda</li>
+            	<li><input type="checkbox" id="showDefault" checked /> Domyślny</li>
+            	<li><input type="checkbox" id="showMiasto" checked /> Miasta</li>
+				<li><input type="checkbox" id="showArena" checked /> Areny</li>
+				<li><input type="checkbox" id="showLoch" checked /> Lochy</li>
+				<li><input type="checkbox" id="showMob" checked /> Niebezpieczne lokacje</li>
+				<li><input type="checkbox" id="showPotwor" checked /> Potwory</li>
+				<li><input type="checkbox" id="showSkarb" checked /> Skarby</li>
+                <li><input type="checkbox" id="showZamek" checked /> Zamki</li>
+                <li><input type="checkbox" id="showMost" checked /> Mosty</li>
+                <li><input type="checkbox" id="showWoda" checked /> Woda</li>
         	</ul>
 		<label>
         		<input type="checkbox" id="toggleMarkerTooltips" />
@@ -338,15 +337,30 @@
         <h3>Dodaj lub edytuj znacznik</h3>
         <label for="markerTitle">Nazwa znacznika:</label>
         <input type="text" id="markerTitle" placeholder="Wprowadź nazwę">
-        <label for="markerIcon">Wybierz ikonę:</label>
-        <select id="markerIcon" style="width: 100%;">
-    		<option value="default" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/default.png">Domyślna</option>
+        <label for="markerIcon">Wybierz rodzaj ikony:</label>
+        <select id="groupSelect" style="width: 100%;">
+        	<option value="Default">Domyślna</option>
+            <option value="Miasto">Miasta</option>
+            <option value="Arena">Areny</option>
+            <option value="Loch">Lochy</option>
+            <option value="Mob">Niebezpieczne lokacje</option>
+            <option value="Potwor">Potwory</option>
+            <option value="Skarb">Skarby</option>
+            <option value="Inne">Inne</option>
+        </select>
+        
+        <select id="markerIconDefault" class="marker-group" style="width: 100%; display: block;">
+    	<option value="default" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/default.png">Domyślna</option>
+        </select>
 		
-    		<option value="miasto1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png">Miasto</option>
-    		<option value="miasto2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png">Miasto</option>
+        <select id="markerIconMiasto" class="marker-group" style="width: 100%; display: none;">
+    	<option value="miasto1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png">Miasto</option>
+    	<option value="miasto2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png">Miasto</option>
 		<option value="miasto3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png">Miasto</option>
-    		<option value="miasto4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png">Miasto</option>
-
+    	<option value="miasto4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png">Miasto</option>
+        </select>
+		
+        <select id="markerIconArena" class="marker-group" style="width: 100%; display: none;">
 		<option value="arena1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena1.png">Arena</option>
 		<option value="arena2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena2.png">Arena</option>
 		<option value="arena3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena3.png">Arena</option>
@@ -354,7 +368,9 @@
 		<option value="arena5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena5.png">Arena</option>
 		<option value="arena6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena6.png">Arena</option>
 		<option value="arena7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena7.png">Arena</option>
-
+        </select>
+		
+        <select id="markerIconLoch" class="marker-group" style="width: 100%; display: none;">
 		<option value="loch1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch1.png">Loch</option>
 		<option value="loch2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch2.png">Loch</option>
 		<option value="loch3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch3.png">Loch</option>
@@ -362,7 +378,9 @@
 		<option value="loch5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch5.png">Loch</option>
 		<option value="loch6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch6.png">Loch</option>
 		<option value="loch7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch7.png">Loch</option>
-
+        </select>
+		
+        <select id="markerIconMob" class="marker-group" style="width: 100%; display: none;">
 		<option value="mob1nm" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB1NM.png">Niebezpieczna lokacja poz.1</option>
 		<option value="mob2nm" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB2NM.png">Niebezpieczna lokacja poz.2</option>
 		<option value="mob3nm" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB3NM.png">Niebezpieczna lokacja poz.3</option>
@@ -394,7 +412,9 @@
 		<option value="mob5sp" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB5SP.png">Niebezpieczna lokacja poz.5</option>
 		<option value="mob6sp" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB6SP.png">Niebezpieczna lokacja poz.6</option>
 		<option value="mob7sp" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB7SP.png">Niebezpieczna lokacja poz.7</option>
-
+        </select>
+		
+        <select id="markerIconPotwor" class="marker-group" style="width: 100%; display: none;">
 		<option value="potworcyklop" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/cyklop.png">Cyklop</option>
 		<option value="potworduch" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/duch.png">Duch</option>
 		<option value="potworettin" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/ettin.png">Ettin</option>
@@ -411,7 +431,9 @@
 		<option value="potwortroll" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/troll.png">Troll</option>
 		<option value="potworwąż" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/wąż.png">Wąż</option>
 		<option value="potworzombi" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/zombi.png">Zombi</option>
-
+        </select>
+		
+        <select id="markerIconSkarb" class="marker-group" style="width: 100%; display: none;">
 		<option value="skarb1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb1.png">Skarb poz.1</option>
 		<option value="skarb2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb2.png">Skarb poz.2</option>
 		<option value="skarb3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb3.png">Skarb poz.3</option>
@@ -420,11 +442,14 @@
 		<option value="skarb6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb6.png">Skarb poz.6</option>
 		<option value="skarb7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb7.png">Skarb poz.7</option>
 		<option value="skarb8" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb8.png">Skarb poz.8</option>
+        </select>
 		
-    		<option value="zamek" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/zamek.png">Zamek</option>
-    		<option value="most" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/most.png">Most</option>
-            	<option value="woda" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/woda.png">Woda</option>
-	</select>
+        <select id="markerIconInne" class="marker-group" style="width: 100%; display: none;">
+    	<option value="zamek" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/zamek.png">Zamek</option>
+    	<option value="most" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/most.png">Most</option>
+        <option value="woda" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/woda.png">Woda</option>
+		</select>
+        
         <button id="addMarkerButton">Dodaj znacznik</button>
         <button id="deleteMarkerButton" style="display: none;">Usuń znacznik</button>
     </div>
@@ -553,43 +578,116 @@
 	    
         let pendingLatLng = null;
 
-	$(document).ready(function() {
-    		function formatIcon(option) {
-        		if (!option.id) {
-            			return option.text;
-        		}
-        		const iconUrl = $(option.element).data('icon');
-        		return $('<span>')
-            			.append($('<img>', {
-                			src: iconUrl,
-                			css: {
-                    				width: '30px',
-                    				height: '30px',
-                    				marginRight: '8px',
-                                    		paddingBottom: '4px',
-                    				verticalAlign: 'middle'
-                			}
-            			}))
-            			.append(option.text);
-    		}
+// SELECT2
+    // Funkcja do formatowania opcji w Select2, w tym wyświetlanie ikon
+function formatIcon(option) {
+    if (!option.id) {
+        return option.text; // Jeśli nie ma ID, zwraca tylko tekst
+    }
+    const iconUrl = $(option.element).data('icon'); // Pobranie URL ikony
+    return $('<span>')
+        .append($('<img>', {
+            src: iconUrl,
+            css: {
+                width: '20px',  // Ustalamy rozmiar ikony
+                height: '20px',
+                marginRight: '8px',
+                verticalAlign: 'middle'
+            }
+        }))
+        .append(option.text);
+}
 
-    		$('#markerIcon').select2({
-        		templateResult: formatIcon,
-        		templateSelection: formatIcon,
-        		minimumResultsForSearch: -1, // Ukrycie pola wyszukiwania
-        		dropdownCssClass: 'custom-dropdown'
-    		});
-	});
+// Inicjalizacja Select2 dla wszystkich grup
+$(document).ready(function() {
+    // Inicjalizujemy Select2 dla każdej grupy markerów
+    $('.marker-group').each(function () {
+        $(this).select2({
+            templateResult: formatIcon,
+            templateSelection: formatIcon,
+            minimumResultsForSearch: -1, // Ukrycie pola wyszukiwania
+            dropdownCssClass: 'custom-dropdown'
+        });
+    });
 
-        function openDialog(lat, lng, markerToEdit = null) {
-            pendingLatLng = { lat, lng, markerToEdit };
-            markerTitleInput.value = markerToEdit ? markerToEdit.title : '';
-            markerIconSelect.value = markerToEdit ? Object.keys(icons).find(key => icons[key] === markerToEdit.icon) : 'default';
-            addMarkerButton.textContent = markerToEdit ? "Zapisz zmiany" : "Dodaj znacznik";
-            deleteMarkerButton.style.display = markerToEdit ? 'block' : 'none';
-            dialog.style.display = 'block';
-            overlay.style.display = 'block';
+    // Funkcja obsługująca zmianę grupy
+    document.getElementById('groupSelect').addEventListener('change', function () {
+        const selectedGroup = this.value;
+
+        // Pokaż odpowiednią grupę <select> i aktywuj ją
+        const activeSelect = document.getElementById(`markerIcon${selectedGroup}`);
+        if (activeSelect) {
+            activeSelect.style.display = 'block'; // Pokazuje odpowiedni <select>
+            activeSelect.disabled = false; // Aktywuje wybrany <select>
+
+            // Inicjalizacja Select2 dla aktywnej grupy
+            $(activeSelect).select2({
+                templateResult: formatIcon,
+                templateSelection: formatIcon,
+                minimumResultsForSearch: -1,
+                dropdownCssClass: 'custom-dropdown'
+            });
+
+            // Pokazuje kontener Select2 dla aktywnej grupy
+            const activeSelect2Container = $(activeSelect).next('.select2-container');
+            activeSelect2Container.show(); // Pokazuje kontener Select2
         }
+    });
+});
+
+
+// OPEN DIALOG
+        function openDialog(lat, lng, markerToEdit = null) {
+    pendingLatLng = { lat, lng, markerToEdit };
+
+    // Ukryj wszystkie grupy <select> przy otwarciu okna dialogowego
+    document.querySelectorAll('.marker-group').forEach(select => {
+        // Zniszczenie Select2 dla każdej grupy
+        if ($(select).data('select2')) {
+            $(select).select2('destroy');
+        }
+        select.style.display = 'none'; // Ukrycie elementów <select>
+        select.disabled = true; // Dezaktywowanie
+        // Ukrycie kontenerów Select2
+        const select2Container = $(select).next('.select2-container');
+        select2Container.hide();
+    });
+
+    // Ustal aktywny <select> na podstawie wybranej grupy
+    const selectedGroup = document.getElementById('groupSelect').value;
+    const markerIconSelect = document.getElementById(`markerIcon${selectedGroup}`);
+
+    if (!markerIconSelect) {
+        console.error(`Nie znaleziono <select> dla grupy: ${selectedGroup}`);
+        return;
+    }
+
+    // Ustaw wartość <select> na podstawie edytowanego markera lub domyślnie
+    markerIconSelect.value = markerToEdit ? Object.keys(icons).find(key => icons[key] === markerToEdit.icon) : 'default';
+
+    // Pokaż odpowiednią grupę <select> i zainicjuj Select2
+    markerIconSelect.style.display = 'block'; // Pokazuje aktywny <select>
+    markerIconSelect.disabled = false; // Aktywuje wybrany <select>
+    
+    $(markerIconSelect).select2({
+        templateResult: formatIcon,
+        templateSelection: formatIcon,
+        minimumResultsForSearch: -1, // Ukrycie pola wyszukiwania
+        dropdownCssClass: 'custom-dropdown'
+    });
+
+    // Pokaż kontener Select2 dla aktywnej grupy
+    const activeSelect2Container = $(markerIconSelect).next('.select2-container');
+    activeSelect2Container.show(); // Pokazuje kontener Select2
+
+    // Dalsze operacje związane z otwieraniem okna dialogowego
+    markerTitleInput.value = markerToEdit ? markerToEdit.title : '';
+    addMarkerButton.textContent = markerToEdit ? "Zapisz zmiany" : "Dodaj znacznik";
+    deleteMarkerButton.style.display = markerToEdit ? 'block' : 'none';
+    dialog.style.display = 'block';
+    overlay.style.display = 'block';
+}
+
 
         function closeDialog() {
             dialog.style.display = 'none';
@@ -597,41 +695,50 @@
         }
 
         function addOrUpdateMarker() {
-    		const title = markerTitleInput.value;
-    		const iconType = markerIconSelect.value;
-    		const icon = icons[iconType] || icons.default;
+    const title = markerTitleInput.value; // Pobranie nazwy znacznika
+    const selectedGroup = document.getElementById('groupSelect').value; // Wybrana grupa
+    const markerIconSelect = document.getElementById(`markerIcon${selectedGroup}`); // Dynamiczny selektor
 
-    		if (!title) {
-        		alert("Proszę podać nazwę znacznika.");
-        		return;
-    		}
+    if (!markerIconSelect) {
+        console.error(`Nie znaleziono selektora dla grupy: ${selectedGroup}`);
+        return;
+    }
 
-    		if (pendingLatLng.markerToEdit) {
-        		const markerData = pendingLatLng.markerToEdit;
-        		markerData.title = title;
-        		markerData.icon = icon;
-        		markerData.marker.setIcon(icon);
-        
-        		// Transformacja współrzędnych
-        		const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
+    const iconType = markerIconSelect.value; // Pobierz wybraną ikonę
+    const icon = icons[iconType] || icons.default;
 
-        		// Aktualizacja dymka
-        		markerData.marker
-            		.unbindTooltip()
-            		.bindTooltip(`<strong>${title}</strong><br>Pozycja: [${x}, ${y}]`)
-            		.openTooltip();
-    		} else {
-        		const marker = L.marker([pendingLatLng.lat, pendingLatLng.lng], { icon }).addTo(map);
-        		const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
-        		marker.bindTooltip(`<strong>${title}</strong><br>Pozycja: [${x}, ${y}]`).openTooltip();
-        		marker.on('click', () => {
-            		openDialog(pendingLatLng.lat, pendingLatLng.lng, { marker, title, icon });
-        		});
-        		markers.push({ marker, title, icon, lat: pendingLatLng.lat, lon: pendingLatLng.lng, iconType });
-    		}
+    if (!title) {
+        alert("Proszę podać nazwę znacznika.");
+        return;
+    }
 
-    		closeDialog();
-		}
+    if (pendingLatLng.markerToEdit) {
+        // Aktualizacja istniejącego markera
+        const markerData = pendingLatLng.markerToEdit;
+        markerData.title = title;
+        markerData.icon = icon;
+        markerData.marker.setIcon(icon);
+
+        // Aktualizacja tooltipa
+        const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
+        markerData.marker
+            .unbindTooltip()
+            .bindTooltip(`<strong>${title}</strong><br>Pozycja: [${x}, ${y}]`)
+            .openTooltip();
+    } else {
+        // Dodanie nowego markera
+        const marker = L.marker([pendingLatLng.lat, pendingLatLng.lng], { icon }).addTo(map);
+        const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
+        marker.bindTooltip(`<strong>${title}</strong><br>Pozycja: [${x}, ${y}]`).openTooltip();
+        marker.on('click', () => {
+            openDialog(pendingLatLng.lat, pendingLatLng.lng, { marker, title, icon });
+        });
+        markers.push({ marker, title, icon, lat: pendingLatLng.lat, lon: pendingLatLng.lng, iconType });
+    }
+
+    closeDialog();
+}
+
 
         function removeMarker(markerToEdit) {
             if (confirm("Czy na pewno chcesz usunąć ten znacznik?")) {
@@ -758,6 +865,24 @@
         		cursorCoordinates.textContent = "Współrzędne: (0, 0)";
     		}
 	});
+    
+		// Obsługa aktywacji odpowiedniego <select> na podstawie wyboru grupy
+    document.getElementById('groupSelect').addEventListener('change', function () {
+        const selectedGroup = this.value; // Pobierz wybraną wartość grupy
+        
+        // Ukryj wszystkie grupy markerów
+        document.querySelectorAll('.marker-group').forEach(select => {
+            select.style.display = 'none'; // Ukryj
+            select.disabled = true; // Dezaktywuj
+        });
+
+        // Pokaż i aktywuj odpowiednią grupę
+        const activeSelect = document.getElementById(`markerIcon${selectedGroup}`);
+        if (activeSelect) {
+            activeSelect.style.display = 'block'; // Pokaż aktywny
+            activeSelect.disabled = false; // Aktywuj
+        }
+    });
 
         function inverseTransformCoordinates(x, y) {
     		const lng = (x / 6144) * 512 - 256;
@@ -827,7 +952,7 @@
 		});
         
         const menu = document.getElementById('menu');
-	const toggleButton = document.getElementById('toggle-menu-button');
+		const toggleButton = document.getElementById('toggle-menu-button');
     	const zoomButton = document.querySelector('.leaflet-left');
 
 	// Flaga określająca, czy menu jest widoczne
@@ -886,7 +1011,7 @@
 	}
 
         // Example markers
-	addMarker(63, -71, icons.miasto1, 'Bree', 'miasto');
+		addMarker(63, -71, icons.miasto1, 'Bree', 'miasto');
         addMarker(67, -195, icons.miasto2, 'Ered Luin', 'miasto');
         addMarker(67, 2, icons.miasto4, 'Rivendell', 'miasto');
         addMarker(20, -41, icons.miasto3, 'Tharbad', 'miasto');
