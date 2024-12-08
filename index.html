@@ -263,10 +263,10 @@
 	    	color: #404040;
 	    	font-family: 'Cinzel', serif;
             	font-size: 13px;
-            	line-height: 33px;
+		line-height: 32px;
 		}
     	.select2-container--default .select2-selection--single .select2-selection__arrow {
-        	top: 12px;
+        	top: 5px;
     	}
     	input::placeholder {
         	color: rgb(150, 150, 150);
@@ -589,10 +589,11 @@ function formatIcon(option) {
         .append($('<img>', {
             src: iconUrl,
             css: {
-                width: '20px',  // Ustalamy rozmiar ikony
-                height: '20px',
+                width: '30px',  // Ustalamy rozmiar ikony
+                height: '30px',
                 marginRight: '8px',
-                verticalAlign: 'middle'
+                verticalAlign: 'middle',
+		paddingBottom: '2px'
             }
         }))
         .append(option.text);
@@ -610,10 +611,11 @@ $(document).ready(function() {
             .append($('<img>', {
                 src: iconUrl,
                 css: {
-                    width: '20px',  // Ustalamy rozmiar ikony
-                    height: '20px',
+                    width: '30px',  // Ustalamy rozmiar ikony
+                    height: '30px',
                     marginRight: '8px',
-                    verticalAlign: 'middle'
+                    verticalAlign: 'middle',
+		    paddingBottom: '2px'
                 }
             }))
             .append(option.text);
