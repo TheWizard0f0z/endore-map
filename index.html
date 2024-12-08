@@ -275,11 +275,19 @@
     		background-color: #f4e9c5; /* Tło listy */
     		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Cień */
     		color: #404040; /* Kolor tekstu */
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-color: #8b5e3c #2a2a2a;
+    	    scrollbar-width: thin;
+		}
+        .select2-container--default .select2-results > .select2-results__options {
+    		overflow-y: visible;
 		}
     	.select2-results__option {
     		height: 30px;
     		padding: 0; /* Wewnętrzne marginesy */
             font-size: 13px;
+            overflow-y: visible;
 		}
     	.select2-results__option:hover {
     		background-color: #928B76 !important; /* Kolor tła przy najechaniu */
@@ -306,6 +314,7 @@
 				<li><input type="checkbox" id="showLoch" checked /> Lochy</li>
 				<li><input type="checkbox" id="showMob" checked /> Niebezpieczne lokacje</li>
 				<li><input type="checkbox" id="showPotwor" checked /> Potwory</li>
+                <li><input type="checkbox" id="showZwierze" checked /> Zwierzęta</li>
 				<li><input type="checkbox" id="showSkarb" checked /> Skarby</li>
                 <li><input type="checkbox" id="showZamek" checked /> Zamki</li>
                 <li><input type="checkbox" id="showMost" checked /> Mosty</li>
@@ -345,6 +354,7 @@
             <option value="Loch">Lochy</option>
             <option value="Mob">Niebezpieczne lokacje</option>
             <option value="Potwor">Potwory</option>
+            <option value="Zwierze">Zwierzęta</option>
             <option value="Skarb">Skarby</option>
             <option value="Inne">Inne</option>
         </select>
@@ -432,6 +442,11 @@
 		<option value="potworwąż" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/wąż.png">Wąż</option>
 		<option value="potworzombi" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/zombi.png">Zombi</option>
         </select>
+        
+        <select id="markerIconZwierze" class="marker-group" style="width: 100%; display: none;">
+		<option value="zwierzekon1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/kon1.png">Koń</option>
+		<option value="zwierzelama1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/lama1.png">Lama</option>
+        </select>
 		
         <select id="markerIconSkarb" class="marker-group" style="width: 100%; display: none;">
 		<option value="skarb1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb1.png">Skarb poz.1</option>
@@ -479,7 +494,7 @@
             	miasto3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
             	miasto4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 
-	    	arena1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+	    arena1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		arena2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		arena3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		arena4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
@@ -544,6 +559,9 @@
 		potworwąż: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/wąż.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		potworzombi: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/zombi.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 
+		zwierzekon1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/kon1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zwierzelama1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/lama1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
 		skarb1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		skarb2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		skarb3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
@@ -553,9 +571,9 @@
 		skarb7: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb7.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		skarb8: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb8.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 
-            	zamek: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/zamek.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-            	most: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/most.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-            	woda: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/woda.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] })
+		zamek: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/zamek.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		most: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/most.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		woda: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/woda.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] })
         };
 
 	    const dialog = document.getElementById('dialog');
@@ -571,6 +589,7 @@
 	    const showLochCheckbox = document.getElementById('showLoch');
 	    const showMobCheckbox = document.getElementById('showMob');
 	    const showPotworCheckbox = document.getElementById('showPotwor');
+        const showZwierzeCheckbox = document.getElementById('showZwierze');
 	    const showSkarbCheckbox = document.getElementById('showSkarb');
 	    const showZamekCheckbox = document.getElementById('showZamek');
 	    const showMostCheckbox = document.getElementById('showMost');
@@ -777,9 +796,6 @@ $(document).ready(function() {
 }
 
 
-
-
-
         function removeMarker(markerToEdit) {
             if (confirm("Czy na pewno chcesz usunąć ten znacznik?")) {
                 map.removeLayer(markerToEdit.marker);
@@ -816,6 +832,9 @@ $(document).ready(function() {
         });
 	showPotworCheckbox.addEventListener('change', (e) => {
             toggleMarkers('potwor', e.target.checked);
+        });
+    showZwierzeCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('zwierze', e.target.checked);
         });
 	showSkarbCheckbox.addEventListener('change', (e) => {
             toggleMarkers('skarb', e.target.checked);
