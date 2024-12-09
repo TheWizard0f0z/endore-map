@@ -64,6 +64,11 @@ app.post('/markers', authenticate, async (req, res) => {
     try {
         const { title, group, iconType, coordinates } = req.body;
 
+        // Sprawdzamy, czy req.user zawiera dane użytkownika
+        if (!req.user || !req.user._id) {
+            return res.status(400).json({ message: 'User ID is missing in the request' });
+        }
+
         const marker = new Marker({
             userId: req.user._id, // ID zalogowanego użytkownika
             title,
