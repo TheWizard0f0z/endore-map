@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const authRoutes = require('./routes/auth');
+const Marker = require('./models/Marker'); // Import modelu Marker
 
 const app = express();
 app.use(express.json());
@@ -34,6 +35,16 @@ const authenticate = (req, res, next) => {
 
 // Trasy autoryzacji
 app.use('/auth', authRoutes);
+
+// Testowy endpoint do pobierania znaczników
+app.get('/test-markers', async (req, res) => {
+    try {
+        const markers = await Marker.find(); // Pobiera wszystkie znaczniki z bazy
+        res.json(markers);
+    } catch (err) {
+        res.status(500).json({ message: 'Error fetching markers', error: err });
+    }
+});
 
 // Trasa chroniona
 app.get('/protected', authenticate, (req, res) => {
