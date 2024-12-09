@@ -27,6 +27,7 @@ const authenticate = (req, res, next) => {
     try {
         const decoded = jwt.verify(token, 'my_secret_key'); // Zmień na swój sekret
         req.user = decoded;
+        console.log('Authenticated user:', req.user); // Dodaj logowanie
         next();
     } catch (err) {
         return res.status(401).send('Invalid token');
