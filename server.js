@@ -46,6 +46,68 @@ app.get('/test-markers', async (req, res) => {
     }
 });
 
+// Endpointy CRUD dla znaczników
+
+// Pobieranie znaczników zalogowanego użytkownika
+app.get('/markers', authenticate, async (req, res) => {
+    try {
+        const markers = await Marker.find({ userId: req.user._id }); // Pobiera znaczniki tylko zalogowanego użytkownika
+        res.json(markers);
+    } catch (err) {
+        res.status(500).json({ message: 'Error fetching markers', error: err });
+    }
+});
+
+// Dodawanie nowego znacznika
+app.post('/markers', authenticate, async (req, res) => {
+    try {
+        const { title, group, iconType, coordinates } = req.body;
+
+        const marker = new Marker({
+            userId: req.user._id, // ID zalogowanego użytkownika
+            title,
+            group,
+            iconType,
+            coordinates
+        });
+
+        await marker.save();
+        res.status(201).json(marker); // Zwraca zapisany znacznik
+    } catch (err) {
+        res.status(400).json({ message: 'Error creating marker', error: err });
+    }
+});
+
+// Edycja znacznika
+app.put('/markers/:id', authenticate, async (req, res) => {
+    try {
+        const { title, group, iconType, coordinates } = req.body;
+
+        const marker = await Marker.findOneAndUpdate(
+            { _id: req.params.id, userId: req.user._id }, // Znacznik musi należeć do użytkownika
+            { title, group, iconType, coordinates },
+            { new: true } // Zwróć zaktualizowany dokument
+        );
+
+        if (!marker) return res.status(404).json({ message: 'Marker not found' });
+        res.json(marker);
+    } catch (err) {
+        res.status(400).json({ message: 'Error updating marker', error: err });
+    }
+});
+
+// Usuwanie znacznika
+app.delete('/markers/:id', authenticate, async (req, res) => {
+    try {
+        const marker = await Marker.findOneAndDelete({ _id: req.params.id, userId: req.user._id });
+
+        if (!marker) return res.status(404).json({ message: 'Marker not found' });
+        res.json({ message: 'Marker deleted' });
+    } catch (err) {
+        res.status(400).json({ message: 'Error deleting marker', error: err });
+    }
+});
+
 // Trasa chroniona
 app.get('/protected', authenticate, (req, res) => {
     res.json({ message: 'This is protected data' });
