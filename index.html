@@ -303,8 +303,19 @@
 		</a>
         </div>
         <div class="menu-section auth-buttons">
-        	<a href="#" class="register-btn">Zarejestruj się</a>
-			<a href="#" class="login-btn">Zaloguj się</a>
+        	<button id="protectedDataButton">Fetch Protected Data</button>
+        </div>
+        <div class="menu-section">
+        	<form id="registerForm">
+    			<input type="text" name="username" placeholder="Username" required />
+    			<input type="password" name="password" placeholder="Password" required />
+    			<button type="submit" class="register-btn">Register</button>
+			</form>
+            <form id="loginForm">
+    			<input type="text" name="username" placeholder="Username" required />
+    			<input type="password" name="password" placeholder="Password" required />
+    			<button type="submit" class="login-btn">Login</button>
+			</form>
         </div>
         <div class="menu-section">
         	<ul>
@@ -1074,6 +1085,64 @@ $(document).ready(function() {
         addMarker(67, -195, icons.miasto2, 'Ered Luin', 'miasto');
         addMarker(67, 2, icons.miasto4, 'Rivendell', 'miasto');
         addMarker(20, -41, icons.miasto3, 'Tharbad', 'miasto');
+        
+        
+//BACKGROUND       
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+    		e.preventDefault();
+    		const username = e.target.username.value;
+    		const password = e.target.password.value;
+
+    		const response = await fetch('https://endore-map.onrender.com/auth/register', {
+        		method: 'POST',
+        		headers: { 'Content-Type': 'application/json' },
+        		body: JSON.stringify({ username, password }),
+    		});
+
+    	const data = await response.json();
+    	console.log(data); // Obsłuż odpowiedź
+		});
+        
+        
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    		e.preventDefault();
+    		const username = e.target.username.value;
+    		const password = e.target.password.value;
+
+    		const response = await fetch('https://endore-map.onrender.com/auth/login', {
+        		method: 'POST',
+        		headers: { 'Content-Type': 'application/json' },
+        		body: JSON.stringify({ username, password }),
+    		});
+
+    		const data = await response.json();
+    		if (data.token) {
+        		localStorage.setItem('token', data.token); // Zapis tokena
+        		alert('Logged in successfully!');
+    		} else {
+        		alert('Login failed');
+    		}
+		});
+        
+        
+        async function fetchWithAuth(url, options = {}) {
+    		const token = localStorage.getItem('token'); // Pobierz token z localStorage
+    		if (!options.headers) options.headers = {};
+    		options.headers['Authorization'] = token ? `Bearer ${token}` : '';
+    
+    		const response = await fetch(url, options);
+    		if (response.status === 401) {
+        		alert('Unauthorized! Please log in again.');
+        		localStorage.removeItem('token');
+    		}
+    		return response.json();
+		}
+
+		// Przykład użycia:
+		document.getElementById('protectedDataButton').addEventListener('click', async () => {
+    		const data = await fetchWithAuth('https://endore-map.onrender.com/protected');
+    		console.log(data); // Przetwórz dane z odpowiedzi
+		});
 
     </script>
 </body>
