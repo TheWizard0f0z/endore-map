@@ -1099,8 +1099,14 @@ $(document).ready(function() {
         		body: JSON.stringify({ username, password }),
     		});
 
-    	const data = await response.json();
-    	console.log(data); // Obsłuż odpowiedź
+    		const data = await response.json();
+    		console.log(data); // Obsłuż odpowiedź
+
+		if (data.message === 'User registered') {
+			alert('Register successfully!');
+		} else {
+			alert('Register failed');
+		}
 		});
         
         
