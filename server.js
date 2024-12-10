@@ -52,7 +52,7 @@ app.get('/test-markers', async (req, res) => {
 // Pobieranie znaczników zalogowanego użytkownika
 app.get('/markers', authenticate, async (req, res) => {
     try {
-        const markers = await Marker.find({ userId: req.user._id }); // Pobiera znaczniki tylko zalogowanego użytkownika
+        const markers = await Marker.find({ userId: req.user.userId }); // Pobiera znaczniki tylko zalogowanego użytkownika
         res.json(markers);
     } catch (err) {
         res.status(500).json({ message: 'Error fetching markers', error: err });
@@ -65,12 +65,12 @@ app.post('/markers', authenticate, async (req, res) => {
         const { title, group, iconType, coordinates } = req.body;
 
         // Sprawdzamy, czy req.user zawiera dane użytkownika
-        if (!req.user || !req.user._id) {
+        if (!req.user || !req.user.userId) {
             return res.status(400).json({ message: 'User ID is missing in the request' });
         }
 
         const marker = new Marker({
-            userId: req.user._id, // ID zalogowanego użytkownika
+            userId: req.user.userId, // ID zalogowanego użytkownika
             title,
             group,
             iconType,
@@ -90,7 +90,7 @@ app.put('/markers/:id', authenticate, async (req, res) => {
         const { title, group, iconType, coordinates } = req.body;
 
         const marker = await Marker.findOneAndUpdate(
-            { _id: req.params.id, userId: req.user._id }, // Znacznik musi należeć do użytkownika
+            { _id: req.params.id, userId: req.user.userId }, // Znacznik musi należeć do użytkownika
             { title, group, iconType, coordinates },
             { new: true } // Zwróć zaktualizowany dokument
         );
@@ -105,7 +105,7 @@ app.put('/markers/:id', authenticate, async (req, res) => {
 // Usuwanie znacznika
 app.delete('/markers/:id', authenticate, async (req, res) => {
     try {
-        const marker = await Marker.findOneAndDelete({ _id: req.params.id, userId: req.user._id });
+        const marker = await Marker.findOneAndDelete({ _id: req.params.id, userId: req.user.userId });
 
         if (!marker) return res.status(404).json({ message: 'Marker not found' });
         res.json({ message: 'Marker deleted' });
