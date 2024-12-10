@@ -783,6 +783,14 @@ $(document).ready(function() {
     }
 
     if (pendingLatLng.markerToEdit) {
+        // Sprawdź, czy markerToEdit ma poprawne id
+        const markerId = pendingLatLng.markerToEdit.id;
+        if (!markerId) {
+            console.error('Błąd: Brak ID znacznika do edycji');
+            alert('Błąd: Brak ID znacznika do edycji');
+            return;
+        }
+
         // Aktualizacja lokalnych danych
         const markerIndex = markers.findIndex(m => m.marker === pendingLatLng.markerToEdit.marker);
         if (markerIndex !== -1) {
@@ -802,7 +810,7 @@ $(document).ready(function() {
 
         // Aktualizacja na backendzie
         try {
-            await fetch(`${API_URL}/markers/${pendingLatLng.markerToEdit.id}`, {
+            await fetch(`${API_URL}/markers/${markerId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -868,7 +876,6 @@ $(document).ready(function() {
 
     closeDialog(); // Zamknij okno dialogowe
 }
-
 
         function removeMarker(markerToEdit) {
             if (confirm("Czy na pewno chcesz usunąć ten znacznik?")) {
