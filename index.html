@@ -815,11 +815,12 @@ $(document).ready(function() {
                 markerData.iconType = updatedMarker.iconType;
 
                 // Aktualizacja ikony i tooltipa na mapie
-                markerData.marker.setIcon(icon);
-                markerData.marker
-                    .unbindTooltip()
-                    .bindTooltip(`<strong>${updatedMarker.title}</strong>`)
-                    .openTooltip();
+                const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
+		markerData.marker.setIcon(icon);
+		markerData.marker
+    			.unbindTooltip()
+    			.bindTooltip(`<strong>${updatedMarker.title}</strong><br>Pozycja: [${x}, ${y}]`)
+    			.openTooltip();
             }
         } else {
             // Dodawanie nowego znacznika
