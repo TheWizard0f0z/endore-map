@@ -718,13 +718,15 @@ function openDialog(lat, lng, markerToEdit = null) {
         select2Container.hide();
     });
 
+    // Sprawdzenie, czy edytujemy istniejący znacznik
     if (markerToEdit) {
         // Ustaw dane w formularzu dla edytowanego znacznika
         markerTitleInput.value = markerToEdit.title;
+        
         const groupSelect = document.getElementById('groupSelect');
         groupSelect.value = markerToEdit.iconType; // Zakładając, że `iconType` to grupa
 
-        // Zaktualizowanie ikony w formularzu
+        // Wybór ikony na podstawie edytowanego znacznika
         const iconSelect = document.getElementById(`markerIcon${groupSelect.value}`);
         iconSelect.value = markerToEdit.iconType; // Wybór ikony na podstawie grupy
 
