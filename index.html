@@ -701,21 +701,27 @@ $(document).ready(function() {
 
 
 // OPEN DIALOG
-        function openDialog(lat, lng, markerToEdit = null) {
-    pendingLatLng = { lat, lng, markerToEdit };
+        // Funkcja, która otwiera okno dialogowe po kliknięciu na znacznik
+function openDialog(lat, lng, { marker, title, icon, id }) {
+    // Zaktualizowane dane
+    const updatedTitle = title; // Nazwa po edycji
+    const updatedIcon = icon; // Ikona po edycji
 
-    // Ukryj wszystkie grupy <select> przy otwarciu okna dialogowego
-    document.querySelectorAll('.marker-group').forEach(select => {
-        // Zniszczenie Select2 dla każdej grupy
-        if ($(select).data('select2')) {
-            $(select).select2('destroy');
-        }
-        select.style.display = 'none'; // Ukrycie elementów <select>
-        select.disabled = true; // Dezaktywowanie
-        // Ukrycie kontenerów Select2
-        const select2Container = $(select).next('.select2-container');
-        select2Container.hide();
-    });
+    // Wypełnij dane w oknie dialogowym
+    markerTitleInput.value = updatedTitle;
+    const groupSelect = document.getElementById('groupSelect');
+    groupSelect.value = marker.icon.options.iconUrl; // Jeśli chcesz wybrać grupę na podstawie ikony
+
+    const iconSelect = document.getElementById(`markerIcon${groupSelect.value}`);
+    iconSelect.value = updatedIcon; // Ustawienie nowej ikony w formularzu
+
+    // Ustawienie innych danych w formularzu (np. ID)
+    currentMarkerId = id; // ID zaktualizowanego znacznika
+
+    // Otwórz formularz, jeśli jest zamknięty
+    dialogWindow.style.display = 'block';
+}
+
 
     // Ustal aktywny <select> na podstawie wybranej grupy
     const selectedGroup = document.getElementById('groupSelect').value;
