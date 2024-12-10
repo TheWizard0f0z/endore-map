@@ -805,20 +805,21 @@ $(document).ready(function() {
 
             if (!response.ok) throw new Error('Błąd podczas aktualizacji znacznika');
 
-            // Zaktualizuj dane lokalnie w tablicy markers[]
+            // Synchronizacja danych lokalnych i mapy
             const updatedMarker = await response.json();
             const markerIndex = markers.findIndex((m) => m.id === markerId);
             if (markerIndex !== -1) {
                 const markerData = markers[markerIndex];
-                markerData.title = updatedMarker.title; // Aktualizacja tytułu
-                markerData.icon = icon; // Aktualizacja ikony
+                markerData.title = updatedMarker.title;
+                markerData.icon = icon;
                 markerData.iconType = updatedMarker.iconType;
 
-                // Aktualizacja na mapie
+                // Aktualizacja ikony i tooltipa na mapie
                 markerData.marker.setIcon(icon);
                 markerData.marker
                     .unbindTooltip()
-                    .bindTooltip(`<strong>${updatedMarker.title}</strong>`);
+                    .bindTooltip(`<strong>${updatedMarker.title}</strong>`)
+                    .openTooltip();
             }
         } else {
             // Dodawanie nowego znacznika
