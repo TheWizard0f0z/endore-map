@@ -702,24 +702,48 @@ $(document).ready(function() {
 
 // OPEN DIALOG
         // Funkcja, która otwiera okno dialogowe po kliknięciu na znacznik
-function openDialog(lat, lng, { marker, title, icon, id }) {
-    // Zaktualizowane dane
-    const updatedTitle = title; // Nazwa po edycji
-    const updatedIcon = icon; // Ikona po edycji
+function openDialog(lat, lng, markerToEdit = null) {
+    pendingLatLng = { lat, lng, markerToEdit };
 
-    // Wypełnij dane w oknie dialogowym
-    markerTitleInput.value = updatedTitle;
-    const groupSelect = document.getElementById('groupSelect');
-    groupSelect.value = marker.icon.options.iconUrl; // Jeśli chcesz wybrać grupę na podstawie ikony
+    // Ukryj wszystkie grupy <select> przy otwarciu okna dialogowego
+    document.querySelectorAll('.marker-group').forEach(select => {
+        // Zniszczenie Select2 dla każdej grupy
+        if ($(select).data('select2')) {
+            $(select).select2('destroy');
+        }
+        select.style.display = 'none'; // Ukrycie elementów <select>
+        select.disabled = true; // Dezaktywowanie
+        // Ukrycie kontenerów Select2
+        const select2Container = $(select).next('.select2-container');
+        select2Container.hide();
+    });
 
-    const iconSelect = document.getElementById(`markerIcon${groupSelect.value}`);
-    iconSelect.value = updatedIcon; // Ustawienie nowej ikony w formularzu
+    if (markerToEdit) {
+        // Ustaw dane w formularzu dla edytowanego znacznika
+        markerTitleInput.value = markerToEdit.title;
+        const groupSelect = document.getElementById('groupSelect');
+        groupSelect.value = markerToEdit.iconType; // Zakładając, że `iconType` to grupa
 
-    // Ustawienie innych danych w formularzu (np. ID)
-    currentMarkerId = id; // ID zaktualizowanego znacznika
+        // Zaktualizowanie ikony w formularzu
+        const iconSelect = document.getElementById(`markerIcon${groupSelect.value}`);
+        iconSelect.value = markerToEdit.iconType; // Wybór ikony na podstawie grupy
 
-    // Otwórz formularz, jeśli jest zamknięty
-    dialogWindow.style.display = 'block';
+        // Inicjalizacja Select2 dla grupy (jeśli jest używane)
+        $(groupSelect).select2({ width: '100%' });
+
+        // Pokaż dane w oknie dialogowym
+        document.getElementById('dialog').style.display = 'block';
+    } else {
+        // Ustawienie pustych wartości, jeśli nie edytujemy
+        markerTitleInput.value = '';
+        const groupSelect = document.getElementById('groupSelect');
+        groupSelect.value = ''; // Ustawienie pustego lub domyślnego wartości grupy
+
+        // Resetowanie Select2
+        $(groupSelect).select2({ width: '100%' });
+
+        document.getElementById('dialog').style.display = 'block';
+    }
 }
 
 
