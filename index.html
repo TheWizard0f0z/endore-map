@@ -359,7 +359,7 @@
         <input type="text" id="markerTitle" placeholder="Wprowadź nazwę">
         <label for="markerIcon">Wybierz rodzaj ikony:</label>
         <select id="groupSelect" style="width: 100%;">
-        	<option value="Default">Domyślna</option>
+            <option value="Default">Domyślna</option>
             <option value="Miasto">Miasta</option>
             <option value="Arena">Areny</option>
             <option value="Loch">Lochy</option>
@@ -758,7 +758,7 @@ $(document).ready(function() {
             overlay.style.display = 'none';
         }
 //ADDORUPDATEMARKER
-        function addOrUpdateMarker() {
+        async function addOrUpdateMarker() {
     const title = markerTitleInput.value; // Pobranie nazwy znacznika
     const selectedGroup = document.getElementById('groupSelect').value; // Wybrana grupa
     const markerIconSelect = document.getElementById(`markerIcon${selectedGroup}`); // Dynamiczny selektor
@@ -776,34 +776,96 @@ $(document).ready(function() {
         return;
     }
 
-    if (pendingLatLng.markerToEdit) {
-        // Znajdź marker w tablicy markers[]
-        const markerIndex = markers.findIndex(m => m.marker === pendingLatLng.markerToEdit.marker);
-        if (markerIndex !== -1) {
-            const markerData = markers[markerIndex];
-            markerData.title = title; // 🛠️ AKTUALIZACJA TYTUŁU W markers[]
-            markerData.icon = icon;
-            markerData.iconType = iconType; // 🛠️ AKTUALIZACJA TYP ZNACZNIKA
-            markerData.marker.setIcon(icon);
-
-            // 🛠️ AKTUALIZACJA TOOLTIPA
-            const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
-            markerData.marker
-                .unbindTooltip()
-                .bindTooltip(`<strong>${title}</strong><br>Pozycja: [${x}, ${y}]`)
-                .openTooltip();
-        }
-    } else {
-        const marker = L.marker([pendingLatLng.lat, pendingLatLng.lng], { icon }).addTo(map);
-        const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
-        marker.bindTooltip(`<strong>${title}</strong><br>Pozycja: [${x}, ${y}]`).openTooltip();
-        marker.on('click', () => {
-            openDialog(pendingLatLng.lat, pendingLatLng.lng, { marker, title, icon });
-        });
-        markers.push({ marker, title, icon, lat: pendingLatLng.lat, lon: pendingLatLng.lng, iconType });
+    const token = localStorage.getItem('token');
+    if (!token) {
+        alert("Musisz być zalogowany, aby dodać znacznik.");
+        return;
     }
 
-    closeDialog();
+    try {
+        if (pendingLatLng.markerToEdit) {
+            // Edycja istniejącego znacznika
+            const markerId = pendingLatLng.markerToEdit.id;
+            const response = await fetch(`${API_URL}/markers/${markerId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    title,
+                    group: selectedGroup,
+                    iconType,
+                    coordinates: {
+                        lat: pendingLatLng.lat,
+                        lng: pendingLatLng.lng,
+                    },
+                }),
+            });
+
+            if (!response.ok) throw new Error('Błąd podczas aktualizacji znacznika');
+
+            const updatedMarker = await response.json();
+
+            // Zaktualizuj znacznik na mapie
+            const markerIndex = markers.findIndex((m) => m.id === markerId);
+            if (markerIndex !== -1) {
+                const markerData = markers[markerIndex];
+                markerData.title = updatedMarker.title;
+                markerData.icon = icon;
+                markerData.iconType = updatedMarker.iconType;
+                markerData.marker.setIcon(icon);
+                markerData.marker
+                    .unbindTooltip()
+                    .bindTooltip(`<strong>${updatedMarker.title}</strong>`);
+            }
+        } else {
+            // Dodawanie nowego znacznika
+            const response = await fetch(`${API_URL}/markers`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    title,
+                    group: selectedGroup,
+                    iconType,
+                    coordinates: {
+                        lat: pendingLatLng.lat,
+                        lng: pendingLatLng.lng,
+                    },
+                }),
+            });
+
+            if (!response.ok) throw new Error('Błąd podczas dodawania znacznika');
+
+            const newMarker = await response.json();
+
+            // Dodaj znacznik na mapę
+            const marker = L.marker(
+                [newMarker.coordinates.lat, newMarker.coordinates.lng],
+                { icon }
+            ).addTo(map);
+
+            marker.bindTooltip(`<strong>${newMarker.title}</strong>`);
+            marker.on('click', () =>
+                openDialog(newMarker.coordinates.lat, newMarker.coordinates.lng, {
+                    marker,
+                    title: newMarker.title,
+                    iconType: newMarker.iconType,
+                    id: newMarker._id,
+                })
+            );
+
+            markers.push({ ...newMarker, marker });
+        }
+
+        closeDialog(); // Zamknij okno dialogowe
+    } catch (error) {
+        console.error(error);
+        alert('Nie udało się dodać lub zaktualizować znacznika.');
+    }
 }
 
 
