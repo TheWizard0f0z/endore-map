@@ -808,19 +808,22 @@ $(document).ready(function() {
             // Synchronizacja danych lokalnych i mapy
             const updatedMarker = await response.json();
             const markerIndex = markers.findIndex((m) => m.id === markerId);
+
             if (markerIndex !== -1) {
                 const markerData = markers[markerIndex];
+
+                // Aktualizuj dane lokalne
                 markerData.title = updatedMarker.title;
                 markerData.icon = icon;
                 markerData.iconType = updatedMarker.iconType;
+                markerData.marker.setIcon(icon);
 
-                // Aktualizacja ikony i tooltipa na mapie
+                // Aktualizuj tooltip na mapie
                 const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
-		markerData.marker.setIcon(icon);
-		markerData.marker
-    			.unbindTooltip()
-    			.bindTooltip(`<strong>${updatedMarker.title}</strong><br>Pozycja: [${x}, ${y}]`)
-    			.openTooltip();
+                markerData.marker
+                    .unbindTooltip()
+                    .bindTooltip(`<strong>${updatedMarker.title}</strong><br>Pozycja: [${x}, ${y}]`)
+                    .openTooltip();
             }
         } else {
             // Dodawanie nowego znacznika
