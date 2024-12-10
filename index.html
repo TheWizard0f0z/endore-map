@@ -805,15 +805,16 @@ $(document).ready(function() {
 
             if (!response.ok) throw new Error('Błąd podczas aktualizacji znacznika');
 
+            // Zaktualizuj dane lokalnie w tablicy markers[]
             const updatedMarker = await response.json();
-
-            // Zaktualizuj znacznik na mapie
             const markerIndex = markers.findIndex((m) => m.id === markerId);
             if (markerIndex !== -1) {
                 const markerData = markers[markerIndex];
-                markerData.title = updatedMarker.title;
-                markerData.icon = icon;
+                markerData.title = updatedMarker.title; // Aktualizacja tytułu
+                markerData.icon = icon; // Aktualizacja ikony
                 markerData.iconType = updatedMarker.iconType;
+
+                // Aktualizacja na mapie
                 markerData.marker.setIcon(icon);
                 markerData.marker
                     .unbindTooltip()
