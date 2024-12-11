@@ -729,7 +729,7 @@ function openDialog(lat, lng, markerToEdit = null) {
 
     if (markerToEdit) {
         // Ustawienie tytułu na zaktualizowaną nazwę markera
-        markerTitleInput.value = markerToEdit.title;  // Upewnij się, że to jest aktualna nazwa
+        markerTitleInput.value = markerToEdit.title; 
 
         // Ustawienie ikony na podstawie edytowanego markera
         const iconType = Object.keys(icons).find(key => icons[key] === markerToEdit.icon);
@@ -738,41 +738,43 @@ function openDialog(lat, lng, markerToEdit = null) {
         }
 
         // Pokaż odpowiednią grupę <select> i zainicjuj Select2
-        markerIconSelect.style.display = 'block'; // Pokazuje aktywny <select>
-        markerIconSelect.disabled = false; // Aktywuje wybrany <select>
+        markerIconSelect.style.display = 'block'; 
+        markerIconSelect.disabled = false; 
         
         $(markerIconSelect).select2({
             templateResult: formatIcon,
             templateSelection: formatIcon,
-            minimumResultsForSearch: -1, // Ukrycie pola wyszukiwania
+            minimumResultsForSearch: -1, 
             dropdownCssClass: 'custom-dropdown'
         });
 
         // Pokaż kontener Select2 dla aktywnej grupy
         const activeSelect2Container = $(markerIconSelect).next('.select2-container');
-        activeSelect2Container.show(); // Pokazuje kontener Select2
+        activeSelect2Container.show(); 
 
         // Uaktualnij przycisk usuwania, jeśli edytujemy
         deleteMarkerButton.style.display = 'block';
         addMarkerButton.textContent = "Zapisz zmiany"; // Zmieniamy tekst przycisku na "Zapisz zmiany"
+        
+        // Ustaw funkcję usuwania dla przycisku
+        deleteMarkerButton.onclick = () => deleteMarker(markerToEdit.id);
+
     } else {
         // Jeśli nie edytujemy, ustaw pustą nazwę i ikonę
-        markerTitleInput.value = '';  // Ustawiamy pustą wartość w przypadku nowego znacznika
+        markerTitleInput.value = ''; 
         const groupSelect = document.getElementById('groupSelect');
-        groupSelect.value = ''; // Ustawienie pustego lub domyślnego wartości grupy
+        groupSelect.value = ''; 
 
-        // Resetowanie Select2
         $(groupSelect).select2({ width: '100%' });
 
-        // Ukryj przycisk usuwania, jeśli nie edytujemy
-        deleteMarkerButton.style.display = 'none';
+        deleteMarkerButton.style.display = 'none'; // Ukryj przycisk usuwania
         addMarkerButton.textContent = "Dodaj znacznik"; // Zmieniamy tekst przycisku na "Dodaj"
     }
 
-    // Pokaż okno dialogowe
     dialog.style.display = 'block';
     overlay.style.display = 'block';
 }
+
 
 // CLOSE DIALOG
 function closeDialog() {
@@ -1328,6 +1330,46 @@ function closeDialog() {
         		alert('Nie udało się załadować znaczników');
     		}
 	}
+
+	async function deleteMarker(markerId) {
+    		const token = localStorage.getItem('token');
+    		if (!token) {
+        		alert("Musisz być zalogowany, aby usunąć znacznik.");
+        		return;
+    		}
+
+    		try {
+        		// Usuwanie znacznika z bazy danych
+        		const response = await fetch(`${API_URL}/markers/${markerId}`, {
+            			method: 'DELETE',
+            			headers: {
+                			'Authorization': `Bearer ${token}`,
+            			},
+        		});
+
+        		if (!response.ok) {
+            			throw new Error('Błąd podczas usuwania znacznika');
+        		}
+
+        		// Usuwanie znacznika z mapy
+        		const markerIndex = markers.findIndex(m => m.id === markerId);
+        		if (markerIndex !== -1) {
+            			const markerData = markers[markerIndex];
+            			markerData.marker.remove(); // Usuwanie znacznika z mapy
+            			markers.splice(markerIndex, 1); // Usuwanie z lokalnej tablicy markers
+        		}
+
+        		// Zamknij okno dialogowe
+        		dialog.style.display = 'none';
+        		overlay.style.display = 'none';
+
+        		alert('Znacznik został pomyślnie usunięty.');
+    		} catch (error) {
+        		console.error('Błąd podczas usuwania znacznika:', error);
+        		alert('Nie udało się usunąć znacznika.');
+    		}
+	}
+
 
     </script>
 </body>
