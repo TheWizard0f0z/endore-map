@@ -704,29 +704,58 @@ $(document).ready(function() {
         function openDialog(lat, lng, markerToEdit = null) {
     pendingLatLng = { lat, lng, markerToEdit };
 
-    markerTitleInput.value = markerToEdit ? markerToEdit.title : ''; // Resetowanie nazwy
-    document.getElementById('groupSelect').value = markerToEdit ? markerToEdit.iconType : 'Default'; // Reset grupy
-
-    // Ustawianie widocznej grupy markerów
+    // Resetuj wszystkie pola do wartości domyślnych
+    markerTitleInput.value = ''; // Resetuj nazwę znacznika
+    document.getElementById('groupSelect').value = 'Default'; // Resetuj grupę
     document.querySelectorAll('.marker-group').forEach(select => {
-        select.style.display = 'none';
+        if ($(select).data('select2')) {
+            $(select).select2('destroy');
+        }
+        select.style.display = 'none'; // Ukrycie elementów <select>
         select.disabled = true;
         const select2Container = $(select).next('.select2-container');
-        select2Container.hide();
+        select2Container.hide(); // Ukrycie kontenera Select2
     });
 
-    const activeSelect = document.getElementById(`markerIcon${markerToEdit ? markerToEdit.iconType : 'Default'}`);
-    if (activeSelect) {
-        activeSelect.style.display = 'block';
-        activeSelect.disabled = false;
-        $(activeSelect).select2({
-            templateResult: formatIcon,
-            templateSelection: formatIcon,
-            minimumResultsForSearch: -1,
-            dropdownCssClass: 'custom-dropdown',
-        });
-        const activeSelect2Container = $(activeSelect).next('.select2-container');
-        activeSelect2Container.show();
+    // Jeśli edytujemy znacznik, ustaw wartości na podstawie danych znacznika
+    if (markerToEdit) {
+        markerTitleInput.value = ''; // Ustaw wartość tytułu znacznika
+        document.getElementById('groupSelect').value = 'Default';
+
+        // Obsługa dla domyślnego selecta (Default) w przypadku dodawania nowego znacznika
+		const defaultSelect = document.getElementById('markerIconDefault');
+		defaultSelect.style.display = 'block'; // Pokaż domyślny <select>
+		defaultSelect.disabled = false; // Aktywuj domyślny <select>
+
+		$(defaultSelect).select2({
+    		templateResult: formatIcon,
+    		templateSelection: formatIcon,
+    		minimumResultsForSearch: -1, // Ukrycie pola wyszukiwania
+    		dropdownCssClass: 'custom-dropdown'
+		});
+
+		const defaultSelect2Container = $(defaultSelect).next('.select2-container');
+		defaultSelect2Container.show(); // Pokaż kontener Select2 dla domyślnej grupy
+
+		// Obsługa dla istniejącego znacznika (edycja)
+		if (markerToEdit) {
+    		const activeSelect = document.getElementById(`markerIcon${markerToEdit.iconType}`);
+    		if (activeSelect) {
+        		activeSelect.value = markerToEdit.iconType;
+        		activeSelect.style.display = 'block'; // Pokaż aktywny <select>
+        		activeSelect.disabled = false;
+
+        		$(activeSelect).select2({
+            		templateResult: formatIcon,
+            		templateSelection: formatIcon,
+            		minimumResultsForSearch: -1,
+            		dropdownCssClass: 'custom-dropdown'
+        		});
+
+        		const activeSelect2Container = $(activeSelect).next('.select2-container');
+        		activeSelect2Container.show(); // Pokaż kontener Select2
+    		}
+		}  
     }
 
     addMarkerButton.textContent = markerToEdit ? "Zapisz zmiany" : "Dodaj znacznik";
@@ -735,6 +764,7 @@ $(document).ready(function() {
     dialog.style.display = 'block';
     overlay.style.display = 'block';
 }
+
 
 
 // CLOSE DIALOG
