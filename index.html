@@ -718,24 +718,16 @@ function openDialog(lat, lng, markerToEdit = null) {
         select2Container.hide();
     });
 
-    // Sprawdzenie, czy edytujemy istniejący znacznik
     if (markerToEdit) {
-        // Ustaw dane w formularzu dla edytowanego znacznika
-        markerTitleInput.value = markerToEdit.title; // Ustawienie nowej nazwy
+        // Ustawienie nowej nazwy i ikony w formularzu
+        markerTitleInput.value = markerToEdit.title; // Nowa nazwa
+        const groupSelect = document.getElementById('groupSelect');
+        groupSelect.value = markerToEdit.iconType; // Ikona po edycji
 
-        // Ustal aktywny <select> na podstawie wybranej grupy
-        const selectedGroup = document.getElementById('groupSelect').value;
-        const markerIconSelect = document.getElementById(`markerIcon${selectedGroup}`);
-
-        if (!markerIconSelect) {
-            console.error(`Nie znaleziono <select> dla grupy: ${selectedGroup}`);
-            return;
-        }
-
-        // Ustawienie ikony na podstawie edytowanego markera
-        const iconType = Object.keys(icons).find(key => icons[key] === markerToEdit.icon);
-        if (iconType) {
-            markerIconSelect.value = iconType; // Ustawienie ikony w <select>
+        // Wybór ikony na podstawie edytowanego markera
+        const iconSelect = document.getElementById(`markerIcon${groupSelect.value}`);
+        if (iconSelect) {
+            iconSelect.value = markerToEdit.iconType; // Wybór nowej ikony
         }
 
         // Pokaż odpowiednią grupę <select> i zainicjuj Select2
@@ -1311,19 +1303,20 @@ function closeDialog() {
 
         		// Dodaj pobrane znaczniki na mapę
         		markersData.forEach((data) => {
-            			const icon = icons[data.iconType] || icons.default;
-            			const marker = L.marker([data.coordinates.lat, data.coordinates.lng], { icon }).addTo(map);
+    				const icon = icons[data.iconType] || icons.default;
+    				const marker = L.marker([data.coordinates.lat, data.coordinates.lng], { icon }).addTo(map);
 
-            			marker.bindTooltip(`<strong>${data.title}</strong>`);
-            			marker.on('click', () => openDialog(data.coordinates.lat, data.coordinates.lng, {
-                			marker,
-                			title: data.title,
-                			iconType: data.iconType,
-                			id: data._id
-            			}));
+    				const { x, y } = transformCoordinates(data.coordinates.lat, data.coordinates.lng); // Jeśli chcesz przekształcić współrzędne
+    				marker.bindTooltip(`<strong>${data.title}</strong><br>Pozycja: [${x}, ${y}]`); // Tooltip z nazwą i współrzędnymi
+    				marker.on('click', () => openDialog(data.coordinates.lat, data.coordinates.lng, {
+        				marker,
+        				title: data.title,
+        				iconType: data.iconType,
+        				id: data._id,
+    				}));
 
-            			markers.push({ ...data, marker });
-        		});
+    				markers.push({ ...data, marker });
+			});
     		} catch (error) {
         		console.error(error);
         		alert('Nie udało się załadować znaczników');
