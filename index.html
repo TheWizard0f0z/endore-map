@@ -718,46 +718,69 @@ function openDialog(lat, lng, markerToEdit = null) {
         select2Container.hide();
     });
 
-    // Ustal aktywny <select> na podstawie wybranej grupy
-    const selectedGroup = document.getElementById('groupSelect').value;
-    const markerIconSelect = document.getElementById(`markerIcon${selectedGroup}`);
+    // Sprawdzenie, czy edytujemy istniejący znacznik
+    if (markerToEdit) {
+        // Ustaw dane w formularzu dla edytowanego znacznika
+        markerTitleInput.value = markerToEdit.title; // Ustawienie nowej nazwy
 
-    if (!markerIconSelect) {
-        console.error(`Nie znaleziono <select> dla grupy: ${selectedGroup}`);
-        return;
+        // Ustal aktywny <select> na podstawie wybranej grupy
+        const selectedGroup = document.getElementById('groupSelect').value;
+        const markerIconSelect = document.getElementById(`markerIcon${selectedGroup}`);
+
+        if (!markerIconSelect) {
+            console.error(`Nie znaleziono <select> dla grupy: ${selectedGroup}`);
+            return;
+        }
+
+        // Ustawienie ikony na podstawie edytowanego markera
+        const iconType = Object.keys(icons).find(key => icons[key] === markerToEdit.icon);
+        if (iconType) {
+            markerIconSelect.value = iconType; // Ustawienie ikony w <select>
+        }
+
+        // Pokaż odpowiednią grupę <select> i zainicjuj Select2
+        markerIconSelect.style.display = 'block'; // Pokazuje aktywny <select>
+        markerIconSelect.disabled = false; // Aktywuje wybrany <select>
+        $(markerIconSelect).select2({
+            templateResult: formatIcon,
+            templateSelection: formatIcon,
+            minimumResultsForSearch: -1, // Ukrycie pola wyszukiwania
+            dropdownCssClass: 'custom-dropdown'
+        });
+
+        // Pokaż kontener Select2 dla aktywnej grupy
+        const activeSelect2Container = $(markerIconSelect).next('.select2-container');
+        activeSelect2Container.show(); // Pokazuje kontener Select2
+
+        // Pokaż przycisk usuwania w przypadku edytowanego znacznika
+        deleteMarkerButton.style.display = 'block';
+        addMarkerButton.textContent = "Zapisz zmiany"; // Zmiana tekstu przycisku
+
+    } else {
+        // Jeśli nie edytujemy, ustaw pustą nazwę i ikonę
+        markerTitleInput.value = '';
+        const groupSelect = document.getElementById('groupSelect');
+        groupSelect.value = ''; // Ustawienie pustego lub domyślnego wartości grupy
+
+        // Resetowanie Select2
+        $(groupSelect).select2({ width: '100%' });
+
+        // Ukryj przycisk usuwania, jeśli nie edytujemy
+        deleteMarkerButton.style.display = 'none';
+        addMarkerButton.textContent = "Dodaj znacznik"; // Ustawienie tekstu przycisku na "Dodaj"
     }
 
-    // Ustaw wartość <select> na podstawie edytowanego markera lub domyślnie
-    markerIconSelect.value = markerToEdit ? Object.keys(icons).find(key => icons[key] === markerToEdit.icon) : 'default';
-
-    // Pokaż odpowiednią grupę <select> i zainicjuj Select2
-    markerIconSelect.style.display = 'block'; // Pokazuje aktywny <select>
-    markerIconSelect.disabled = false; // Aktywuje wybrany <select>
-    
-    $(markerIconSelect).select2({
-        templateResult: formatIcon,
-        templateSelection: formatIcon,
-        minimumResultsForSearch: -1, // Ukrycie pola wyszukiwania
-        dropdownCssClass: 'custom-dropdown'
-    });
-
-    // Pokaż kontener Select2 dla aktywnej grupy
-    const activeSelect2Container = $(markerIconSelect).next('.select2-container');
-    activeSelect2Container.show(); // Pokazuje kontener Select2
-
-    // Dalsze operacje związane z otwieraniem okna dialogowego
-    markerTitleInput.value = markerToEdit ? markerToEdit.title : '';
-    addMarkerButton.textContent = markerToEdit ? "Zapisz zmiany" : "Dodaj znacznik";
-    deleteMarkerButton.style.display = markerToEdit ? 'block' : 'none';
+    // Pokaż okno dialogowe
     dialog.style.display = 'block';
     overlay.style.display = 'block';
 }
 
 
-        function closeDialog() {
-            dialog.style.display = 'none';
-            overlay.style.display = 'none';
-        }
+// CLOSE DIALOG
+function closeDialog() {
+	dialog.style.display = 'none';
+        overlay.style.display = 'none';
+}
 //ADDORUPDATEMARKER
         async function addOrUpdateMarker() {
     const title = markerTitleInput.value; // Pobranie nazwy znacznika
