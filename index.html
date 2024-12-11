@@ -727,15 +727,14 @@ function openDialog(lat, lng, markerToEdit = null) {
         return;
     }
 
-    // Jeśli edytujemy, ustaw wartość <select> na podstawie edytowanego markera
     if (markerToEdit) {
-        // Ustawienie nowej nazwy w formularzu
-        markerTitleInput.value = markerToEdit.title; 
+        // Ustawienie tytułu na zaktualizowaną nazwę markera
+        markerTitleInput.value = markerToEdit.title;  // Upewnij się, że to jest aktualna nazwa
 
         // Ustawienie ikony na podstawie edytowanego markera
         const iconType = Object.keys(icons).find(key => icons[key] === markerToEdit.icon);
         if (iconType) {
-            markerIconSelect.value = iconType; // Ustawienie odpowiedniej ikony w formularzu
+            markerIconSelect.value = iconType; // Ustawienie ikony w formularzu
         }
 
         // Pokaż odpowiednią grupę <select> i zainicjuj Select2
@@ -756,10 +755,9 @@ function openDialog(lat, lng, markerToEdit = null) {
         // Uaktualnij przycisk usuwania, jeśli edytujemy
         deleteMarkerButton.style.display = 'block';
         addMarkerButton.textContent = "Zapisz zmiany"; // Zmieniamy tekst przycisku na "Zapisz zmiany"
-
     } else {
         // Jeśli nie edytujemy, ustaw pustą nazwę i ikonę
-        markerTitleInput.value = '';
+        markerTitleInput.value = '';  // Ustawiamy pustą wartość w przypadku nowego znacznika
         const groupSelect = document.getElementById('groupSelect');
         groupSelect.value = ''; // Ustawienie pustego lub domyślnego wartości grupy
 
