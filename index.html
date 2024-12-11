@@ -704,71 +704,52 @@ $(document).ready(function() {
         function openDialog(lat, lng, markerToEdit = null) {
     pendingLatLng = { lat, lng, markerToEdit };
 
-    // Ukryj wszystkie grupy <select> przy otwarciu okna dialogowego
+    markerTitleInput.value = markerToEdit ? markerToEdit.title : ''; // Resetowanie nazwy
+    document.getElementById('groupSelect').value = markerToEdit ? markerToEdit.iconType : 'Default'; // Reset grupy
+
+    // Ustawianie widocznej grupy markerów
     document.querySelectorAll('.marker-group').forEach(select => {
-        // Zniszczenie Select2 dla każdej grupy
-        if ($(select).data('select2')) {
-            $(select).select2('destroy');
-        }
-        select.style.display = 'none'; // Ukrycie elementów <select>
-        select.disabled = true; // Dezaktywowanie
-        // Ukrycie kontenerów Select2
+        select.style.display = 'none';
+        select.disabled = true;
         const select2Container = $(select).next('.select2-container');
         select2Container.hide();
     });
 
-    // Ustal aktywny <select> na podstawie wybranej grupy
-    const selectedGroup = document.getElementById('groupSelect').value;
-    const markerIconSelect = document.getElementById(`markerIcon${selectedGroup}`);
-
-    if (!markerIconSelect) {
-        console.error(`Nie znaleziono <select> dla grupy: ${selectedGroup}`);
-        return;
+    const activeSelect = document.getElementById(`markerIcon${markerToEdit ? markerToEdit.iconType : 'Default'}`);
+    if (activeSelect) {
+        activeSelect.style.display = 'block';
+        activeSelect.disabled = false;
+        $(activeSelect).select2({
+            templateResult: formatIcon,
+            templateSelection: formatIcon,
+            minimumResultsForSearch: -1,
+            dropdownCssClass: 'custom-dropdown',
+        });
+        const activeSelect2Container = $(activeSelect).next('.select2-container');
+        activeSelect2Container.show();
     }
 
-    // Ustaw wartość <select> na podstawie edytowanego markera lub domyślnie
-    markerIconSelect.value = markerToEdit ? Object.keys(icons).find(key => icons[key] === markerToEdit.icon) : 'default';
-
-    // Pokaż odpowiednią grupę <select> i zainicjuj Select2
-    markerIconSelect.style.display = 'block'; // Pokazuje aktywny <select>
-    markerIconSelect.disabled = false; // Aktywuje wybrany <select>
-    
-    $(markerIconSelect).select2({
-        templateResult: formatIcon,
-        templateSelection: formatIcon,
-        minimumResultsForSearch: -1, // Ukrycie pola wyszukiwania
-        dropdownCssClass: 'custom-dropdown'
-    });
-
-    // Pokaż kontener Select2 dla aktywnej grupy
-    const activeSelect2Container = $(markerIconSelect).next('.select2-container');
-    activeSelect2Container.show(); // Pokazuje kontener Select2
-
-    // Dalsze operacje związane z otwieraniem okna dialogowego
-    markerTitleInput.value = markerToEdit ? markerToEdit.title : '';
     addMarkerButton.textContent = markerToEdit ? "Zapisz zmiany" : "Dodaj znacznik";
     deleteMarkerButton.style.display = markerToEdit ? 'block' : 'none';
+
     dialog.style.display = 'block';
     overlay.style.display = 'block';
 }
 
 
+// CLOSE DIALOG
         function closeDialog() {
             dialog.style.display = 'none';
             overlay.style.display = 'none';
         }
-//ADDORUPDATEMARKER
+        
+        
+// ADDORUPDATEMARKER
         function addOrUpdateMarker() {
-    const title = markerTitleInput.value; // Pobranie nazwy znacznika
-    const selectedGroup = document.getElementById('groupSelect').value; // Wybrana grupa
-    const markerIconSelect = document.getElementById(`markerIcon${selectedGroup}`); // Dynamiczny selektor
-
-    if (!markerIconSelect) {
-        console.error(`Nie znaleziono selektora dla grupy: ${selectedGroup}`);
-        return;
-    }
-
-    const iconType = markerIconSelect.value; // Pobierz wybraną ikonę
+    const title = markerTitleInput.value.trim();
+    const selectedGroup = document.getElementById('groupSelect').value;
+    const markerIconSelect = document.getElementById(`markerIcon${selectedGroup}`);
+    const iconType = markerIconSelect ? markerIconSelect.value : 'default';
     const icon = icons[iconType] || icons.default;
 
     if (!title) {
@@ -777,34 +758,23 @@ $(document).ready(function() {
     }
 
     if (pendingLatLng.markerToEdit) {
-        // Znajdź marker w tablicy markers[]
-        const markerIndex = markers.findIndex(m => m.marker === pendingLatLng.markerToEdit.marker);
-        if (markerIndex !== -1) {
-            const markerData = markers[markerIndex];
-            markerData.title = title; // 🛠️ AKTUALIZACJA TYTUŁU W markers[]
-            markerData.icon = icon;
-            markerData.iconType = iconType; // 🛠️ AKTUALIZACJA TYP ZNACZNIKA
+        const markerData = markers.find(m => m.marker === pendingLatLng.markerToEdit.marker);
+        if (markerData) {
+            markerData.title = title;
+            markerData.iconType = iconType;
             markerData.marker.setIcon(icon);
-
-            // 🛠️ AKTUALIZACJA TOOLTIPA
-            const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
-            markerData.marker
-                .unbindTooltip()
-                .bindTooltip(`<strong>${title}</strong><br>Pozycja: [${x}, ${y}]`)
-                .openTooltip();
+            markerData.marker.setTooltipContent(`<strong>${title}</strong>`);
         }
     } else {
         const marker = L.marker([pendingLatLng.lat, pendingLatLng.lng], { icon }).addTo(map);
-        const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
-        marker.bindTooltip(`<strong>${title}</strong><br>Pozycja: [${x}, ${y}]`).openTooltip();
-        marker.on('click', () => {
-            openDialog(pendingLatLng.lat, pendingLatLng.lng, { marker, title, icon });
-        });
-        markers.push({ marker, title, icon, lat: pendingLatLng.lat, lon: pendingLatLng.lng, iconType });
+        marker.bindTooltip(`<strong>${title}</strong>`);
+        marker.on('click', () => openDialog(pendingLatLng.lat, pendingLatLng.lng, { marker, title, iconType }));
+        markers.push({ marker, title, iconType });
     }
 
     closeDialog();
 }
+
 
 
         function removeMarker(markerToEdit) {
