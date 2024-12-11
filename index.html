@@ -702,7 +702,7 @@ $(document).ready(function() {
 
 // OPEN DIALOG
 // Funkcja, która otwiera okno dialogowe po kliknięciu na znacznik
-async function openDialog(lat, lng, markerToEdit = null) {
+function openDialog(lat, lng, markerToEdit = null) {
     pendingLatLng = { lat, lng, markerToEdit };
 
     // Ukryj wszystkie grupy <select> przy otwarciu okna dialogowego
@@ -728,60 +728,33 @@ async function openDialog(lat, lng, markerToEdit = null) {
     }
 
     if (markerToEdit) {
-        // Pobierz dane z API na podstawie markerToEdit.id
-        try {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                alert("Musisz być zalogowany, aby edytować znacznik.");
-                return;
-            }
+        // Ustawienie tytułu na zaktualizowaną nazwę markera
+        markerTitleInput.value = markerToEdit.title;  // Upewnij się, że to jest aktualna nazwa
 
-            const response = await fetch(`${API_URL}/markers/${markerToEdit.id}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Błąd podczas pobierania danych markera');
-            }
-
-            const updatedMarker = await response.json();
-
-            // Ustawienie tytułu na zaktualizowaną nazwę markera
-            markerTitleInput.value = updatedMarker.title; 
-
-            // Ustawienie ikony na podstawie edytowanego markera
-            const iconType = Object.keys(icons).find(key => icons[key] === updatedMarker.icon);
-            if (iconType) {
-                markerIconSelect.value = iconType; // Ustawienie ikony w formularzu
-            }
-
-            // Pokaż odpowiednią grupę <select> i zainicjuj Select2
-            markerIconSelect.style.display = 'block'; // Pokazuje aktywny <select>
-            markerIconSelect.disabled = false; // Aktywuje wybrany <select>
-            
-            $(markerIconSelect).select2({
-                templateResult: formatIcon,
-                templateSelection: formatIcon,
-                minimumResultsForSearch: -1, // Ukrycie pola wyszukiwania
-                dropdownCssClass: 'custom-dropdown'
-            });
-
-            // Pokaż kontener Select2 dla aktywnej grupy
-            const activeSelect2Container = $(markerIconSelect).next('.select2-container');
-            activeSelect2Container.show(); // Pokazuje kontener Select2
-
-            // Uaktualnij przycisk usuwania, jeśli edytujemy
-            deleteMarkerButton.style.display = 'block';
-            addMarkerButton.textContent = "Zapisz zmiany"; // Zmieniamy tekst przycisku na "Zapisz zmiany"
-
-        } catch (error) {
-            console.error('Błąd podczas pobierania danych markera:', error);
-            alert('Nie udało się pobrać danych markera.');
+        // Ustawienie ikony na podstawie edytowanego markera
+        const iconType = Object.keys(icons).find(key => icons[key] === markerToEdit.icon);
+        if (iconType) {
+            markerIconSelect.value = iconType; // Ustawienie ikony w formularzu
         }
 
+        // Pokaż odpowiednią grupę <select> i zainicjuj Select2
+        markerIconSelect.style.display = 'block'; // Pokazuje aktywny <select>
+        markerIconSelect.disabled = false; // Aktywuje wybrany <select>
+        
+        $(markerIconSelect).select2({
+            templateResult: formatIcon,
+            templateSelection: formatIcon,
+            minimumResultsForSearch: -1, // Ukrycie pola wyszukiwania
+            dropdownCssClass: 'custom-dropdown'
+        });
+
+        // Pokaż kontener Select2 dla aktywnej grupy
+        const activeSelect2Container = $(markerIconSelect).next('.select2-container');
+        activeSelect2Container.show(); // Pokazuje kontener Select2
+
+        // Uaktualnij przycisk usuwania, jeśli edytujemy
+        deleteMarkerButton.style.display = 'block';
+        addMarkerButton.textContent = "Zapisz zmiany"; // Zmieniamy tekst przycisku na "Zapisz zmiany"
     } else {
         // Jeśli nie edytujemy, ustaw pustą nazwę i ikonę
         markerTitleInput.value = '';  // Ustawiamy pustą wartość w przypadku nowego znacznika
@@ -800,9 +773,6 @@ async function openDialog(lat, lng, markerToEdit = null) {
     dialog.style.display = 'block';
     overlay.style.display = 'block';
 }
-
-
-
 
 // CLOSE DIALOG
 function closeDialog() {
