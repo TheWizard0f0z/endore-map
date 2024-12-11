@@ -1181,48 +1181,7 @@ function closeDialog() {
         addMarker(20, -41, icons.miasto3, 'Tharbad', 'miasto');
         
         
-//BACKGROUND       
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-    		e.preventDefault();
-    		const username = e.target.username.value;
-    		const password = e.target.password.value;
-
-    		const response = await fetch('https://endore-map.onrender.com/auth/register', {
-        		method: 'POST',
-        		headers: { 'Content-Type': 'application/json' },
-        		body: JSON.stringify({ username, password }),
-    		});
-
-    		const data = await response.json();
-    		console.log(data); // Obsłuż odpowiedź
-
-		if (data.message === 'User registered') {
-			alert('Register successfully!');
-		} else {
-			alert('Register failed');
-		}
-		});
-        
-        
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-    		e.preventDefault();
-    		const username = e.target.username.value;
-    		const password = e.target.password.value;
-
-    		const response = await fetch('https://endore-map.onrender.com/auth/login', {
-        		method: 'POST',
-        		headers: { 'Content-Type': 'application/json' },
-        		body: JSON.stringify({ username, password }),
-    		});
-
-    		const data = await response.json();
-    		if (data.token) {
-        		localStorage.setItem('token', data.token); // Zapis tokena
-        		alert('Logged in successfully!');
-    		} else {
-        		alert('Login failed');
-    		}
-		});
+//BACKEND       
         
 	const API_URL = 'https://endore-map.onrender.com'; // Zmień na odpowiedni adres serwera
 
