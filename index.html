@@ -275,10 +275,10 @@
     		background-color: #f4e9c5; /* Tło listy */
     		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Cień */
     		color: #404040; /* Kolor tekstu */
-            	overflow-y: auto;
-            	overflow-x: hidden;
-            	scrollbar-color: #8b5e3c #2a2a2a;
-    	    	scrollbar-width: thin;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-color: #8b5e3c #2a2a2a;
+    	    scrollbar-width: thin;
 		}
         .select2-container--default .select2-results > .select2-results__options {
     		overflow-y: visible;
@@ -311,7 +311,7 @@
     			<input type="password" name="password" placeholder="Password" required />
     			<button type="submit" class="register-btn">Register</button>
 			</form>
-            	<form id="loginForm">
+            <form id="loginForm">
     			<input type="text" name="username" placeholder="Username" required />
     			<input type="password" name="password" placeholder="Password" required />
     			<button type="submit" class="login-btn">Login</button>
@@ -338,10 +338,10 @@
         </div>
      	<div class="menu-section" id="coordinates-section">
     		<p id="cursor-coordinates">Współrzędne: (0, 0)</p>
-            	<label>
+            <label>
         		<input type="checkbox" id="showRawCoordinates" />
         		Pokaż surowe współrzędne
-	    	</label>
+	    </label>
 	</div>
         <div class="menu-section" id="marker-section">
         	<label for="lng-input">Długość geograficzna:</label>
@@ -359,7 +359,7 @@
         <input type="text" id="markerTitle" placeholder="Wprowadź nazwę">
         <label for="markerIcon">Wybierz rodzaj ikony:</label>
         <select id="groupSelect" style="width: 100%;">
-            <option value="Default">Domyślna</option>
+        	<option value="Default">Domyślna</option>
             <option value="Miasto">Miasta</option>
             <option value="Arena">Areny</option>
             <option value="Loch">Lochy</option>
@@ -375,10 +375,10 @@
         </select>
 		
         <select id="markerIconMiasto" class="marker-group" style="width: 100%; display: none;">
-    		<option value="miasto1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png">Miasto</option>
-    		<option value="miasto2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png">Miasto</option>
+    	<option value="miasto1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png">Miasto</option>
+    	<option value="miasto2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png">Miasto</option>
 		<option value="miasto3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png">Miasto</option>
-    		<option value="miasto4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png">Miasto</option>
+    	<option value="miasto4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png">Miasto</option>
         </select>
 		
         <select id="markerIconArena" class="marker-group" style="width: 100%; display: none;">
@@ -471,10 +471,10 @@
         </select>
 		
         <select id="markerIconInne" class="marker-group" style="width: 100%; display: none;">
-    		<option value="zamek" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/zamek.png">Zamek</option>
-    		<option value="most" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/most.png">Most</option>
-        	<option value="woda" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/woda.png">Woda</option>
-	</select>
+    	<option value="zamek" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/zamek.png">Zamek</option>
+    	<option value="most" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/most.png">Most</option>
+        <option value="woda" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/woda.png">Woda</option>
+		</select>
         
         <button id="addMarkerButton">Dodaj znacznik</button>
         <button id="deleteMarkerButton" style="display: none;">Usuń znacznik</button>
@@ -600,7 +600,7 @@
 	    const showLochCheckbox = document.getElementById('showLoch');
 	    const showMobCheckbox = document.getElementById('showMob');
 	    const showPotworCheckbox = document.getElementById('showPotwor');
-            const showZwierzeCheckbox = document.getElementById('showZwierze');
+        const showZwierzeCheckbox = document.getElementById('showZwierze');
 	    const showSkarbCheckbox = document.getElementById('showSkarb');
 	    const showZamekCheckbox = document.getElementById('showZamek');
 	    const showMostCheckbox = document.getElementById('showMost');
@@ -758,7 +758,7 @@ $(document).ready(function() {
             overlay.style.display = 'none';
         }
 //ADDORUPDATEMARKER
-        async function addOrUpdateMarker() {
+        function addOrUpdateMarker() {
     const title = markerTitleInput.value; // Pobranie nazwy znacznika
     const selectedGroup = document.getElementById('groupSelect').value; // Wybrana grupa
     const markerIconSelect = document.getElementById(`markerIcon${selectedGroup}`); // Dynamiczny selektor
@@ -776,99 +776,34 @@ $(document).ready(function() {
         return;
     }
 
-    const token = localStorage.getItem('token');
-    if (!token) {
-        alert("Musisz być zalogowany, aby dodać znacznik.");
-        return;
-    }
+    if (pendingLatLng.markerToEdit) {
+        // Znajdź marker w tablicy markers[]
+        const markerIndex = markers.findIndex(m => m.marker === pendingLatLng.markerToEdit.marker);
+        if (markerIndex !== -1) {
+            const markerData = markers[markerIndex];
+            markerData.title = title; // 🛠️ AKTUALIZACJA TYTUŁU W markers[]
+            markerData.icon = icon;
+            markerData.iconType = iconType; // 🛠️ AKTUALIZACJA TYP ZNACZNIKA
+            markerData.marker.setIcon(icon);
 
-    try {
-        if (pendingLatLng.markerToEdit) {
-            // Edycja istniejącego znacznika
-            const markerId = pendingLatLng.markerToEdit.id;
-            const response = await fetch(`${API_URL}/markers/${markerId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                    title,
-                    group: selectedGroup,
-                    iconType,
-                    coordinates: {
-                        lat: pendingLatLng.lat,
-                        lng: pendingLatLng.lng,
-                    },
-                }),
-            });
-
-            if (!response.ok) throw new Error('Błąd podczas aktualizacji znacznika');
-
-            // Synchronizacja danych lokalnych i mapy
-            const updatedMarker = await response.json();
-            const markerIndex = markers.findIndex((m) => m.id === markerId);
-            if (markerIndex !== -1) {
-                const markerData = markers[markerIndex];
-                markerData.title = updatedMarker.title;
-                markerData.icon = icon;
-                markerData.iconType = updatedMarker.iconType;
-
-                // Aktualizacja ikony i tooltipa na mapie
-                const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
-		markerData.marker.setIcon(icon);
-		markerData.marker
-    			.unbindTooltip()
-    			.bindTooltip(`<strong>${updatedMarker.title}</strong><br>Pozycja: [${x}, ${y}]`)
-    			.openTooltip();
-            }
-        } else {
-            // Dodawanie nowego znacznika
-            const response = await fetch(`${API_URL}/markers`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                    title,
-                    group: selectedGroup,
-                    iconType,
-                    coordinates: {
-                        lat: pendingLatLng.lat,
-                        lng: pendingLatLng.lng,
-                    },
-                }),
-            });
-
-            if (!response.ok) throw new Error('Błąd podczas dodawania znacznika');
-
-            const newMarker = await response.json();
-
-            // Dodaj znacznik na mapę
-            const marker = L.marker(
-                [newMarker.coordinates.lat, newMarker.coordinates.lng],
-                { icon }
-            ).addTo(map);
-
-            marker.bindTooltip(`<strong>${newMarker.title}</strong>`);
-            marker.on('click', () =>
-                openDialog(newMarker.coordinates.lat, newMarker.coordinates.lng, {
-                    marker,
-                    title: newMarker.title,
-                    iconType: newMarker.iconType,
-                    id: newMarker._id,
-                })
-            );
-
-            markers.push({ ...newMarker, marker });
+            // 🛠️ AKTUALIZACJA TOOLTIPA
+            const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
+            markerData.marker
+                .unbindTooltip()
+                .bindTooltip(`<strong>${title}</strong><br>Pozycja: [${x}, ${y}]`)
+                .openTooltip();
         }
-
-        closeDialog(); // Zamknij okno dialogowe
-    } catch (error) {
-        console.error(error);
-        alert('Nie udało się dodać lub zaktualizować znacznika.');
+    } else {
+        const marker = L.marker([pendingLatLng.lat, pendingLatLng.lng], { icon }).addTo(map);
+        const { x, y } = transformCoordinates(pendingLatLng.lat, pendingLatLng.lng);
+        marker.bindTooltip(`<strong>${title}</strong><br>Pozycja: [${x}, ${y}]`).openTooltip();
+        marker.on('click', () => {
+            openDialog(pendingLatLng.lat, pendingLatLng.lng, { marker, title, icon });
+        });
+        markers.push({ marker, title, icon, lat: pendingLatLng.lat, lon: pendingLatLng.lng, iconType });
     }
+
+    closeDialog();
 }
 
 
@@ -1146,60 +1081,56 @@ $(document).ready(function() {
 	}
 
         // Example markers
-	addMarker(63, -71, icons.miasto1, 'Bree', 'miasto');
+		addMarker(63, -71, icons.miasto1, 'Bree', 'miasto');
         addMarker(67, -195, icons.miasto2, 'Ered Luin', 'miasto');
         addMarker(67, 2, icons.miasto4, 'Rivendell', 'miasto');
         addMarker(20, -41, icons.miasto3, 'Tharbad', 'miasto');
         
         
-//BACKEND       
+//BACKGROUND       
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+    		e.preventDefault();
+    		const username = e.target.username.value;
+    		const password = e.target.password.value;
+
+    		const response = await fetch('https://endore-map.onrender.com/auth/register', {
+        		method: 'POST',
+        		headers: { 'Content-Type': 'application/json' },
+        		body: JSON.stringify({ username, password }),
+    		});
+
+    		const data = await response.json();
+    		console.log(data); // Obsłuż odpowiedź
+
+		if (data.message === 'User registered') {
+			alert('Register successfully!');
+		} else {
+			alert('Register failed');
+		}
+		});
         
-	const API_URL = 'https://endore-map.onrender.com'; // Zmień na odpowiedni adres serwera
-
-	document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
     		e.preventDefault();
     		const username = e.target.username.value;
     		const password = e.target.password.value;
 
-    		try {
-        		const response = await fetch(`${API_URL}/auth/login`, {
-           			method: 'POST',
-            			headers: { 'Content-Type': 'application/json' },
-            			body: JSON.stringify({ username, password })
-        		});
+    		const response = await fetch('https://endore-map.onrender.com/auth/login', {
+        		method: 'POST',
+        		headers: { 'Content-Type': 'application/json' },
+        		body: JSON.stringify({ username, password }),
+    		});
 
-        		if (!response.ok) throw new Error('Logowanie nieudane');
-        		const data = await response.json();
-        		localStorage.setItem('token', data.token); // Zapisanie tokena w localStorage
-        		alert('Zalogowano pomyślnie');
-        		await loadMarkers(); // Załaduj znaczniki po zalogowaniu
-    		} catch (error) {
-        		console.error(error);
-        		alert('Logowanie nie powiodło się');
+    		const data = await response.json();
+    		if (data.token) {
+        		localStorage.setItem('token', data.token); // Zapis tokena
+        		alert('Logged in successfully!');
+    		} else {
+        		alert('Login failed');
     		}
-	});
-
-	document.getElementById('registerForm').addEventListener('submit', async (e) => {
-    		e.preventDefault();
-    		const username = e.target.username.value;
-    		const password = e.target.password.value;
-
-    		try {
-        		const response = await fetch(`${API_URL}/auth/register`, {
-            			method: 'POST',
-            			headers: { 'Content-Type': 'application/json' },
-            			body: JSON.stringify({ username, password })
-        		});
-
-        		if (!response.ok) throw new Error('Rejestracja nieudana');
-        		alert('Rejestracja zakończona sukcesem. Zaloguj się!');
-    		} catch (error) {
-        		console.error(error);
-        		alert('Rejestracja nie powiodła się');
-    		}
-	});
-
-	    
+		});
+        
+        
         async function fetchWithAuth(url, options = {}) {
     		const token = localStorage.getItem('token'); // Pobierz token z localStorage
     		if (!options.headers) options.headers = {};
@@ -1218,47 +1149,6 @@ $(document).ready(function() {
     		const data = await fetchWithAuth('https://endore-map.onrender.com/protected');
     		console.log(data); // Przetwórz dane z odpowiedzi
 		});
-
-	async function loadMarkers() {
-    		const token = localStorage.getItem('token');
-    		if (!token) {
-        		console.warn('Brak tokena, nie można załadować znaczników.');
-        		return;
-    		}
-
-    		try {
-        		const response = await fetch(`${API_URL}/markers`, {
-            			method: 'GET',
-            			headers: { Authorization: `Bearer ${token}` }
-        		});
-
-        		if (!response.ok) throw new Error('Błąd podczas pobierania znaczników');
-        		const markersData = await response.json();
-
-        		// Usuń wszystkie istniejące znaczniki z mapy
-        		markers.forEach(({ marker }) => map.removeLayer(marker));
-        		markers.length = 0;
-
-        		// Dodaj pobrane znaczniki na mapę
-        		markersData.forEach((data) => {
-            			const icon = icons[data.iconType] || icons.default;
-            			const marker = L.marker([data.coordinates.lat, data.coordinates.lng], { icon }).addTo(map);
-
-            			marker.bindTooltip(`<strong>${data.title}</strong>`);
-            			marker.on('click', () => openDialog(data.coordinates.lat, data.coordinates.lng, {
-                			marker,
-                			title: data.title,
-                			iconType: data.iconType,
-                			id: data._id
-            			}));
-
-            			markers.push({ ...data, marker });
-        		});
-    		} catch (error) {
-        		console.error(error);
-        		alert('Nie udało się załadować znaczników');
-    		}
-	}
 
     </script>
 </body>
