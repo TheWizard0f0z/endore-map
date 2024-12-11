@@ -718,51 +718,37 @@ function openDialog(lat, lng, markerToEdit = null) {
         select2Container.hide();
     });
 
-    if (markerToEdit) {
-        // Ustawienie nowej nazwy i ikony w formularzu
-        markerTitleInput.value = markerToEdit.title; // Nowa nazwa
-        const groupSelect = document.getElementById('groupSelect');
-        groupSelect.value = markerToEdit.iconType; // Ikona po edycji
+    // Ustal aktywny <select> na podstawie wybranej grupy
+    const selectedGroup = document.getElementById('groupSelect').value;
+    const markerIconSelect = document.getElementById(`markerIcon${selectedGroup}`);
 
-        // Wybór ikony na podstawie edytowanego markera
-        const iconSelect = document.getElementById(`markerIcon${groupSelect.value}`);
-        if (iconSelect) {
-            iconSelect.value = markerToEdit.iconType; // Wybór nowej ikony
-        }
-
-        // Pokaż odpowiednią grupę <select> i zainicjuj Select2
-        markerIconSelect.style.display = 'block'; // Pokazuje aktywny <select>
-        markerIconSelect.disabled = false; // Aktywuje wybrany <select>
-        $(markerIconSelect).select2({
-            templateResult: formatIcon,
-            templateSelection: formatIcon,
-            minimumResultsForSearch: -1, // Ukrycie pola wyszukiwania
-            dropdownCssClass: 'custom-dropdown'
-        });
-
-        // Pokaż kontener Select2 dla aktywnej grupy
-        const activeSelect2Container = $(markerIconSelect).next('.select2-container');
-        activeSelect2Container.show(); // Pokazuje kontener Select2
-
-        // Pokaż przycisk usuwania w przypadku edytowanego znacznika
-        deleteMarkerButton.style.display = 'block';
-        addMarkerButton.textContent = "Zapisz zmiany"; // Zmiana tekstu przycisku
-
-    } else {
-        // Jeśli nie edytujemy, ustaw pustą nazwę i ikonę
-        markerTitleInput.value = '';
-        const groupSelect = document.getElementById('groupSelect');
-        groupSelect.value = ''; // Ustawienie pustego lub domyślnego wartości grupy
-
-        // Resetowanie Select2
-        $(groupSelect).select2({ width: '100%' });
-
-        // Ukryj przycisk usuwania, jeśli nie edytujemy
-        deleteMarkerButton.style.display = 'none';
-        addMarkerButton.textContent = "Dodaj znacznik"; // Ustawienie tekstu przycisku na "Dodaj"
+    if (!markerIconSelect) {
+        console.error(`Nie znaleziono <select> dla grupy: ${selectedGroup}`);
+        return;
     }
 
-    // Pokaż okno dialogowe
+    // Ustaw wartość <select> na podstawie edytowanego markera lub domyślnie
+    markerIconSelect.value = markerToEdit ? Object.keys(icons).find(key => icons[key] === markerToEdit.icon) : 'default';
+
+    // Pokaż odpowiednią grupę <select> i zainicjuj Select2
+    markerIconSelect.style.display = 'block'; // Pokazuje aktywny <select>
+    markerIconSelect.disabled = false; // Aktywuje wybrany <select>
+    
+    $(markerIconSelect).select2({
+        templateResult: formatIcon,
+        templateSelection: formatIcon,
+        minimumResultsForSearch: -1, // Ukrycie pola wyszukiwania
+        dropdownCssClass: 'custom-dropdown'
+    });
+
+    // Pokaż kontener Select2 dla aktywnej grupy
+    const activeSelect2Container = $(markerIconSelect).next('.select2-container');
+    activeSelect2Container.show(); // Pokazuje kontener Select2
+
+    // Dalsze operacje związane z otwieraniem okna dialogowego
+    markerTitleInput.value = markerToEdit ? markerToEdit.title : '';
+    addMarkerButton.textContent = markerToEdit ? "Zapisz zmiany" : "Dodaj znacznik";
+    deleteMarkerButton.style.display = markerToEdit ? 'block' : 'none';
     dialog.style.display = 'block';
     overlay.style.display = 'block';
 }
