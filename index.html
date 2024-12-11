@@ -275,10 +275,10 @@
     		background-color: #f4e9c5; /* Tło listy */
     		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Cień */
     		color: #404040; /* Kolor tekstu */
-            overflow-y: auto;
-            overflow-x: hidden;
-            scrollbar-color: #8b5e3c #2a2a2a;
-    	    scrollbar-width: thin;
+            	overflow-y: auto;
+            	overflow-x: hidden;
+            	scrollbar-color: #8b5e3c #2a2a2a;
+    	    	scrollbar-width: thin;
 		}
         .select2-container--default .select2-results > .select2-results__options {
     		overflow-y: visible;
@@ -311,7 +311,7 @@
     			<input type="password" name="password" placeholder="Password" required />
     			<button type="submit" class="register-btn">Register</button>
 			</form>
-            <form id="loginForm">
+            	<form id="loginForm">
     			<input type="text" name="username" placeholder="Username" required />
     			<input type="password" name="password" placeholder="Password" required />
     			<button type="submit" class="login-btn">Login</button>
@@ -338,10 +338,10 @@
         </div>
      	<div class="menu-section" id="coordinates-section">
     		<p id="cursor-coordinates">Współrzędne: (0, 0)</p>
-            <label>
+            	<label>
         		<input type="checkbox" id="showRawCoordinates" />
         		Pokaż surowe współrzędne
-	    </label>
+	    	</label>
 	</div>
         <div class="menu-section" id="marker-section">
         	<label for="lng-input">Długość geograficzna:</label>
@@ -375,10 +375,10 @@
         </select>
 		
         <select id="markerIconMiasto" class="marker-group" style="width: 100%; display: none;">
-    	<option value="miasto1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png">Miasto</option>
-    	<option value="miasto2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png">Miasto</option>
+    		<option value="miasto1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png">Miasto</option>
+    		<option value="miasto2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png">Miasto</option>
 		<option value="miasto3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png">Miasto</option>
-    	<option value="miasto4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png">Miasto</option>
+    		<option value="miasto4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png">Miasto</option>
         </select>
 		
         <select id="markerIconArena" class="marker-group" style="width: 100%; display: none;">
@@ -471,10 +471,10 @@
         </select>
 		
         <select id="markerIconInne" class="marker-group" style="width: 100%; display: none;">
-    	<option value="zamek" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/zamek.png">Zamek</option>
-    	<option value="most" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/most.png">Most</option>
-        <option value="woda" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/woda.png">Woda</option>
-		</select>
+    		<option value="zamek" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/zamek.png">Zamek</option>
+    		<option value="most" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/most.png">Most</option>
+        	<option value="woda" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/woda.png">Woda</option>
+	</select>
         
         <button id="addMarkerButton">Dodaj znacznik</button>
         <button id="deleteMarkerButton" style="display: none;">Usuń znacznik</button>
@@ -1152,48 +1152,7 @@ $(document).ready(function() {
         addMarker(20, -41, icons.miasto3, 'Tharbad', 'miasto');
         
         
-//BACKGROUND       
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-    		e.preventDefault();
-    		const username = e.target.username.value;
-    		const password = e.target.password.value;
-
-    		const response = await fetch('https://endore-map.onrender.com/auth/register', {
-        		method: 'POST',
-        		headers: { 'Content-Type': 'application/json' },
-        		body: JSON.stringify({ username, password }),
-    		});
-
-    		const data = await response.json();
-    		console.log(data); // Obsłuż odpowiedź
-
-		if (data.message === 'User registered') {
-			alert('Register successfully!');
-		} else {
-			alert('Register failed');
-		}
-		});
-        
-        
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-    		e.preventDefault();
-    		const username = e.target.username.value;
-    		const password = e.target.password.value;
-
-    		const response = await fetch('https://endore-map.onrender.com/auth/login', {
-        		method: 'POST',
-        		headers: { 'Content-Type': 'application/json' },
-        		body: JSON.stringify({ username, password }),
-    		});
-
-    		const data = await response.json();
-    		if (data.token) {
-        		localStorage.setItem('token', data.token); // Zapis tokena
-        		alert('Logged in successfully!');
-    		} else {
-        		alert('Login failed');
-    		}
-		});
+//BACKEND       
         
 	const API_URL = 'https://endore-map.onrender.com'; // Zmień na odpowiedni adres serwera
 
