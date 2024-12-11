@@ -701,7 +701,7 @@ $(document).ready(function() {
 
 
 // OPEN DIALOG
-        // Funkcja, która otwiera okno dialogowe po kliknięciu na znacznik
+// Funkcja, która otwiera okno dialogowe po kliknięciu na znacznik
 function openDialog(lat, lng, markerToEdit = null) {
     pendingLatLng = { lat, lng, markerToEdit };
 
@@ -717,39 +717,6 @@ function openDialog(lat, lng, markerToEdit = null) {
         const select2Container = $(select).next('.select2-container');
         select2Container.hide();
     });
-
-    // Sprawdzenie, czy edytujemy istniejący znacznik
-    if (markerToEdit) {
-        // Ustaw dane w formularzu dla edytowanego znacznika
-        markerTitleInput.value = markerToEdit.title;
-        
-        const groupSelect = document.getElementById('groupSelect');
-        groupSelect.value = markerToEdit.iconType; // Zakładając, że `iconType` to grupa
-
-        // Wybór ikony na podstawie edytowanego znacznika
-        const iconSelect = document.getElementById(`markerIcon${groupSelect.value}`);
-        if (iconSelect) {
-            iconSelect.value = markerToEdit.iconType; // Ustawienie ikony
-        }
-
-        // Inicjalizacja Select2 dla grupy (jeśli jest używane)
-        $(groupSelect).select2({ width: '100%' });
-
-        // Pokaż dane w oknie dialogowym
-        document.getElementById('dialog').style.display = 'block';
-    } else {
-        // Ustawienie pustych wartości, jeśli nie edytujemy
-        markerTitleInput.value = '';
-        const groupSelect = document.getElementById('groupSelect');
-        groupSelect.value = ''; // Ustawienie pustego lub domyślnego wartości grupy
-
-        // Resetowanie Select2
-        $(groupSelect).select2({ width: '100%' });
-
-        document.getElementById('dialog').style.display = 'block';
-    }
-}
-
 
     // Ustal aktywny <select> na podstawie wybranej grupy
     const selectedGroup = document.getElementById('groupSelect').value;
