@@ -1083,6 +1083,30 @@ function openDialog(lat, lng, markerToEdit = null) {
         
         
 //BACKEND     
+        async function fetchWithAuth(url, options = {}) {
+    		const token = localStorage.getItem('token'); // Pobierz token z localStorage
+    		if (!options.headers) options.headers = {};
+    		options.headers['Authorization'] = token ? `Bearer ${token}` : '';
+    
+    		const response = await fetch(url, options);
+    		if (response.status === 401) {
+        		alert('Unauthorized! Please log in again.');
+        		localStorage.removeItem('token');
+    		}
+    		return response.json();
+		}
+        
+        // Ukrywanie/wyświetlanie przycisków
+		const token = localStorage.getItem('token');
+			if (!token) {
+    			document.getElementById('protectedDataButton').style.display = 'none';
+    			document.getElementById('logoutButton').style.display = 'none';
+			} else {
+    			document.getElementById('protectedDataButton').style.display = 'block';
+    			document.getElementById('logoutButton').style.display = 'block';
+			}
+        
+        // Obsługa formularza rejestracji
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
     		e.preventDefault();
     		const username = e.target.username.value;
@@ -1097,14 +1121,14 @@ function openDialog(lat, lng, markerToEdit = null) {
     		const data = await response.json();
     		console.log(data); // Obsłuż odpowiedź
 
-		if (data.message === 'User registered') {
-			alert('Register successfully!');
-		} else {
-			alert('Register failed');
-		}
+			if (data.message === 'User registered') {
+				alert('Register successfully!');
+			} else {
+				alert('Register failed');
+			}
 		});
         
-        
+        // Obsługa formularza logowania
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
     		e.preventDefault();
     		const username = e.target.username.value;
@@ -1125,7 +1149,7 @@ function openDialog(lat, lng, markerToEdit = null) {
     		}
 		});
         
-        
+        // Obsługa wylogowania
         document.getElementById('logoutButton').addEventListener('click', () => {
     		// Usuń token z localStorage
     		localStorage.removeItem('token');
@@ -1136,29 +1160,6 @@ function openDialog(lat, lng, markerToEdit = null) {
     		// Przekieruj użytkownika na stronę logowania lub odśwież
     		window.location.href = '/login.html'; // Dostosuj do swojej ścieżki
 		});
-        
-        
-        async function fetchWithAuth(url, options = {}) {
-    		const token = localStorage.getItem('token'); // Pobierz token z localStorage
-    		if (!options.headers) options.headers = {};
-    		options.headers['Authorization'] = token ? `Bearer ${token}` : '';
-    
-    		const response = await fetch(url, options);
-    		if (response.status === 401) {
-        		alert('Unauthorized! Please log in again.');
-        		localStorage.removeItem('token');
-    		}
-    		return response.json();
-		}
-        
-        const token = localStorage.getItem('token');
-			if (!token) {
-    			document.getElementById('protectedDataButton').style.display = 'none';
-    			document.getElementById('logoutButton').style.display = 'none';
-		} else {
-    			document.getElementById('protectedDataButton').style.display = 'block';
-    			document.getElementById('logoutButton').style.display = 'block';
-		}
 
 		// Przykład użycia:
 		document.getElementById('protectedDataButton').addEventListener('click', async () => {
