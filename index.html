@@ -610,27 +610,7 @@
 
 // SELECT2
     // Funkcja do formatowania opcji w Select2, w tym wyświetlanie ikon
-function formatIcon(option) {
-    if (!option.id) {
-        return option.text; // Jeśli nie ma ID, zwraca tylko tekst
-    }
-    const iconUrl = $(option.element).data('icon'); // Pobranie URL ikony
-    return $('<span>')
-        .append($('<img>', {
-            src: iconUrl,
-            css: {
-                width: '30px',  // Ustalamy rozmiar ikony
-                height: '30px',
-                marginRight: '8px',
-                verticalAlign: 'middle',
-		paddingBottom: '2px'
-            }
-        }))
-        .append(option.text);
-}
-
-// Inicjalizacja Select2 dla wszystkich grup
-$(document).ready(function() {
+$(document).ready(function () {
     // Funkcja do formatowania opcji w Select2, w tym wyświetlanie ikon
     function formatIcon(option) {
         if (!option.id) {
@@ -641,11 +621,11 @@ $(document).ready(function() {
             .append($('<img>', {
                 src: iconUrl,
                 css: {
-                    width: '30px',  // Ustalamy rozmiar ikony
+                    width: '30px', // Ustalamy rozmiar ikony
                     height: '30px',
                     marginRight: '8px',
                     verticalAlign: 'middle',
-		    paddingBottom: '2px'
+                    paddingBottom: '2px'
                 }
             }))
             .append(option.text);
@@ -664,12 +644,12 @@ $(document).ready(function() {
     // Obsługa zmiany opcji w #groupSelect
     document.getElementById('groupSelect').addEventListener('change', function () {
         const selectedGroup = this.value; // Pobierz wybraną wartość grupy
-        
+
         // Ukryj wszystkie grupy markerów i ich kontenery Select2
         document.querySelectorAll('.marker-group').forEach(select => {
             select.style.display = 'none'; // Ukryj <select>
             select.disabled = true; // Dezaktywuj <select>
-            
+
             // Ukryj kontener Select2 powiązany z <select>
             const select2Container = $(select).next('.select2-container');
             select2Container.hide(); // Ukryj kontener Select2
@@ -680,7 +660,7 @@ $(document).ready(function() {
         if (activeSelect) {
             activeSelect.style.display = 'block'; // Pokaż aktywny <select>
             activeSelect.disabled = false; // Aktywuj <select>
-            
+
             // Zainicjalizuj Select2 dla aktywnego selecta (jeśli jeszcze nie istnieje)
             if (!$(activeSelect).data('select2')) {
                 $(activeSelect).select2({
@@ -696,57 +676,87 @@ $(document).ready(function() {
             activeSelect2Container.show(); // Pokaż kontener Select2
         }
     });
+
+    // Inicjalizacja dla `defaultSelect`
+    const defaultSelect = document.getElementById('markerIconDefault'); // Zakładamy, że ID to markerIconDefault
+    if (defaultSelect) {
+        $(defaultSelect).select2({
+            templateResult: formatIcon,
+            templateSelection: formatIcon,
+            minimumResultsForSearch: -1, // Ukrycie pola wyszukiwania
+            dropdownCssClass: 'custom-dropdown'
+        });
+    }
 });
 
+// Funkcja otwierająca dialog
+function openDialog(lat, lng, markerToEdit = null) {
+    pendingLatLng = { lat, lng, markerToEdit };
 
+    // Resetuj wszystkie pola do wartości domyślnych
+    markerTitleInput.value = ''; // Resetuj nazwę znacznika
+    document.getElementById('groupSelect').value = 'Default'; // Resetuj grupę
 
-// OPEN DIALOG
-	function openDialog(lat, lng, markerToEdit = null) {
-		pendingLatLng = { lat, lng, markerToEdit };
+    document.querySelectorAll('.marker-group').forEach(select => {
+        select.style.display = 'none'; // Ukrycie elementów <select>
+        select.disabled = true;
+        const select2Container = $(select).next('.select2-container');
+        select2Container.hide(); // Ukrycie kontenera Select2
+    });
 
-    	// Resetuj wszystkie pola do wartości domyślnych
-    	markerTitleInput.value = ''; // Resetuj nazwę znacznika
-    	document.getElementById('groupSelect').value = 'Default'; // Resetuj grupę
-    
-    	document.querySelectorAll('.marker-group').forEach(select => {
-        	if ($(select).data('select2')) {
-            	$(select).select2('destroy');
-        	}
-        	select.style.display = 'none'; // Ukrycie elementów <select>
-        	select.disabled = true;
-        	const select2Container = $(select).next('.select2-container');
-        	select2Container.hide(); // Ukrycie kontenera Select2
-    	});
+    // Pokaż okienko `.marker-group` dla wartości domyślnej
+    const defaultSelect = document.getElementById('markerIconDefault'); // Zakładamy, że ID to markerIconDefault
+    if (defaultSelect) {
+        defaultSelect.value = 'default'; // Ustaw wartość domyślną
+        defaultSelect.style.display = 'block'; // Pokaż aktywny <select>
+        defaultSelect.disabled = false;
 
-    	// Jeśli edytujemy znacznik, ustaw wartości na podstawie danych znacznika
+        // Jeśli Select2 już istnieje, odśwież widok wybranej opcji
+        if ($(defaultSelect).data('select2')) {
+            $(defaultSelect).val('default').trigger('change.select2'); // Ustaw wartość i odśwież
+        } else {
+            // Inicjalizacja Select2 z domyślną funkcją formatowania
+            $(defaultSelect).select2({
+                templateResult: formatIcon,
+                templateSelection: formatIcon,
+                minimumResultsForSearch: -1,
+                dropdownCssClass: 'custom-dropdown'
+            });
+            $(defaultSelect).val('default').trigger('change.select2');
+        }
 
-		// Obsługa dla istniejącego znacznika (edycja)
-		if (markerToEdit) {
-    		const activeSelect = document.getElementById(`markerIcon${markerToEdit.iconType}`);
-    		if (activeSelect) {
-        		activeSelect.value = markerToEdit.iconType;
-        		activeSelect.style.display = 'block'; // Pokaż aktywny <select>
-        		activeSelect.disabled = false;
+        // Pokaż kontener Select2
+        const defaultSelect2Container = $(defaultSelect).next('.select2-container');
+        defaultSelect2Container.show();
+    }
 
-        		$(activeSelect).select2({
-            		templateResult: formatIcon,
-            		templateSelection: formatIcon,
-            		minimumResultsForSearch: -1,
-            		dropdownCssClass: 'custom-dropdown'
-        		});
+    // Ustawianie znaczników dla edycji
+    if (markerToEdit) {
+        const activeSelect = document.getElementById(`markerIcon${markerToEdit.iconType}`);
+        if (activeSelect) {
+            activeSelect.value = markerToEdit.iconType;
+            activeSelect.style.display = 'block';
+            activeSelect.disabled = false;
 
-        		const activeSelect2Container = $(activeSelect).next('.select2-container');
-        		activeSelect2Container.show(); // Pokaż kontener Select2
-    		}
-            
-		}  
-    
-    	addMarkerButton.textContent = markerToEdit ? "Zapisz zmiany" : "Dodaj znacznik";
-    	deleteMarkerButton.style.display = markerToEdit ? 'block' : 'none';
+            $(activeSelect).select2({
+                templateResult: formatIcon,
+                templateSelection: formatIcon,
+                minimumResultsForSearch: -1,
+                dropdownCssClass: 'custom-dropdown'
+            });
 
-    	dialog.style.display = 'block';
-    	overlay.style.display = 'block';
-	}
+            const activeSelect2Container = $(activeSelect).next('.select2-container');
+            activeSelect2Container.show();
+        }
+    }
+
+    addMarkerButton.textContent = markerToEdit ? "Zapisz zmiany" : "Dodaj znacznik";
+    deleteMarkerButton.style.display = markerToEdit ? 'block' : 'none';
+
+    dialog.style.display = 'block';
+    overlay.style.display = 'block';
+}
+
 
 
 
@@ -1070,7 +1080,7 @@ $(document).ready(function() {
         addMarker(20, -41, icons.miasto3, 'Tharbad', 'miasto');
         
         
-//BACKGROUND       
+//BACKEND     
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
     		e.preventDefault();
     		const username = e.target.username.value;
