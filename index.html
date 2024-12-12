@@ -300,7 +300,7 @@
         width: -webkit-fill-available;
 	}
 
-	#togglePasswordVisibility {
+	#togglePasswordVisibilityRegister, #togglePasswordVisibilityLogin {
     	position: absolute;
     	right: 10px;
     	top: 50%;
@@ -310,7 +310,7 @@
     	cursor: pointer;
 	}
 
-	#togglePasswordVisibility i {
+	#togglePasswordVisibilityRegister i, #togglePasswordVisibilityLogin i {
     	font-size: 20px;
 	}
 
@@ -331,9 +331,9 @@
         		<form id="registerForm">
     				<input type="text" name="username" placeholder="Username" required />
                     <div class="password-container">
-    					<input type="password" name="password" placeholder="Password" required id="passwordField"/>
-                    	<button type="button" id="togglePasswordVisibility">
-            				<i id="eyeIcon" class="fa fa-eye-slash"></i> <!-- Ikona oka -->
+    					<input type="password" name="password" placeholder="Password" required id="passwordFieldRegister"/>
+                    	<button type="button" id="togglePasswordVisibilityRegister">
+            				<i id="eyeIconRegister" class="fa fa-eye-slash"></i> <!-- Ikona oka -->
         				</button>
                     </div>
     				<button type="submit" class="register-btn">Register</button>
@@ -341,9 +341,9 @@
             	<form id="loginForm">
     				<input type="text" name="username" placeholder="Username" required />
                     <div class="password-container">
-    					<input type="password" name="password" placeholder="Password" required id="passwordField"/>
-    					<button type="button" id="togglePasswordVisibility">
-            				<i id="eyeIcon" class="fa fa-eye-slash"></i> <!-- Ikona oka -->
+    					<input type="password" name="password" placeholder="Password" required id="passwordFieldLogin"/>
+    					<button type="button" id="togglePasswordVisibilityLogin">
+            				<i id="eyeIconLogin" class="fa fa-eye-slash"></i> <!-- Ikona oka -->
         				</button>
                     </div>
                     <button type="submit" class="login-btn">Login</button>
@@ -1219,22 +1219,30 @@ function openDialog(lat, lng, markerToEdit = null) {
     		console.log(data); // Przetwórz dane z odpowiedzi
 	});
     
-    document.getElementById('togglePasswordVisibility').addEventListener('click', function () {
-    	const passwordField = document.getElementById('passwordField');
-    	const eyeIcon = document.getElementById('eyeIcon');
-    
-    	// Przełącz typ pola
-    	if (passwordField.type === 'password') {
-        	passwordField.type = 'text'; // Ustaw widoczność hasła
-        	eyeIcon.classList.remove('fa-eye-slash');
-        	eyeIcon.classList.add('fa-eye'); // Zmień ikonę
-    	} else {
-        	passwordField.type = 'password'; // Ukryj hasło
-        	eyeIcon.classList.remove('fa-eye');
-        	eyeIcon.classList.add('fa-eye-slash'); // Zmień ikonę
-    	}
-	});
+    // Funkcja do obsługi widoczności hasła
+	function setupPasswordToggle(passwordFieldId, toggleButtonId, eyeIconId) {
+    	const passwordField = document.getElementById(passwordFieldId);
+    	const toggleButton = document.getElementById(toggleButtonId);
+    	const eyeIcon = document.getElementById(eyeIconId);
 
+    	toggleButton.addEventListener('click', function () {
+        	if (passwordField.type === 'password') {
+            	passwordField.type = 'text'; // Ustaw widoczność hasła
+            	eyeIcon.classList.remove('fa-eye-slash');
+            	eyeIcon.classList.add('fa-eye'); // Zmień ikonę
+        	} else {
+            	passwordField.type = 'password'; // Ukryj hasło
+            	eyeIcon.classList.remove('fa-eye');
+            	eyeIcon.classList.add('fa-eye-slash'); // Zmień ikonę
+        	}
+    	});
+	}
+
+	// Zastosowanie funkcji dla rejestracji
+	setupPasswordToggle('passwordFieldRegister', 'togglePasswordVisibilityRegister', 'eyeIconRegister');
+
+	// Zastosowanie funkcji dla logowania
+	setupPasswordToggle('passwordFieldLogin', 'togglePasswordVisibilityLogin', 'eyeIconLogin');
 
     </script>
 </body>
