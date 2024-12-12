@@ -50,7 +50,7 @@
     		justify-content: center; /* Wyśrodkowanie przycisków */
     		gap: 10px; /* Odstęp między przyciskami */
 		}
-        #menu .login-btn, #menu .register-btn {
+        #menu .login-btn, #menu .register-btn, #menu .logout-btn {
             	display: block;
 		flex: none;
             	margin: 0 auto 10px;
@@ -316,6 +316,7 @@
     				<input type="password" name="password" placeholder="Password" required />
     				<button type="submit" class="login-btn">Login</button>
 			</form>
+            <button id="logoutButton" class="logout-btn" style="display: none;">Logout</button>
         	</div>
         	<div class="menu-section">
         		<ul>
@@ -499,7 +500,7 @@
                 popupAnchor: [0, -31],
                 shadowUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/robocze/default-shadow.png',
                 shadowSize: [31, 31],
-		shadowAnchor: [11, 31]
+    			shadowAnchor: [11, 31]
             }),
             	miasto1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
             	miasto2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
@@ -1125,6 +1126,18 @@ function openDialog(lat, lng, markerToEdit = null) {
 		});
         
         
+        document.getElementById('logoutButton').addEventListener('click', () => {
+    		// Usuń token z localStorage
+    		localStorage.removeItem('token');
+
+    		// Opcjonalnie wyczyść inne dane użytkownika
+    		alert('Logged out successfully!');
+
+    		// Przekieruj użytkownika na stronę logowania lub odśwież
+    		window.location.href = '/login.html'; // Dostosuj do swojej ścieżki
+		});
+        
+        
         async function fetchWithAuth(url, options = {}) {
     		const token = localStorage.getItem('token'); // Pobierz token z localStorage
     		if (!options.headers) options.headers = {};
@@ -1136,6 +1149,15 @@ function openDialog(lat, lng, markerToEdit = null) {
         		localStorage.removeItem('token');
     		}
     		return response.json();
+		}
+        
+        const token = localStorage.getItem('token');
+			if (!token) {
+    			document.getElementById('protectedDataButton').style.display = 'none';
+    			document.getElementById('logoutButton').style.display = 'none';
+		} else {
+    			document.getElementById('protectedDataButton').style.display = 'block';
+    			document.getElementById('logoutButton').style.display = 'block';
 		}
 
 		// Przykład użycia:
