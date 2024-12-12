@@ -1107,13 +1107,13 @@ function openDialog(lat, lng, markerToEdit = null) {
     		if (!token) {
         		document.getElementById('protectedDataButton').style.display = 'none';
         		document.getElementById('logoutButton').style.display = 'none';
-        		document.getElementById('loginButton').style.display = 'block'; // Zabezpiecz również przycisk logowania
-        		document.getElementById('registerButton').style.display = 'block'; // I przycisk rejestracji
+        		document.getElementById('loginForm').style.display = 'block'; // Zabezpiecz również przycisk logowania
+        		document.getElementById('registerForm').style.display = 'block'; // I przycisk rejestracji
     		} else {
         		document.getElementById('protectedDataButton').style.display = 'block';
         		document.getElementById('logoutButton').style.display = 'block';
-        		document.getElementById('loginButton').style.display = 'none';
-        		document.getElementById('registerButton').style.display = 'none';
+        		document.getElementById('loginForm').style.display = 'none';
+        		document.getElementById('registerForm').style.display = 'none';
     		}
 	}
 
