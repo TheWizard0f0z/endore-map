@@ -1102,14 +1102,25 @@ function openDialog(lat, lng, markerToEdit = null) {
 	}
         
         // Ukrywanie/wyświetlanie przycisków
-		const token = localStorage.getItem('token');
-			if (!token) {
-    			document.getElementById('protectedDataButton').style.display = 'none';
-    			document.getElementById('logoutButton').style.display = 'none';
-			} else {
-    			document.getElementById('protectedDataButton').style.display = 'block';
-    			document.getElementById('logoutButton').style.display = 'block';
-			}
+	function toggleButtons() {
+    		const token = localStorage.getItem('token');
+    		if (!token) {
+        		document.getElementById('protectedDataButton').style.display = 'none';
+        		document.getElementById('logoutButton').style.display = 'none';
+        		document.getElementById('loginButton').style.display = 'block'; // Zabezpiecz również przycisk logowania
+        		document.getElementById('registerButton').style.display = 'block'; // I przycisk rejestracji
+    		} else {
+        		document.getElementById('protectedDataButton').style.display = 'block';
+        		document.getElementById('logoutButton').style.display = 'block';
+        		document.getElementById('loginButton').style.display = 'none';
+        		document.getElementById('registerButton').style.display = 'none';
+    		}
+	}
+
+	// Event listener, który wywoła toggleButtons po załadowaniu strony
+	document.addEventListener('DOMContentLoaded', () => {
+    		toggleButtons();  // Sprawdź, czy użytkownik jest zalogowany i ustaw przyciski
+	});
         
         // Obsługa formularza rejestracji
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
@@ -1128,6 +1139,7 @@ function openDialog(lat, lng, markerToEdit = null) {
 
 			if (data.message === 'User registered') {
 				alert('Register successfully!');
+				toggleButtons();  // Ustaw przyciski po rejestracji
 			} else {
 				alert('Register failed');
 			}
@@ -1148,7 +1160,9 @@ function openDialog(lat, lng, markerToEdit = null) {
     		const data = await response.json();
     		if (data.token) {
         		localStorage.setItem('token', data.token); // Zapis tokena
+			console.log("Token saved:", data.token);
         		alert('Logged in successfully!');
+			toggleButtons();  // Zaktualizuj widoczność przycisków po zalogowaniu
     		} else {
         		alert('Login failed');
     		}
@@ -1158,19 +1172,17 @@ function openDialog(lat, lng, markerToEdit = null) {
         document.getElementById('logoutButton').addEventListener('click', () => {
     		// Usuń token z localStorage
     		localStorage.removeItem('token');
-
-    		// Opcjonalnie wyczyść inne dane użytkownika
     		alert('Logged out successfully!');
-
+		toggleButtons();  // Zaktualizuj widoczność przycisków po wylogowaniu
     		// Przekieruj użytkownika na stronę logowania lub odśwież
     		window.location.href = '/login.html'; // Dostosuj do swojej ścieżki
 		});
 
-		// Przykład użycia:
-		document.getElementById('protectedDataButton').addEventListener('click', async () => {
+	// Przykład użycia:
+	document.getElementById('protectedDataButton').addEventListener('click', async () => {
     		const data = await fetchWithAuth('https://endore-map.onrender.com/protected');
     		console.log(data); // Przetwórz dane z odpowiedzi
-		});
+	});
 
     </script>
 </body>
