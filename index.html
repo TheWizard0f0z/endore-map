@@ -1140,6 +1140,7 @@ function openDialog(lat, lng, markerToEdit = null) {
 		if (data.message === 'User registered') {
 			alert('Register successfully!');
 			toggleButtons();  // Ustaw przyciski po rejestracji
+			document.getElementById('registerForm').reset(); // Wyczyść formularz po rejestracji
 		} else {
 			alert('Register failed');
 		}
@@ -1163,6 +1164,7 @@ function openDialog(lat, lng, markerToEdit = null) {
 			console.log("Token saved:", data.token);
         		alert('Logged in successfully!');
 			toggleButtons();  // Zaktualizuj widoczność przycisków po zalogowaniu
+			document.getElementById('loginForm').reset(); // Wyczyść formularz po logowaniu
     		} else {
         		alert('Login failed');
     		}
@@ -1174,6 +1176,9 @@ function openDialog(lat, lng, markerToEdit = null) {
     		localStorage.removeItem('token');
     		alert('Logged out successfully!');
 		toggleButtons();  // Zaktualizuj widoczność przycisków po wylogowaniu
+		// Opcjonalnie wyczyść formularze
+    		document.getElementById('loginForm').reset(); // Wyczyść formularz logowania
+    		document.getElementById('registerForm').reset(); // Wyczyść formularz rejestracji
 	});
 
 	// Przykład użycia:
