@@ -1137,13 +1137,13 @@ function openDialog(lat, lng, markerToEdit = null) {
     		const data = await response.json();
     		console.log(data); // Obsłuż odpowiedź
 
-			if (data.message === 'User registered') {
-				alert('Register successfully!');
-				toggleButtons();  // Ustaw przyciski po rejestracji
-			} else {
-				alert('Register failed');
-			}
-		});
+		if (data.message === 'User registered') {
+			alert('Register successfully!');
+			toggleButtons();  // Ustaw przyciski po rejestracji
+		} else {
+			alert('Register failed');
+		}
+	});
         
         // Obsługa formularza logowania
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
@@ -1166,7 +1166,7 @@ function openDialog(lat, lng, markerToEdit = null) {
     		} else {
         		alert('Login failed');
     		}
-		});
+	});
         
         // Obsługa wylogowania
         document.getElementById('logoutButton').addEventListener('click', () => {
@@ -1174,9 +1174,7 @@ function openDialog(lat, lng, markerToEdit = null) {
     		localStorage.removeItem('token');
     		alert('Logged out successfully!');
 		toggleButtons();  // Zaktualizuj widoczność przycisków po wylogowaniu
-    		// Przekieruj użytkownika na stronę logowania lub odśwież
-    		window.location.href = '/'; // Dostosuj do swojej ścieżki
-		});
+	});
 
 	// Przykład użycia:
 	document.getElementById('protectedDataButton').addEventListener('click', async () => {
