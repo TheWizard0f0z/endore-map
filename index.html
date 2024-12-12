@@ -6,6 +6,7 @@
     <title>Mapa z Edytowalnymi Znacznikami</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
             	margin: 0;
@@ -292,6 +293,27 @@
     	.select2-results__option:hover {
     		background-color: #928B76 !important; /* Kolor tła przy najechaniu */
 	}
+    
+    .password-container {
+    	position: relative;
+    	display: inline-block;
+        width: -webkit-fill-available;
+	}
+
+	#togglePasswordVisibility {
+    	position: absolute;
+    	right: 10px;
+    	top: 50%;
+    	transform: translateY(-50%);
+    	background: transparent;
+    	border: none;
+    	cursor: pointer;
+	}
+
+	#togglePasswordVisibility i {
+    	font-size: 20px;
+	}
+
         
     </style>
 </head>
@@ -308,15 +330,25 @@
         	<div class="menu-section">
         		<form id="registerForm">
     				<input type="text" name="username" placeholder="Username" required />
-    				<input type="password" name="password" placeholder="Password" required />
+                    <div class="password-container">
+    					<input type="password" name="password" placeholder="Password" required id="passwordField"/>
+                    	<button type="button" id="togglePasswordVisibility">
+            				<i id="eyeIcon" class="fa fa-eye-slash"></i> <!-- Ikona oka -->
+        				</button>
+                    </div>
     				<button type="submit" class="register-btn">Register</button>
-			</form>
-            		<form id="loginForm">
+				</form>
+            	<form id="loginForm">
     				<input type="text" name="username" placeholder="Username" required />
-    				<input type="password" name="password" placeholder="Password" required />
-    				<button type="submit" class="login-btn">Login</button>
-			</form>
-            <button id="logoutButton" class="logout-btn" style="display: none;">Logout</button>
+                    <div class="password-container">
+    					<input type="password" name="password" placeholder="Password" required id="passwordField"/>
+    					<button type="button" id="togglePasswordVisibility">
+            				<i id="eyeIcon" class="fa fa-eye-slash"></i> <!-- Ikona oka -->
+        				</button>
+                    </div>
+                    <button type="submit" class="login-btn">Login</button>
+				</form>
+            	<button id="logoutButton" class="logout-btn" style="display: none;">Logout</button>
         	</div>
         	<div class="menu-section">
         		<ul>
@@ -1186,6 +1218,23 @@ function openDialog(lat, lng, markerToEdit = null) {
     		const data = await fetchWithAuth('https://endore-map.onrender.com/protected');
     		console.log(data); // Przetwórz dane z odpowiedzi
 	});
+    
+    document.getElementById('togglePasswordVisibility').addEventListener('click', function () {
+    	const passwordField = document.getElementById('passwordField');
+    	const eyeIcon = document.getElementById('eyeIcon');
+    
+    	// Przełącz typ pola
+    	if (passwordField.type === 'password') {
+        	passwordField.type = 'text'; // Ustaw widoczność hasła
+        	eyeIcon.classList.remove('fa-eye-slash');
+        	eyeIcon.classList.add('fa-eye'); // Zmień ikonę
+    	} else {
+        	passwordField.type = 'password'; // Ukryj hasło
+        	eyeIcon.classList.remove('fa-eye');
+        	eyeIcon.classList.add('fa-eye-slash'); // Zmień ikonę
+    	}
+	});
+
 
     </script>
 </body>
