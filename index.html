@@ -1318,7 +1318,7 @@ function openDialog(lat, lng, markerToEdit = null) {
 	// POST /markers Podczas tworzenia nowego znacznika wyślij dane do API
 	async function addMarkerToServer(lat, lng, title, group, iconType) {
     		try {
-        		const response = await fetch('http://localhost:5000/markers', {
+        		const response = await fetch('https://endore-map.onrender.com/markers', {
             			method: 'POST',
             			headers: {
                 			'Content-Type': 'application/json',
@@ -1357,7 +1357,7 @@ function openDialog(lat, lng, markerToEdit = null) {
 	async function updateMarkerOnServer(markerData) {
     		try {
         		const { id, title, group, iconType, marker } = markerData;
-        		const response = await fetch(`http://localhost:5000/markers/${id}`, {
+        		const response = await fetch(`https://endore-map.onrender.com/markers/${id}`, {
             			method: 'PUT',
             			headers: {
                 			'Content-Type': 'application/json',
