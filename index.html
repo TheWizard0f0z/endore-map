@@ -811,34 +811,50 @@ function openDialog(lat, lng, markerToEdit = null) {
 
     		if (!title) {
         		alert("Proszę podać nazwę znacznika.");
-        	return;
+        		return;
     		}
 
     		if (pendingLatLng.markerToEdit) {
         		const markerData = markers.find(m => m.marker === pendingLatLng.markerToEdit.marker);
-        		if (markerData) {
-            			markerData.title = title;
-            			markerData.group = selectedGroup;
-            			markerData.iconType = iconType;
-            			await updateMarkerOnServer(markerData);
+        		if (!markerData) {
+            			console.error("Nie można znaleźć istniejącego znacznika do edycji.");
+            			return;
         		}
+
+        		markerData.title = title;
+        		markerData.group = selectedGroup;
+        		markerData.iconType = iconType;
+
+        		await updateMarkerOnServer(markerData);
     		} else {
         		await addMarkerToServer(pendingLatLng.lat, pendingLatLng.lng, title, selectedGroup, iconType);
     		}
 
     		closeDialog();
-	}
+	}}
 
-        function removeMarker(markerToEdit) {
-            if (confirm("Czy na pewno chcesz usunąć ten znacznik?")) {
-                map.removeLayer(markerToEdit.marker);
-                const index = markers.findIndex(m => m.marker === markerToEdit.marker);
-                if (index !== -1) {
-                    markers.splice(index, 1);
-                }
-                closeDialog();
-            }
-        }
+        // Funkcja usuwająca znacznik
+	function removeMarker(markerToEdit) {
+    		if (!markerToEdit || !markerToEdit.marker) {
+        		console.error("Nie można usunąć znacznika: brak poprawnego obiektu markerToEdit.");
+        		return;
+    		}
+
+    		const markerIndex = markers.findIndex(m => m.marker === markerToEdit.marker);
+    		if (markerIndex === -1) {
+        		console.error("Nie można usunąć znacznika: marker nie istnieje w tablicy.");
+        		return;
+    		}
+
+    		try {
+        		map.removeLayer(markerToEdit.marker);
+        		markers.splice(markerIndex, 1);
+    		} catch (error) {
+        		console.error("Nie udało się usunąć znacznika z mapy:", error);
+    		} finally {
+        		closeDialog();
+    		}
+	}
 
         function toggleMarkers(type, isVisible) {
             markers.forEach(({ marker, iconType }) => {
