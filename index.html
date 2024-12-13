@@ -1216,6 +1216,10 @@ function openDialog(lat, lng, markerToEdit = null) {
         document.getElementById('logoutButton').addEventListener('click', () => {
     		// Usuń token z localStorage
     		localStorage.removeItem('token');
+		// Usuń wszystkie znaczniki użytkownika z mapy
+    		markers.forEach(({ marker }) => map.removeLayer(marker));
+    		// Wyczyść tablicę przechowującą znaczniki użytkownika
+    		markers.length = 0;
     		alert('Logged out successfully!');
 		toggleButtons();  // Zaktualizuj widoczność przycisków po wylogowaniu
 		// Opcjonalnie wyczyść formularze
