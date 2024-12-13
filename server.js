@@ -80,6 +80,7 @@ app.post('/markers', authenticate, async (req, res) => {
         await marker.save();
         res.status(201).json(marker); // Zwraca zapisany znacznik
     } catch (err) {
+        console.error('Error creating marker:', err);
         res.status(400).json({ message: 'Error creating marker', error: err });
     }
 });
@@ -98,6 +99,7 @@ app.put('/markers/:id', authenticate, async (req, res) => {
         if (!marker) return res.status(404).json({ message: 'Marker not found' });
         res.json(marker);
     } catch (err) {
+        console.error('Error updating marker:', err);
         res.status(400).json({ message: 'Error updating marker', error: err });
     }
 });
@@ -110,6 +112,7 @@ app.delete('/markers/:id', authenticate, async (req, res) => {
         if (!marker) return res.status(404).json({ message: 'Marker not found' });
         res.json({ message: 'Marker deleted' });
     } catch (err) {
+        console.error('Error deleting marker:', err);
         res.status(400).json({ message: 'Error deleting marker', error: err });
     }
 });
