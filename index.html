@@ -803,37 +803,31 @@ function openDialog(lat, lng, markerToEdit = null) {
         
         
 // ADDORUPDATEMARKER
-        function addOrUpdateMarker() {
-    const title = markerTitleInput.value.trim();
-    const selectedGroup = document.getElementById('groupSelect').value;
-    const markerIconSelect = document.getElementById(`markerIcon${selectedGroup}`);
-    const iconType = markerIconSelect ? markerIconSelect.value : 'default';
-    const icon = icons[iconType] || icons.default;
+        async function addOrUpdateMarker() {
+    		const title = markerTitleInput.value.trim();
+    		const selectedGroup = document.getElementById('groupSelect').value;
+    		const markerIconSelect = document.getElementById(`markerIcon${selectedGroup}`);
+    		const iconType = markerIconSelect ? markerIconSelect.value : 'default';
 
-    if (!title) {
-        alert("Proszę podać nazwę znacznika.");
-        return;
-    }
+    		if (!title) {
+        		alert("Proszę podać nazwę znacznika.");
+        	return;
+    		}
 
-    if (pendingLatLng.markerToEdit) {
-        const markerData = markers.find(m => m.marker === pendingLatLng.markerToEdit.marker);
-        if (markerData) {
-            markerData.title = title;
-            markerData.iconType = iconType;
-            markerData.marker.setIcon(icon);
-            markerData.marker.setTooltipContent(`<strong>${title}</strong>`);
-        }
-    } else {
-        const marker = L.marker([pendingLatLng.lat, pendingLatLng.lng], { icon }).addTo(map);
-        marker.bindTooltip(`<strong>${title}</strong>`);
-        marker.on('click', () => openDialog(pendingLatLng.lat, pendingLatLng.lng, { marker, title, iconType }));
-        markers.push({ marker, title, iconType });
-    }
+    		if (pendingLatLng.markerToEdit) {
+        		const markerData = markers.find(m => m.marker === pendingLatLng.markerToEdit.marker);
+        		if (markerData) {
+            			markerData.title = title;
+            			markerData.group = selectedGroup;
+            			markerData.iconType = iconType;
+            			await updateMarkerOnServer(markerData);
+        		}
+    		} else {
+        		await addMarkerToServer(pendingLatLng.lat, pendingLatLng.lng, title, selectedGroup, iconType);
+    		}
 
-    closeDialog();
-}
-
-
+    		closeDialog();
+	}
 
         function removeMarker(markerToEdit) {
             if (confirm("Czy na pewno chcesz usunąć ten znacznik?")) {
@@ -1260,7 +1254,7 @@ function openDialog(lat, lng, markerToEdit = null) {
 	// Zastosowanie funkcji dla logowania
 	setupPasswordToggle('passwordFieldLogin', 'togglePasswordVisibilityLogin', 'eyeIconLogin');
 
-	// GET /markers: Pobierz znaczniki dla zalogowanego użytkownika.
+	// GET /markers Pobierz znaczniki dla zalogowanego użytkownika.
 	async function loadMarkers() {
 		document.getElementById('loadingIndicator').style.display = 'block'; // Pokaż wskaźnik ładowania
     		try {
@@ -1321,6 +1315,74 @@ function openDialog(lat, lng, markerToEdit = null) {
 		}
 	}
 
+	// POST /markers Podczas tworzenia nowego znacznika wyślij dane do API
+	async function addMarkerToServer(lat, lng, title, group, iconType) {
+    		try {
+        		const response = await fetch('http://localhost:5000/markers', {
+            			method: 'POST',
+            			headers: {
+                			'Content-Type': 'application/json',
+                			'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            			},
+            			body: JSON.stringify({
+                			title,
+                			group,
+                			iconType,
+                			coordinates: { lat, lng },
+            			}),
+        		});
+
+        		if (!response.ok) {
+            			throw new Error(`Błąd: ${response.statusText}`);
+        		}
+
+        		const newMarker = await response.json();
+        		const icon = icons[iconType] || icons.default;
+        		const marker = L.marker([lat, lng], { icon }).addTo(map);
+        		marker.bindTooltip(`<strong>${title}</strong>`);
+
+        		markers.push({
+            			id: newMarker._id,
+            			marker,
+            			title,
+            			group,
+            			iconType,
+        		});
+    		} catch (error) {
+        		console.error('Nie udało się dodać znacznika:', error);
+    		}
+	}
+
+	// PUT /markers/:id Aktualizacja znacznika na serwerze i mapie
+	async function updateMarkerOnServer(markerData) {
+    		try {
+        		const { id, title, group, iconType, marker } = markerData;
+        		const response = await fetch(`http://localhost:5000/markers/${id}`, {
+            			method: 'PUT',
+            			headers: {
+                			'Content-Type': 'application/json',
+                			'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            			},
+            			body: JSON.stringify({
+                			title,
+                			group,
+                			iconType,
+                			coordinates: marker.getLatLng(),
+            			}),
+        		});
+
+        		if (!response.ok) {
+            			throw new Error(`Błąd: ${response.statusText}`);
+        		}
+
+        		const updatedMarker = await response.json();
+        		const icon = icons[iconType] || icons.default;
+        		marker.setIcon(icon);
+        		marker.setTooltipContent(`<strong>${title}</strong>`);
+    		} catch (error) {
+        		console.error('Nie udało się zaktualizować znacznika:', error);
+    		}
+	}
 
     </script>
 </body>
