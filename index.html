@@ -728,6 +728,8 @@ $(document).ready(function () {
 function openDialog(lat, lng, markerToEdit = null) {
     pendingLatLng = { lat, lng, markerToEdit };
 
+    console.log('Open Dialog:', { lat, lng, markerToEdit });
+
     // Resetuj wszystkie pola do wartości domyślnych
     markerTitleInput.value = ''; // Resetuj nazwę znacznika
     document.getElementById('groupSelect').value = 'Default'; // Resetuj grupę
@@ -767,22 +769,21 @@ function openDialog(lat, lng, markerToEdit = null) {
 
     // Ustawianie znaczników dla edycji
     if (markerToEdit) {
-        const activeSelect = document.getElementById(`markerIcon${markerToEdit.iconType}`);
-        if (activeSelect) {
-            activeSelect.value = markerToEdit.iconType;
-            activeSelect.style.display = 'block';
-            activeSelect.disabled = false;
+    	markerTitleInput.value = markerToEdit.title;
+    	document.getElementById('groupSelect').value = markerToEdit.group;
 
-            $(activeSelect).select2({
-                templateResult: formatIcon,
-                templateSelection: formatIcon,
-                minimumResultsForSearch: -1,
-                dropdownCssClass: 'custom-dropdown'
-            });
+    	const activeSelect = document.getElementById(`markerIcon${markerToEdit.group}`);
+    	if (activeSelect) {
+        	activeSelect.value = markerToEdit.iconType;
 
-            const activeSelect2Container = $(activeSelect).next('.select2-container');
-            activeSelect2Container.show();
-        }
+        	$(activeSelect).select2({
+            		templateResult: formatIcon,
+            		templateSelection: formatIcon,
+            		minimumResultsForSearch: -1,
+            		dropdownCssClass: 'custom-dropdown'
+        	});
+        	$(activeSelect).val(markerToEdit.iconType).trigger('change.select2');
+    	}
     }
 
     addMarkerButton.textContent = markerToEdit ? "Zapisz zmiany" : "Dodaj znacznik";
@@ -815,11 +816,15 @@ function openDialog(lat, lng, markerToEdit = null) {
     		}
 
     		if (pendingLatLng.markerToEdit) {
-        		const markerData = markers.find(m => m.marker === pendingLatLng.markerToEdit.marker);
+        		const markerData = markers.find(m => m.id === pendingLatLng.markerToEdit.id);
         		if (!markerData) {
             			console.error("Nie można znaleźć istniejącego znacznika do edycji.");
             			return;
         		}
+
+			// Dodaj logi
+        		console.log('Marker data (before update):', markerData);
+        		console.log('Pending LatLng (editing):', pendingLatLng);
 
         		markerData.title = title;
         		markerData.group = selectedGroup;
@@ -827,7 +832,10 @@ function openDialog(lat, lng, markerToEdit = null) {
 
         		await updateMarkerOnServer(markerData);
     		} else {
-        		await addMarkerToServer(pendingLatLng.lat, pendingLatLng.lng, title, selectedGroup, iconType);
+			console.log('Pending LatLng (adding):', pendingLatLng);
+        		console.log('New marker details:', { lat: pendingLatLng.lat, lng: pendingLatLng.lng, title, selectedGroup, iconType });
+			
+		        await addMarkerToServer(pendingLatLng.lat, pendingLatLng.lng, title, selectedGroup, iconType);
     		}
 
     		closeDialog();
@@ -1373,6 +1381,16 @@ function openDialog(lat, lng, markerToEdit = null) {
 	async function updateMarkerOnServer(markerData) {
     		try {
         		const { id, title, group, iconType, marker } = markerData;
+
+			// Dodaj logi
+        		console.log('Updating marker on server:', {
+            			id,
+            			title,
+            			group,
+            			iconType,
+            			coordinates: marker.getLatLng(),
+        		});
+			
         		const response = await fetch(`https://endore-map.onrender.com/markers/${id}`, {
             			method: 'PUT',
             			headers: {
@@ -1392,11 +1410,12 @@ function openDialog(lat, lng, markerToEdit = null) {
         		}
 
         		const updatedMarker = await response.json();
+			console.log('Updated marker response:', updatedMarker);
         		const icon = icons[iconType] || icons.default;
         		marker.setIcon(icon);
-        		marker.setTooltipContent(`<strong>${title}</strong>`);
+        		marker.bindTooltip(`<strong>${title}</strong>`).openTooltip();
     		} catch (error) {
-        		console.error('Nie udało się zaktualizować znacznika:', error);
+		        console.error('Nie udało się zaktualizować znacznika:', error);
     		}
 	}
 
