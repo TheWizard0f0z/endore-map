@@ -645,27 +645,27 @@
 
 // SELECT2
     // Funkcja do formatowania opcji w Select2, w tym wyświetlanie ikon
-function formatIcon(option) {
-    if (!option.id) {
-        return option.text; // Jeśli nie ma ID, zwraca tylko tekst
-    }
-    const iconUrl = $(option.element).data('icon'); // Pobranie URL ikony
-    return $('<span>')
-        .append($('<img>', {
-            src: iconUrl,
-            css: {
-                width: '30px', // Ustalamy rozmiar ikony
-                height: '30px',
-                marginRight: '8px',
-                verticalAlign: 'middle',
-                paddingBottom: '2px'
-            }
-        }))
-        .append(option.text);
-}
-
-// Kod w `$(document).ready(...)`
 $(document).ready(function () {
+    // Funkcja do formatowania opcji w Select2, w tym wyświetlanie ikon
+    function formatIcon(option) {
+        if (!option.id) {
+            return option.text; // Jeśli nie ma ID, zwraca tylko tekst
+        }
+        const iconUrl = $(option.element).data('icon'); // Pobranie URL ikony
+        return $('<span>')
+            .append($('<img>', {
+                src: iconUrl,
+                css: {
+                    width: '30px', // Ustalamy rozmiar ikony
+                    height: '30px',
+                    marginRight: '8px',
+                    verticalAlign: 'middle',
+                    paddingBottom: '2px'
+                }
+            }))
+            .append(option.text);
+    }
+
     // Inicjalizacja Select2 dla każdej grupy markerów
     $('.marker-group').each(function () {
         $(this).select2({
@@ -675,8 +675,6 @@ $(document).ready(function () {
             dropdownCssClass: 'custom-dropdown'
         });
     });
-});
-
 
     // Obsługa zmiany opcji w #groupSelect
     document.getElementById('groupSelect').addEventListener('change', function () {
@@ -724,12 +722,11 @@ $(document).ready(function () {
             dropdownCssClass: 'custom-dropdown'
         });
     }
+});
 
 // Funkcja otwierająca dialog
 function openDialog(lat, lng, markerToEdit = null) {
     pendingLatLng = { lat, lng, markerToEdit };
-
-    console.log('Open Dialog:', { lat, lng, markerToEdit });
 
     // Resetuj wszystkie pola do wartości domyślnych
     markerTitleInput.value = ''; // Resetuj nazwę znacznika
@@ -770,21 +767,22 @@ function openDialog(lat, lng, markerToEdit = null) {
 
     // Ustawianie znaczników dla edycji
     if (markerToEdit) {
-    	markerTitleInput.value = markerToEdit.title;
-    	document.getElementById('groupSelect').value = markerToEdit.group;
+        const activeSelect = document.getElementById(`markerIcon${markerToEdit.iconType}`);
+        if (activeSelect) {
+            activeSelect.value = markerToEdit.iconType;
+            activeSelect.style.display = 'block';
+            activeSelect.disabled = false;
 
-    	const activeSelect = document.getElementById(`markerIcon${markerToEdit.group}`);
-    	if (activeSelect) {
-        	activeSelect.value = markerToEdit.iconType;
+            $(activeSelect).select2({
+                templateResult: formatIcon,
+                templateSelection: formatIcon,
+                minimumResultsForSearch: -1,
+                dropdownCssClass: 'custom-dropdown'
+            });
 
-        	$(activeSelect).select2({
-            		templateResult: formatIcon,
-            		templateSelection: formatIcon,
-            		minimumResultsForSearch: -1,
-            		dropdownCssClass: 'custom-dropdown'
-        	});
-        	$(activeSelect).val(markerToEdit.iconType).trigger('change.select2');
-    	}
+            const activeSelect2Container = $(activeSelect).next('.select2-container');
+            activeSelect2Container.show();
+        }
     }
 
     addMarkerButton.textContent = markerToEdit ? "Zapisz zmiany" : "Dodaj znacznik";
@@ -805,65 +803,48 @@ function openDialog(lat, lng, markerToEdit = null) {
         
         
 // ADDORUPDATEMARKER
-        async function addOrUpdateMarker() {
-    		const title = markerTitleInput.value.trim();
-    		const selectedGroup = document.getElementById('groupSelect').value;
-    		const markerIconSelect = document.getElementById(`markerIcon${selectedGroup}`);
-    		const iconType = markerIconSelect ? markerIconSelect.value : 'default';
+        function addOrUpdateMarker() {
+    const title = markerTitleInput.value.trim();
+    const selectedGroup = document.getElementById('groupSelect').value;
+    const markerIconSelect = document.getElementById(`markerIcon${selectedGroup}`);
+    const iconType = markerIconSelect ? markerIconSelect.value : 'default';
+    const icon = icons[iconType] || icons.default;
 
-    		if (!title) {
-        		alert("Proszę podać nazwę znacznika.");
-        		return;
-    		}
+    if (!title) {
+        alert("Proszę podać nazwę znacznika.");
+        return;
+    }
 
-    		if (pendingLatLng.markerToEdit) {
-        		const markerData = markers.find(m => m.id === pendingLatLng.markerToEdit.id);
-        		if (!markerData) {
-            			console.error("Nie można znaleźć istniejącego znacznika do edycji.");
-            			return;
-        		}
+    if (pendingLatLng.markerToEdit) {
+        const markerData = markers.find(m => m.marker === pendingLatLng.markerToEdit.marker);
+        if (markerData) {
+            markerData.title = title;
+            markerData.iconType = iconType;
+            markerData.marker.setIcon(icon);
+            markerData.marker.setTooltipContent(`<strong>${title}</strong>`);
+        }
+    } else {
+        const marker = L.marker([pendingLatLng.lat, pendingLatLng.lng], { icon }).addTo(map);
+        marker.bindTooltip(`<strong>${title}</strong>`);
+        marker.on('click', () => openDialog(pendingLatLng.lat, pendingLatLng.lng, { marker, title, iconType }));
+        markers.push({ marker, title, iconType });
+    }
 
-			// Dodaj logi
-        		console.log('Marker data (before update):', markerData);
-        		console.log('Pending LatLng (editing):', pendingLatLng);
+    closeDialog();
+}
 
-        		markerData.title = title;
-        		markerData.group = selectedGroup;
-        		markerData.iconType = iconType;
 
-        		await updateMarkerOnServer(markerData);
-    		} else {
-			console.log('Pending LatLng (adding):', pendingLatLng);
-        		console.log('New marker details:', { lat: pendingLatLng.lat, lng: pendingLatLng.lng, title, selectedGroup, iconType });
-			
-		        await addMarkerToServer(pendingLatLng.lat, pendingLatLng.lng, title, selectedGroup, iconType);
-    		}
 
-    		closeDialog();
-	}
-
-        // Funkcja usuwająca znacznik
-	function removeMarker(markerToEdit) {
-    		if (!markerToEdit || !markerToEdit.marker) {
-        		console.error("Nie można usunąć znacznika: brak poprawnego obiektu markerToEdit.");
-        		return;
-    		}
-
-    		const markerIndex = markers.findIndex(m => m.marker === markerToEdit.marker);
-    		if (markerIndex === -1) {
-        		console.error("Nie można usunąć znacznika: marker nie istnieje w tablicy.");
-        		return;
-    		}
-
-    		try {
-        		map.removeLayer(markerToEdit.marker);
-        		markers.splice(markerIndex, 1);
-    		} catch (error) {
-        		console.error("Nie udało się usunąć znacznika z mapy:", error);
-    		} finally {
-        		closeDialog();
-    		}
-	}
+        function removeMarker(markerToEdit) {
+            if (confirm("Czy na pewno chcesz usunąć ten znacznik?")) {
+                map.removeLayer(markerToEdit.marker);
+                const index = markers.findIndex(m => m.marker === markerToEdit.marker);
+                if (index !== -1) {
+                    markers.splice(index, 1);
+                }
+                closeDialog();
+            }
+        }
 
         function toggleMarkers(type, isVisible) {
             markers.forEach(({ marker, iconType }) => {
@@ -1279,7 +1260,7 @@ function openDialog(lat, lng, markerToEdit = null) {
 	// Zastosowanie funkcji dla logowania
 	setupPasswordToggle('passwordFieldLogin', 'togglePasswordVisibilityLogin', 'eyeIconLogin');
 
-	// GET /markers Pobierz znaczniki dla zalogowanego użytkownika.
+	// GET /markers: Pobierz znaczniki dla zalogowanego użytkownika.
 	async function loadMarkers() {
 		document.getElementById('loadingIndicator').style.display = 'block'; // Pokaż wskaźnik ładowania
     		try {
@@ -1340,85 +1321,6 @@ function openDialog(lat, lng, markerToEdit = null) {
 		}
 	}
 
-	// POST /markers Podczas tworzenia nowego znacznika wyślij dane do API
-	async function addMarkerToServer(lat, lng, title, group, iconType) {
-    		try {
-        		const response = await fetch('https://endore-map.onrender.com/markers', {
-            			method: 'POST',
-            			headers: {
-                			'Content-Type': 'application/json',
-                			'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            			},
-            			body: JSON.stringify({
-                			title,
-                			group,
-                			iconType,
-                			coordinates: { lat, lng },
-            			}),
-        		});
-
-        		if (!response.ok) {
-            			throw new Error(`Błąd: ${response.statusText}`);
-        		}
-
-        		const newMarker = await response.json();
-        		const icon = icons[iconType] || icons.default;
-        		const marker = L.marker([lat, lng], { icon }).addTo(map);
-        		marker.bindTooltip(`<strong>${title}</strong>`);
-
-        		markers.push({
-            			id: newMarker._id,
-            			marker,
-            			title,
-            			group,
-            			iconType,
-        		});
-    		} catch (error) {
-        		console.error('Nie udało się dodać znacznika:', error);
-    		}
-	}
-
-	// PUT /markers/:id Aktualizacja znacznika na serwerze i mapie
-	async function updateMarkerOnServer(markerData) {
-    		try {
-        		const { id, title, group, iconType, marker } = markerData;
-
-			// Dodaj logi
-        		console.log('Updating marker on server:', {
-            			id,
-            			title,
-            			group,
-            			iconType,
-            			coordinates: marker.getLatLng(),
-        		});
-			
-        		const response = await fetch(`https://endore-map.onrender.com/markers/${id}`, {
-            			method: 'PUT',
-            			headers: {
-                			'Content-Type': 'application/json',
-                			'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            			},
-            			body: JSON.stringify({
-                			title,
-                			group,
-                			iconType,
-                			coordinates: marker.getLatLng(),
-            			}),
-        		});
-
-        		if (!response.ok) {
-            			throw new Error(`Błąd: ${response.statusText}`);
-        		}
-
-        		const updatedMarker = await response.json();
-			console.log('Updated marker response:', updatedMarker);
-        		const icon = icons[iconType] || icons.default;
-        		marker.setIcon(icon);
-        		marker.bindTooltip(`<strong>${title}</strong>`).openTooltip();
-    		} catch (error) {
-		        console.error('Nie udało się zaktualizować znacznika:', error);
-    		}
-	}
 
     </script>
 </body>
