@@ -1158,9 +1158,8 @@ function openDialog(lat, lng, markerToEdit = null) {
 		const token = localStorage.getItem('token'); // Pobierz token z localStorage
     		if (token) {
         		loadMarkers(); // 🟢 Wywołaj loadMarkers, aby pobrać znaczniki użytkownika
-    		} else {
-        		addDefaultMarkers(); // Dodaj przykładowe znaczniki, jeśli użytkownik nie jest zalogowany
     		}
+        	addDefaultMarkers(); // Dodaj przykładowe znaczniki, które będą widoczne dla każdego użytkownika
 	});
         
         // Obsługa formularza rejestracji
@@ -1225,6 +1224,8 @@ function openDialog(lat, lng, markerToEdit = null) {
 		// Opcjonalnie wyczyść formularze
     		document.getElementById('loginForm').reset(); // Wyczyść formularz logowania
     		document.getElementById('registerForm').reset(); // Wyczyść formularz rejestracji
+		// Dodaj przykładowe znaczniki z powrotem
+    		addDefaultMarkers();  // Ponownie dodaj przykładowe znaczniki
 	});
 
 	// Przykład użycia:
