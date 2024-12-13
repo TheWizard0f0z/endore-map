@@ -1108,11 +1108,13 @@ function openDialog(lat, lng, markerToEdit = null) {
     		markers.push({ marker, title, iconType, lat, lon: lng });
 	}
 
-        // Example markers
-	addMarker(63, -71, icons.miasto1, 'Bree', 'miasto');
-        addMarker(67, -195, icons.miasto2, 'Ered Luin', 'miasto');
-        addMarker(67, 2, icons.miasto4, 'Rivendell', 'miasto');
-        addMarker(20, -41, icons.miasto3, 'Tharbad', 'miasto');
+        function addDefaultMarkers() {
+    		// Dodaj przykładowe znaczniki, które będą widoczne dla niezalogowanych użytkowników
+    		addMarker(63, -71, icons.miasto1, 'Bree', 'miasto');
+    		addMarker(67, -195, icons.miasto2, 'Ered Luin', 'miasto');
+    		addMarker(67, 2, icons.miasto4, 'Rivendell', 'miasto');
+    		addMarker(20, -41, icons.miasto3, 'Tharbad', 'miasto');
+	}
         
         
 //BACKEND     
@@ -1156,6 +1158,8 @@ function openDialog(lat, lng, markerToEdit = null) {
 		const token = localStorage.getItem('token'); // Pobierz token z localStorage
     		if (token) {
         		loadMarkers(); // 🟢 Wywołaj loadMarkers, aby pobrać znaczniki użytkownika
+    		} else {
+        		addDefaultMarkers(); // Dodaj przykładowe znaczniki, jeśli użytkownik nie jest zalogowany
     		}
 	});
         
@@ -1259,8 +1263,7 @@ function openDialog(lat, lng, markerToEdit = null) {
         
         		// Upewnij się, że token istnieje
         		if (!token) {
-            			console.error('Brak tokena uwierzytelniającego');
-            			return;
+            			throw new Error('Brak tokena uwierzytelniającego');
         		}
 
         		// Wykonaj żądanie GET do endpointa /markers
