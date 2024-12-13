@@ -645,27 +645,27 @@
 
 // SELECT2
     // Funkcja do formatowania opcji w Select2, w tym wyświetlanie ikon
-$(document).ready(function () {
-    // Funkcja do formatowania opcji w Select2, w tym wyświetlanie ikon
-    function formatIcon(option) {
-        if (!option.id) {
-            return option.text; // Jeśli nie ma ID, zwraca tylko tekst
-        }
-        const iconUrl = $(option.element).data('icon'); // Pobranie URL ikony
-        return $('<span>')
-            .append($('<img>', {
-                src: iconUrl,
-                css: {
-                    width: '30px', // Ustalamy rozmiar ikony
-                    height: '30px',
-                    marginRight: '8px',
-                    verticalAlign: 'middle',
-                    paddingBottom: '2px'
-                }
-            }))
-            .append(option.text);
+function formatIcon(option) {
+    if (!option.id) {
+        return option.text; // Jeśli nie ma ID, zwraca tylko tekst
     }
+    const iconUrl = $(option.element).data('icon'); // Pobranie URL ikony
+    return $('<span>')
+        .append($('<img>', {
+            src: iconUrl,
+            css: {
+                width: '30px', // Ustalamy rozmiar ikony
+                height: '30px',
+                marginRight: '8px',
+                verticalAlign: 'middle',
+                paddingBottom: '2px'
+            }
+        }))
+        .append(option.text);
+}
 
+// Kod w `$(document).ready(...)`
+$(document).ready(function () {
     // Inicjalizacja Select2 dla każdej grupy markerów
     $('.marker-group').each(function () {
         $(this).select2({
@@ -675,6 +675,8 @@ $(document).ready(function () {
             dropdownCssClass: 'custom-dropdown'
         });
     });
+});
+
 
     // Obsługa zmiany opcji w #groupSelect
     document.getElementById('groupSelect').addEventListener('change', function () {
