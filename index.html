@@ -1206,6 +1206,7 @@ function openDialog(lat, lng, markerToEdit = null) {
 			toggleButtons();  // Zaktualizuj widoczność przycisków po zalogowaniu
 			document.getElementById('loginForm').reset(); // Wyczyść formularz po logowaniu
 			await loadMarkers(); // 🟢 Wywołaj funkcję loadMarkers po zalogowaniu
+			addDefaultMarkers(); // 🟢 Dodaj przykładowe znaczniki po zalogowaniu
     		} else {
         		alert('Login failed');
     		}
