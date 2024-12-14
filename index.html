@@ -1268,52 +1268,80 @@ function addOrUpdateMarker() {
     		}
         	// addDefaultMarkers(); // Dodaj przykładowe znaczniki, które będą widoczne dla każdego użytkownika
 	});
+
+	// Ogólne funkcje pomocnicze
+	function showLoading(message = 'Ładowanie...') {
+    		document.getElementById('loadingIndicator').innerText = message;
+    	document.getElementById('loadingOverlay').style.display = 'block';
+	}
+
+	function hideLoading() {
+    	document.getElementById('loadingIndicator').innerText = 'Ładowanie...';
+    	document.getElementById('loadingOverlay').style.display = 'none';
+	}
         
         // Obsługa formularza rejestracji
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
     		e.preventDefault();
 
-		document.getElementById('loadingOverlay').style.display = 'block';
-		document.getElementById('loadingIndicator').innerText = 'Uruchamianie aplikacji, proszę czekać...';
-		
-    		const username = e.target.username.value;
-    		const password = e.target.password.value;
+    		// Pobranie danych wejściowych
+    		const username = e.target.username.value.trim();
+    		const password = e.target.password.value.trim();
+
+    		// Walidacja danych wejściowych
+    		if (!username || !password) {
+        		alert('Username and password cannot be empty.');
+        		return;
+    		}
+
+    		if (password.length < 6) {
+        		alert('Password must be at least 6 characters long.');
+        		return;
+    		}
+
+    		showLoading('Uruchamianie aplikacji, proszę czekać...');
 
     		try {
-			const response = await fetch('https://endore-map.onrender.com/auth/register', {
-        			method: 'POST',
-        			headers: { 'Content-Type': 'application/json' },
-        			body: JSON.stringify({ username, password }),
-    			});
+        		const response = await fetch('https://endore-map.onrender.com/auth/register', {
+            		method: 'POST',
+            		headers: { 'Content-Type': 'application/json' },
+            		body: JSON.stringify({ username, password }),
+        		});
 
-    			const data = await response.json();
-    			console.log(data); // Obsłuż odpowiedź
+        		const data = await response.json();
 
-			if (data.message === 'User registered') {
-				alert('Register successfully!');
-				toggleButtons();  // Ustaw przyciski po rejestracji
-				document.getElementById('registerForm').reset(); // Wyczyść formularz po rejestracji
-			} else {
-				alert('Register failed');
-			}
-		} catch (error) {
-			console.error('Error during register:', error);
-			alert('An error occurred while register. Please try again.');
-		} finally {
-			document.getElementById('loadingIndicator').innerText = 'Ładowanie...';
-			document.getElementById('loadingOverlay').style.display = 'none';
-		}
+        		if (response.ok && data.message === 'User registered') {
+            			alert('Registration successful! You can now log in.');
+            			toggleButtons(); // Aktualizacja widoczności przycisków
+            			document.getElementById('registerForm').reset(); // Wyczyść formularz
+        		} else if (data.message === 'User already exists') {
+            			alert('The username is already taken. Please choose another one.');
+        		} else {
+            			alert(`Registration failed: ${data.message || 'Unknown error'}`);
+        		}
+    		} catch (error) {
+        		console.error('Error during registration:', error);
+        		alert('An error occurred while registering. Please try again.');
+    		} finally {
+        		hideLoading();
+    		}
 	});
+
         
         // Obsługa formularza logowania
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
     		e.preventDefault();
-
-		document.getElementById('loadingOverlay').style.display = 'block';
-		document.getElementById('loadingIndicator').innerText = 'Uruchamianie aplikacji, proszę czekać...';
 		
     		const username = e.target.username.value;
     		const password = e.target.password.value;
+
+		// Walidacja danych wejściowych
+    		if (!username || !password) {
+        		alert('Username and password cannot be empty.');
+        		return;
+    		}
+
+		showLoading('Uruchamianie aplikacji, proszę czekać...');
 
     		try {
 			const response = await fetch('https://endore-map.onrender.com/auth/login', {
@@ -1321,6 +1349,19 @@ function addOrUpdateMarker() {
         			headers: { 'Content-Type': 'application/json' },
         			body: JSON.stringify({ username, password }),
     			});
+
+			if (!response.ok) {
+            			// Obsługa odpowiedzi błędnych
+            			const errorData = await response.json();
+            			if (response.status === 401) {
+                			alert('Invalid username or password. Please try again.');
+            			} else if (response.status === 404) {
+                			alert('User not found. Please register or check your username.');
+            			} else {
+                			alert(`Login failed: ${errorData.message || 'Unknown error'}`);
+            			}
+            			return;
+        		}
 
     			const data = await response.json();
 			
@@ -1331,15 +1372,12 @@ function addOrUpdateMarker() {
 				toggleButtons();  // Zaktualizuj widoczność przycisków po zalogowaniu
 				document.getElementById('loginForm').reset(); // Wyczyść formularz po logowaniu
 				await loadMarkers(); // 🟢 Wywołaj funkcję loadMarkers po zalogowaniu
-    			} else {
-        			alert('Login failed');
     			}
 		} catch (error) {
 			console.error('Error during login:', error);
 			alert('An error occurred while logging in. Please try again.');
 		} finally {
-			document.getElementById('loadingIndicator').innerText = 'Ładowanie...';
-			document.getElementById('loadingOverlay').style.display = 'none';
+			hideLoading();
 		}
 	});
         
@@ -1393,8 +1431,7 @@ function addOrUpdateMarker() {
 
 	// GET /markers: Pobierz znaczniki dla zalogowanego użytkownika.
 	async function loadMarkers() {
-		document.getElementById('loadingOverlay').style.display = 'block'; // Pokaż wskaźnik ładowania
-		document.getElementById('loadingIndicator').innerText = 'Ładowanie znaczników, proszę czekać...';
+		showLoading('Ładowanie znaczników, proszę czekać...');
     		try {
         		// Pobierz token z localStorage
         		const token = localStorage.getItem('token');
@@ -1449,8 +1486,7 @@ function addOrUpdateMarker() {
         		console.error('Błąd podczas ładowania znaczników:', error);
         		alert('Nie udało się pobrać znaczników: ' + error.message);
     		} finally {
-			document.getElementById('loadingIndicator').innerText = 'Ładowanie...';
-    			document.getElementById('loadingOverlay').style.display = 'none'; // Ukryj wskaźnik
+			hideLoading();
 		}
 	}
     </script>
