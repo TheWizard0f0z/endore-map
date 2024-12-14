@@ -524,6 +524,9 @@
         L.imageOverlay('https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/mapa.jpg', imageBounds).addTo(map);
         map.fitBounds(imageBounds);
 
+	// Wywołanie funkcji dodającej domyślne markery
+    	addDefaultMarkers();
+
         const markers = [];
         const icons = {
             default: L.icon({
