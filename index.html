@@ -365,7 +365,11 @@
                 		<li><input type="checkbox" id="showMost" checked /> Mosty</li>
                 		<li><input type="checkbox" id="showWoda" checked /> Woda</li>
         		</ul>
-			<label>
+                <label>
+    				<input type="checkbox" id="toggleDefaultMarkersButton" />
+    				Pokaż podstawowe znaczniki
+				</label>
+				<label>
         			<input type="checkbox" id="toggleMarkerTooltips" />
         			Pokaż dymki znaczników
     			</label>
@@ -622,9 +626,6 @@
 		woda: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/woda.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] })
         };
 
-	// Wywołanie funkcji dodającej domyślne markery
-    	addDefaultMarkers();
-
 	    const dialog = document.getElementById('dialog');
 	    const overlay = document.getElementById('overlay');
 	    const markerTitleInput = document.getElementById('markerTitle');
@@ -638,7 +639,7 @@
 	    const showLochCheckbox = document.getElementById('showLoch');
 	    const showMobCheckbox = document.getElementById('showMob');
 	    const showPotworCheckbox = document.getElementById('showPotwor');
-            const showZwierzeCheckbox = document.getElementById('showZwierze');
+        const showZwierzeCheckbox = document.getElementById('showZwierze');
 	    const showSkarbCheckbox = document.getElementById('showSkarb');
 	    const showZamekCheckbox = document.getElementById('showZamek');
 	    const showMostCheckbox = document.getElementById('showMost');
@@ -1149,14 +1150,51 @@ function addOrUpdateMarker() {
     		// Dodanie znacznika do tablicy
     		markers.push({ marker, title, iconType, lat, lon: lng });
 	}
+    
+    
+    
 
-        function addDefaultMarkers() {
-    		// Dodaj przykładowe znaczniki, które będą widoczne dla niezalogowanych użytkowników
-    		addMarker(63, -71, icons.miasto1, 'Bree', 'miasto');
-    		addMarker(67, -195, icons.miasto2, 'Ered Luin', 'miasto');
-    		addMarker(67, 2, icons.miasto4, 'Rivendell', 'miasto');
-    		addMarker(20, -41, icons.miasto3, 'Tharbad', 'miasto');
-	}
+        const defaultMarkersData = [
+    		{ lat: 63, lng: -71, icon: icons.miasto1, title: 'Bree', iconType: 'miasto' },
+    		{ lat: 67, lng: -195, icon: icons.miasto2, title: 'Ered Luin', iconType: 'miasto' },
+    		{ lat: 67, lng: 2, icon: icons.miasto4, title: 'Rivendell', iconType: 'miasto' },
+            { lat: 20, lng: -41, icon: icons.miasto3, title: 'Tharbad', iconType: 'miasto' }
+    		// Dodaj więcej markerów, jeśli potrzeba
+		];
+        
+        let defaultMarkers = []; // Tablica przechowująca domyślne markery
+
+		// Funkcja dodająca domyślne markery
+		function addDefaultMarkers() {
+    		defaultMarkers = defaultMarkersData.map(data => {
+        		addMarker(data.lat, data.lng, data.icon, data.title, data.iconType);
+        		return data; // Dodaj dane do tablicy defaultMarkers
+    		});
+		}
+
+		// Funkcja usuwająca domyślne markery
+		function removeDefaultMarkers() {
+    		defaultMarkers.forEach(markerData => {
+        		const markerToRemove = markers.find(m => 
+            		m.lat === markerData.lat && 
+            		m.lon === markerData.lng && 
+            		m.title === markerData.title
+        		);
+        		if (markerToRemove) {
+            		map.removeLayer(markerToRemove.marker); // Usuń marker z mapy
+            		markers.splice(markers.indexOf(markerToRemove), 1); // Usuń z tablicy markers
+        		}
+    		});
+    		defaultMarkers = []; // Wyczyść tablicę defaultMarkers
+		}
+        
+        document.getElementById('toggleDefaultMarkersButton').addEventListener('change', (e) => {
+    		if (e.target.checked) {
+        		addDefaultMarkers(); // Dodaj domyślne markery
+    		} else {
+        		removeDefaultMarkers(); // Usuń domyślne markery
+    		}
+		});
         
         
 //BACKEND     
@@ -1201,7 +1239,7 @@ function addOrUpdateMarker() {
     		if (token) {
         		loadMarkers(); // 🟢 Wywołaj loadMarkers, aby pobrać znaczniki użytkownika
     		}
-        	addDefaultMarkers(); // Dodaj przykładowe znaczniki, które będą widoczne dla każdego użytkownika
+        	// addDefaultMarkers(); // Dodaj przykładowe znaczniki, które będą widoczne dla każdego użytkownika
 	});
         
         // Obsługa formularza rejestracji
@@ -1248,7 +1286,7 @@ function addOrUpdateMarker() {
 			toggleButtons();  // Zaktualizuj widoczność przycisków po zalogowaniu
 			document.getElementById('loginForm').reset(); // Wyczyść formularz po logowaniu
 			await loadMarkers(); // 🟢 Wywołaj funkcję loadMarkers po zalogowaniu
-			addDefaultMarkers(); // 🟢 Dodaj przykładowe znaczniki po zalogowaniu
+			// addDefaultMarkers(); // 🟢 Dodaj przykładowe znaczniki po zalogowaniu
     		} else {
         		alert('Login failed');
     		}
@@ -1268,7 +1306,7 @@ function addOrUpdateMarker() {
     		document.getElementById('loginForm').reset(); // Wyczyść formularz logowania
     		document.getElementById('registerForm').reset(); // Wyczyść formularz rejestracji
 		// Dodaj przykładowe znaczniki z powrotem
-    		addDefaultMarkers();  // Ponownie dodaj przykładowe znaczniki
+    		// addDefaultMarkers();  // Ponownie dodaj przykładowe znaczniki
 	});
 
 	// Przykład użycia:
