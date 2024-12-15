@@ -865,7 +865,7 @@ function openDialog(lat, lng, markerToEdit = null) {
         
         
 // ADDORUPDATEMARKER
-// Funkcja do dodawania lub aktualizacji znacznika (wykorzystuje powyższe funkcje)
+// Funkcja do dodawania lub aktualizacji znacznika (wykorzystuje loadMarkers())
 async function addOrUpdateMarker() {
     const title = markerTitleInput.value.trim();
     const selectedGroup = document.getElementById('groupSelect').value;
@@ -878,52 +878,34 @@ async function addOrUpdateMarker() {
         return;
     }
 
-    const markerData = {
-        title,
-        group: selectedGroup,
-        iconType,
-        coordinates: {
-            lat: pendingLatLng.lat,
-            lng: pendingLatLng.lng
-        }
-    };
-
     try {
         if (pendingLatLng.markerToEdit) {
-            // Aktualizacja istniejącego znacznika
-            const markerId = pendingLatLng.markerToEdit._id; // Zakładamy, że mamy ID znacznika
-            const updatedMarker = await updateMarkerOnServer(markerId, markerData);
-
-            const markerDataLocal = markers.find(m => m.marker === pendingLatLng.markerToEdit.marker);
-            if (markerDataLocal) {
-                markerDataLocal.title = updatedMarker.title;
-                markerDataLocal.group = updatedMarker.group;
-                markerDataLocal.iconType = updatedMarker.iconType;
-                markerDataLocal.marker.setIcon(icon);
-                markerDataLocal.marker.setTooltipContent(`<strong>${updatedMarker.title}</strong>`);
+            // Wywołaj aktualizację na serwerze
+            const markerData = markers.find(m => m.marker === pendingLatLng.markerToEdit.marker);
+            if (markerData) {
+                await updateMarkerOnServer(markerData._id, { title, group: selectedGroup, iconType, coordinates: markerData.coordinates });
             }
         } else {
-            // Dodawanie nowego znacznika
-            const newMarker = await addMarkerToServer(markerData);
-
-            const marker = L.marker([newMarker.coordinates.lat, newMarker.coordinates.lng], { icon }).addTo(map);
-            marker.bindTooltip(`<strong>${newMarker.title}</strong>`);
-            marker.on('click', () => {
-                const markerDataLocal = markers.find(m => m.marker === marker);
-                if (markerDataLocal) {
-                    openDialog(newMarker.coordinates.lat, newMarker.coordinates.lng, markerDataLocal);
-                }
-            });
-            markers.push({ marker, ...newMarker });
+            // Wywołaj dodanie na serwerze
+            const newMarkerData = {
+                title,
+                group: selectedGroup,
+                iconType,
+                coordinates: { lat: pendingLatLng.lat, lng: pendingLatLng.lng }
+            };
+            await addMarkerToServer(newMarkerData);
         }
 
-        console.log('Znacznik został pomyślnie dodany lub zaktualizowany.');
+        // Po dodaniu lub aktualizacji znacznika odśwież listę znaczników
+        await loadMarkers();
+
     } catch (error) {
-        console.error('Błąd w funkcji addOrUpdateMarker:', error);
-    } finally {
-        closeDialog();
+        console.error('Błąd podczas dodawania lub aktualizowania znacznika:', error);
     }
+
+    closeDialog();
 }
+
 
         function removeMarker(markerToEdit) {
             if (confirm("Czy na pewno chcesz usunąć ten znacznik?")) {
