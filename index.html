@@ -773,7 +773,14 @@ function openDialog(lat, lng, markerToEdit = null) {
     // Sprawdzenie, czy użytkownik jest zalogowany
     const token = localStorage.getItem('token');
     if (!token) {
-        alert("Musisz być zalogowany, aby dodać lub edytować znacznik.");
+        // alert('Musisz być zalogowany, aby dodać lub edytować znacznik.');
+	// Pokaż komunikat w overlay
+	showAlert('Musisz być zalogowany, aby dodać lub edytować znacznik.');
+
+	// Ukryj komunikat po kilku sekundach
+	setTimeout(() => {
+		hideAlert();
+	}, 3000); // Czas wyświetlania komunikatu w milisekundach
         return;  // Zatrzymanie dalszej obsługi otwarcia dialogu
     }
 	
@@ -893,7 +900,14 @@ async function addOrUpdateMarker() {
     const iconType = markerIconSelect ? markerIconSelect.value : 'default';
 
     if (!title) {
-        alert("Proszę podać nazwę znacznika.");
+        alert('Proszę podać nazwę znacznika.');
+	// Pokaż komunikat w overlay
+	showAlert('Proszę podać nazwę znacznika.');
+
+	// Ukryj komunikat po kilku sekundach
+	setTimeout(() => {
+		hideAlert();
+	}, 3000); // Czas wyświetlania komunikatu w milisekundach
         return;
     }
     try {
@@ -916,7 +930,14 @@ async function addOrUpdateMarker() {
         await loadMarkers();
     } catch (error) {
         console.error('❌ Błąd podczas dodawania lub aktualizowania znacznika:', error);
-        alert('Wystąpił błąd: ' + error.message);
+        // alert('Wystąpił błąd: ' + error.message);
+	// Pokaż komunikat w overlay
+	showAlert('Wystąpił błąd: ' + error.message);
+
+	// Ukryj komunikat po kilku sekundach
+	setTimeout(() => {
+		hideAlert();
+	}, 3000); // Czas wyświetlania komunikatu w milisekundach
     }
 
     closeDialog();
@@ -947,7 +968,14 @@ async function addOrUpdateMarker() {
         		console.log("Znacznik został pomyślnie usunięty.");
     		} catch (error) {
         		console.error("Błąd podczas usuwania znacznika:", error);
-        		alert('Nie udało się usunąć znacznika: ' + error.message);
+        		// alert('Nie udało się usunąć znacznika: ' + error.message);
+			// Pokaż komunikat w overlay
+			showAlert('Nie udało się usunąć znacznika: ' + error.message);
+
+			// Ukryj komunikat po kilku sekundach
+			setTimeout(() => {
+				hideAlert();
+			}, 3000); // Czas wyświetlania komunikatu w milisekundach
     		}
 	}
 
@@ -1092,7 +1120,14 @@ async function addOrUpdateMarker() {
     		const y = parseFloat(document.getElementById('lat-input').value);
 
     		if (isNaN(x) || isNaN(y)) {
-        		alert("Proszę wprowadzić poprawne współrzędne.");
+        		// alert('Proszę wprowadzić poprawne współrzędne.');
+			// Pokaż komunikat w overlay
+			showAlert('Proszę wprowadzić poprawne współrzędne.');
+
+			// Ukryj komunikat po kilku sekundach
+			setTimeout(() => {
+				hideAlert();
+			}, 3000); // Czas wyświetlania komunikatu w milisekundach
         		return;
     		}
 
@@ -1162,7 +1197,14 @@ async function addOrUpdateMarker() {
 		const lat = e.latlng.lat;
 		const lng = e.latlng.lng;
 		if (lat < imageBounds[0][0] || lat > imageBounds[1][0] || lng < imageBounds[0][1] || lng > imageBounds[1][1]) {
-			alert("Znacznik można dodać tylko w obszarze mapy.");
+			// alert('Znacznik można dodać tylko w obszarze mapy.');
+			// Pokaż komunikat w overlay
+			showAlert('Znacznik można dodać tylko w obszarze mapy.');
+
+			// Ukryj komunikat po kilku sekundach
+			setTimeout(() => {
+				hideAlert();
+			}, 3000); // Czas wyświetlania komunikatu w milisekundach
 			return;
 		}
 		openDialog(lat, lng);
@@ -1251,13 +1293,27 @@ async function addOrUpdateMarker() {
     		try {
         		const response = await fetch(url, options);
         		if (response.status === 401) {
-            			alert('Nieautoryzowane! Proszę zalogować się ponownie.');
+            			// alert('Nieautoryzowane! Proszę zalogować się ponownie.');
+				// Pokaż komunikat w overlay
+				showAlert('Nieautoryzowane! Proszę zalogować się ponownie.');
+
+				// Ukryj komunikat po kilku sekundach
+				setTimeout(() => {
+					hideAlert();
+				}, 3000); // Czas wyświetlania komunikatu w milisekundach
             			localStorage.removeItem('token');
         		}
         		return response.json();
     		} catch (error) {
         		console.error('Error fetching data:', error);
-        		alert('Wystąpił błąd podczas pobierania danych.');
+        		// alert('Wystąpił błąd podczas pobierania danych.');
+			// Pokaż komunikat w overlay
+			showAlert('Wystąpił błąd podczas pobierania danych.');
+
+			// Ukryj komunikat po kilku sekundach
+			setTimeout(() => {
+				hideAlert();
+			}, 3000); // Czas wyświetlania komunikatu w milisekundach
     		}
 	}
         
@@ -1318,12 +1374,26 @@ async function addOrUpdateMarker() {
 
     		// Walidacja danych wejściowych
     		if (!username || !password) {
-        		alert('Nazwa użytkownika i hasło nie mogą być puste.');
+        		// alert('Nazwa użytkownika i hasło nie mogą być puste.');
+			// Pokaż komunikat w overlay
+			showAlert('Nazwa użytkownika i hasło nie mogą być puste.');
+
+			// Ukryj komunikat po kilku sekundach
+			setTimeout(() => {
+				hideAlert();
+			}, 3000); // Czas wyświetlania komunikatu w milisekundach
         		return;
     		}
 
     		if (password.length < 6) {
-        		alert('Hasło musi mieć co najmniej 6 znaków.');
+        		// alert('Hasło musi mieć co najmniej 6 znaków.');
+			// Pokaż komunikat w overlay
+			showAlert('Hasło musi mieć co najmniej 6 znaków.');
+
+			// Ukryj komunikat po kilku sekundach
+			setTimeout(() => {
+				hideAlert();
+			}, 3000); // Czas wyświetlania komunikatu w milisekundach
         		return;
     		}
 
@@ -1339,17 +1409,45 @@ async function addOrUpdateMarker() {
         		const data = await response.json();
 
         		if (response.ok && data.message === 'User registered') {
-            			alert('Rejestracja udana! Teraz możesz się zalogować.');
+            			// alert('Rejestracja udana! Teraz możesz się zalogować.');
+				// Pokaż komunikat w overlay
+				showAlert('Rejestracja udana! Teraz możesz się zalogować.');
+
+				// Ukryj komunikat po kilku sekundach
+				setTimeout(() => {
+					hideAlert();
+				}, 3000); // Czas wyświetlania komunikatu w milisekundach
             			toggleButtons(); // Aktualizacja widoczności przycisków
             			document.getElementById('registerForm').reset(); // Wyczyść formularz
         		} else if (data.message === 'User already exists') {
-            			alert('Nazwa użytkownika jest już zajęta. Wybierz inną.');
+            			// alert('Nazwa użytkownika jest już zajęta. Wybierz inną.');
+				// Pokaż komunikat w overlay
+				showAlert('Nazwa użytkownika jest już zajęta. Wybierz inną.');
+
+				// Ukryj komunikat po kilku sekundach
+				setTimeout(() => {
+					hideAlert();
+				}, 3000); // Czas wyświetlania komunikatu w milisekundach
         		} else {
-            			alert(`Rejestracja nie powiodła się: ${data.message || 'Unknown error'}`);
+            			// alert(`Rejestracja nie powiodła się: ${data.message || 'Unknown error'}`);
+				// Pokaż komunikat w overlay
+				showAlert(`Rejestracja nie powiodła się: ${data.message || 'Unknown error'}`);
+
+				// Ukryj komunikat po kilku sekundach
+				setTimeout(() => {
+					hideAlert();
+				}, 3000); // Czas wyświetlania komunikatu w milisekundach
         		}
     		} catch (error) {
         		console.error('Błąd podczas rejestracji:', error);
-        		alert('Wystąpił błąd podczas rejestracji. Spróbuj ponownie.');
+        		// alert('Wystąpił błąd podczas rejestracji. Spróbuj ponownie.');
+			// Pokaż komunikat w overlay
+			showAlert('Wystąpił błąd podczas rejestracji. Spróbuj ponownie.');
+
+			// Ukryj komunikat po kilku sekundach
+			setTimeout(() => {
+				hideAlert();
+			}, 3000); // Czas wyświetlania komunikatu w milisekundach
     		} finally {
         		hideLoading();
     		}
@@ -1365,7 +1463,14 @@ async function addOrUpdateMarker() {
 
 		// Walidacja danych wejściowych
     		if (!username || !password) {
-        		alert('Nazwa użytkownika i hasło nie mogą być puste.');
+        		// alert('Nazwa użytkownika i hasło nie mogą być puste.');
+			// Pokaż komunikat w overlay
+			showAlert('Nazwa użytkownika i hasło nie mogą być puste.');
+
+			// Ukryj komunikat po kilku sekundach
+			setTimeout(() => {
+				hideAlert();
+			}, 3000); // Czas wyświetlania komunikatu w milisekundach
         		return;
     		}
 
@@ -1382,11 +1487,32 @@ async function addOrUpdateMarker() {
             			// Obsługa odpowiedzi błędnych
             			const errorData = await response.json();
             			if (response.status === 401) {
-                			alert('Nieprawidłowa nazwa użytkownika lub hasło. Spróbuj ponownie.');
+                			// alert('Nieprawidłowa nazwa użytkownika lub hasło. Spróbuj ponownie.');
+					// Pokaż komunikat w overlay
+					showAlert('Nieprawidłowa nazwa użytkownika lub hasło. Spróbuj ponownie.');
+
+					// Ukryj komunikat po kilku sekundach
+					setTimeout(() => {
+						hideAlert();
+					}, 3000); // Czas wyświetlania komunikatu w milisekundach
             			} else if (response.status === 404) {
-                			alert('Użytkownik nie znaleziony. Proszę się zarejestrować lub sprawdzić nazwę użytkownika.');
+                			// alert('Użytkownik nie znaleziony. Proszę się zarejestrować lub sprawdzić nazwę użytkownika.');
+					// Pokaż komunikat w overlay
+					showAlert('Użytkownik nie znaleziony. Proszę się zarejestrować lub sprawdzić nazwę użytkownika.');
+
+					// Ukryj komunikat po kilku sekundach
+					setTimeout(() => {
+						hideAlert();
+					}, 3000); // Czas wyświetlania komunikatu w milisekundach
             			} else {
-                			alert(`Logowanie nie powiodło się: ${errorData.message || 'Unknown error'}`);
+                			// alert(`Logowanie nie powiodło się: ${errorData.message || 'Unknown error'}`);
+					// Pokaż komunikat w overlay
+					showAlert(`Logowanie nie powiodło się: ${errorData.message || 'Unknown error'}`);
+
+					// Ukryj komunikat po kilku sekundach
+					setTimeout(() => {
+						hideAlert();
+					}, 3000); // Czas wyświetlania komunikatu w milisekundach
             			}
             			return;
         		}
@@ -1396,14 +1522,28 @@ async function addOrUpdateMarker() {
     			if (data.token) {
         			localStorage.setItem('token', data.token); // Zapis tokena
 				console.log("Token saved:", data.token);
-        			alert('Zalogowano pomyślnie!');
+        			// alert('Zalogowano pomyślnie!');\
+				// Pokaż komunikat w overlay
+				showAlert('Zalogowano pomyślnie!');
+
+				// Ukryj komunikat po kilku sekundach
+				setTimeout(() => {
+					hideAlert();
+				}, 3000); // Czas wyświetlania komunikatu w milisekundach
 				toggleButtons();  // Zaktualizuj widoczność przycisków po zalogowaniu
 				document.getElementById('loginForm').reset(); // Wyczyść formularz po logowaniu
 				await loadMarkers(); // 🟢 Wywołaj funkcję loadMarkers po zalogowaniu
     			}
 		} catch (error) {
 			console.error('Error during login:', error);
-			alert('Wystąpił błąd podczas logowania. Spróbuj ponownie.');
+			// alert('Wystąpił błąd podczas logowania. Spróbuj ponownie.');
+			// Pokaż komunikat w overlay
+			showAlert('Wystąpił błąd podczas logowania. Spróbuj ponownie.');
+
+			// Ukryj komunikat po kilku sekundach
+			setTimeout(() => {
+				hideAlert();
+			}, 3000); // Czas wyświetlania komunikatu w milisekundach
 		} finally {
 			hideLoading();
 		}
@@ -1417,7 +1557,14 @@ async function addOrUpdateMarker() {
     		markers.forEach(({ marker }) => map.removeLayer(marker));
     		// Wyczyść tablicę przechowującą znaczniki użytkownika
     		markers.length = 0;
-    		alert('Wylogowano pomyślnie!');
+    		// alert('Wylogowano pomyślnie!');
+		// Pokaż komunikat w overlay
+		showAlert('Wylogowano pomyślnie!');
+
+		// Ukryj komunikat po kilku sekundach
+		setTimeout(() => {
+			hideAlert();
+		}, 3000); // Czas wyświetlania komunikatu w milisekundach
 		toggleButtons();  // Zaktualizuj widoczność przycisków po wylogowaniu
 		// Opcjonalnie wyczyść formularze
     		document.getElementById('loginForm').reset(); // Wyczyść formularz logowania
@@ -1512,7 +1659,14 @@ async function addOrUpdateMarker() {
         		console.log('Znaczniki zostały pomyślnie załadowane');
     		} catch (error) {
         		console.error('Błąd podczas ładowania znaczników:', error);
-        		alert('Nie udało się pobrać znaczników: ' + error.message);
+        		// alert('Nie udało się pobrać znaczników: ' + error.message);
+			// Pokaż komunikat w overlay
+			showAlert('Nie udało się pobrać znaczników: ' + error.message);
+
+			// Ukryj komunikat po kilku sekundach
+			setTimeout(() => {
+				hideAlert();
+			}, 3000); // Czas wyświetlania komunikatu w milisekundach
     		} finally {
 			hideLoading();
 		}
@@ -1544,7 +1698,14 @@ async function addOrUpdateMarker() {
         return newMarker;
     } catch (error) {
         console.error('Błąd podczas dodawania znacznika na serwerze:', error);
-        alert('Nie udało się dodać znacznika: ' + error.message);
+        // alert('Nie udało się dodać znacznika: ' + error.message);
+	// Pokaż komunikat w overlay
+	showAlert('Nie udało się dodać znacznika: ' + error.message);
+
+	// Ukryj komunikat po kilku sekundach
+	setTimeout(() => {
+		hideAlert();
+	}, 3000); // Czas wyświetlania komunikatu w milisekundach
         throw error;
     }
 }
@@ -1576,7 +1737,14 @@ async function addOrUpdateMarker() {
         return updatedMarker;
     } catch (error) {
         console.error('Błąd podczas aktualizacji znacznika na serwerze:', error);
-        alert('Nie udało się zaktualizować znacznika: ' + error.message);
+        // alert('Nie udało się zaktualizować znacznika: ' + error.message);
+	// Pokaż komunikat w overlay
+	showAlert('Nie udało się zaktualizować znacznika: ' + error.message);
+
+	// Ukryj komunikat po kilku sekundach
+	setTimeout(() => {
+		hideAlert();
+	}, 3000); // Czas wyświetlania komunikatu w milisekundach
         throw error;
     }
 }
@@ -1602,10 +1770,24 @@ async function addOrUpdateMarker() {
         }
 
         console.log(`Znacznik o ID ${markerId} został usunięty`);
-        alert('Znacznik został pomyślnie usunięty.');
+        // alert('Znacznik został pomyślnie usunięty.');
+	// Pokaż komunikat w overlay
+	showAlert('Znacznik został pomyślnie usunięty.');
+
+	// Ukryj komunikat po kilku sekundach
+	setTimeout(() => {
+		hideAlert();
+	}, 3000); // Czas wyświetlania komunikatu w milisekundach	
     } catch (error) {
         console.error('Błąd podczas usuwania znacznika:', error);
-        alert('Nie udało się usunąć znacznika: ' + error.message);
+        // alert('Nie udało się usunąć znacznika: ' + error.message);
+	// Pokaż komunikat w overlay
+	showAlert('Nie udało się usunąć znacznika: ' + error.message);
+
+	// Ukryj komunikat po kilku sekundach
+	setTimeout(() => {
+		hideAlert();
+	}, 3000); // Czas wyświetlania komunikatu w milisekundach
     }
 }
 
