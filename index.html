@@ -737,10 +737,10 @@
 	    const showZamekCheckbox = document.getElementById('showZamek');
 	    const showMostCheckbox = document.getElementById('showMost');
 	    const showWodaCheckbox = document.getElementById('showWoda');
-	    const showWodaCheckbox = document.getElementById('showGory');
-	    const showWodaCheckbox = document.getElementById('showWyspa');
-	    const showWodaCheckbox = document.getElementById('showLodka');
-	    const showWodaCheckbox = document.getElementById('showLas');
+	    const showGoryCheckbox = document.getElementById('showGory');
+	    const showWyspaCheckbox = document.getElementById('showWyspa');
+	    const showLodkaCheckbox = document.getElementById('showLodka');
+	    const showLasCheckbox = document.getElementById('showLas');
 	    
         let pendingLatLng = null;
 
@@ -1076,6 +1076,18 @@ async function addOrUpdateMarker() {
         });
 	showWodaCheckbox.addEventListener('change', (e) => {
             toggleMarkers('woda', e.target.checked);
+        });
+	showWodaCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('gory', e.target.checked);
+        });
+	showWodaCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('wyspa', e.target.checked);
+        });
+	showWodaCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('lodka', e.target.checked);
+        });
+	showWodaCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('las', e.target.checked);
         });
 
         deleteMarkerButton.addEventListener('click', () => {
