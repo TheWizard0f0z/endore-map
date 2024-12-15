@@ -661,7 +661,7 @@
 	    const addMarkerButton = document.getElementById('addMarkerButton');
 
 	    // Ukryj lub pokaż przycisk "Dodaj znacznik" w zależności od tokena
-	    if (!localStorage.getItem('token')) {
+	    if (!localStorage.setItem('token', data.token);) {
     		addMarkerButton.style.display = 'none'; // Ukryj przycisk
 	    } else {
     		addMarkerButton.style.display = 'block'; // Pokaż przycisk
@@ -887,7 +887,7 @@ async function addOrUpdateMarker() {
     }
 
     // Sprawdzenie, czy użytkownik jest zalogowany
-    const token = localStorage.getItem('token');
+    const token = localStorage.setItem('token', data.token);
     if (!token) {
         alert("Musisz być zalogowany, aby dodać znacznik.");
         return;
