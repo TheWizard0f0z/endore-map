@@ -865,7 +865,8 @@ function openDialog(lat, lng, markerToEdit = null) {
         
         
 // ADDORUPDATEMARKER
-function addOrUpdateMarker() {
+// Funkcja do dodawania lub aktualizacji znacznika (wykorzystuje powyższe funkcje)
+async function addOrUpdateMarker() {
     const title = markerTitleInput.value.trim();
     const selectedGroup = document.getElementById('groupSelect').value;
     const markerIconSelect = document.getElementById(`markerIcon${selectedGroup}`);
@@ -877,33 +878,52 @@ function addOrUpdateMarker() {
         return;
     }
 
-    if (pendingLatLng.markerToEdit) {
-        const markerData = markers.find(m => m.marker === pendingLatLng.markerToEdit.marker);
-        if (markerData) {
-            markerData.title = title; 
-            markerData.group = selectedGroup; 
-            markerData.iconType = iconType; 
-            markerData.marker.setIcon(icon); 
-            markerData.marker.setTooltipContent(`<strong>${title}</strong>`); 
+    const markerData = {
+        title,
+        group: selectedGroup,
+        iconType,
+        coordinates: {
+            lat: pendingLatLng.lat,
+            lng: pendingLatLng.lng
         }
-    } else {
-        const marker = L.marker([pendingLatLng.lat, pendingLatLng.lng], { icon }).addTo(map);
-        marker.bindTooltip(`<strong>${title}</strong>`);
-        marker.on('click', () => {
-            const markerData = markers.find(m => m.marker === marker); 
-            if (markerData) {
-                openDialog(pendingLatLng.lat, pendingLatLng.lng, markerData); 
+    };
+
+    try {
+        if (pendingLatLng.markerToEdit) {
+            // Aktualizacja istniejącego znacznika
+            const markerId = pendingLatLng.markerToEdit._id; // Zakładamy, że mamy ID znacznika
+            const updatedMarker = await updateMarkerOnServer(markerId, markerData);
+
+            const markerDataLocal = markers.find(m => m.marker === pendingLatLng.markerToEdit.marker);
+            if (markerDataLocal) {
+                markerDataLocal.title = updatedMarker.title;
+                markerDataLocal.group = updatedMarker.group;
+                markerDataLocal.iconType = updatedMarker.iconType;
+                markerDataLocal.marker.setIcon(icon);
+                markerDataLocal.marker.setTooltipContent(`<strong>${updatedMarker.title}</strong>`);
             }
-        });
-        markers.push({ marker, title, iconType, group: selectedGroup }); 
+        } else {
+            // Dodawanie nowego znacznika
+            const newMarker = await addMarkerToServer(markerData);
+
+            const marker = L.marker([newMarker.coordinates.lat, newMarker.coordinates.lng], { icon }).addTo(map);
+            marker.bindTooltip(`<strong>${newMarker.title}</strong>`);
+            marker.on('click', () => {
+                const markerDataLocal = markers.find(m => m.marker === marker);
+                if (markerDataLocal) {
+                    openDialog(newMarker.coordinates.lat, newMarker.coordinates.lng, markerDataLocal);
+                }
+            });
+            markers.push({ marker, ...newMarker });
+        }
+
+        console.log('Znacznik został pomyślnie dodany lub zaktualizowany.');
+    } catch (error) {
+        console.error('Błąd w funkcji addOrUpdateMarker:', error);
+    } finally {
+        closeDialog();
     }
-
-    closeDialog();
 }
-
-
-
-
 
         function removeMarker(markerToEdit) {
             if (confirm("Czy na pewno chcesz usunąć ten znacznik?")) {
@@ -1488,6 +1508,68 @@ function addOrUpdateMarker() {
     		} finally {
 			hideLoading();
 		}
+	}
+
+	// POST /markers: Funkcja do dodawania nowego znacznika na serwerze
+	async function addMarkerToServer(markerData) {
+    		try {
+        		const token = localStorage.getItem('token');
+        		if (!token) {
+            			throw new Error('Brak tokena uwierzytelniającego');
+        		}
+
+        		const response = await fetch('https://endore-map.onrender.com/markers', {
+            			method: 'POST',
+            			headers: {
+                			'Content-Type': 'application/json',
+                			'Authorization': `Bearer ${token}`
+            			},
+            			body: JSON.stringify(markerData)
+        		});
+
+        		if (!response.ok) {
+            			const errorMessage = await response.text();
+            			throw new Error(`Błąd podczas dodawania znacznika: ${response.status} - ${errorMessage}`);
+        		}
+
+        		const newMarker = await response.json();
+        		return newMarker; // Zwracamy nowo dodany znacznik z serwera
+    		} catch (error) {
+        		console.error('Błąd podczas dodawania znacznika na serwerze:', error);
+        		alert('Nie udało się dodać znacznika: ' + error.message);
+        		throw error; // Rzucamy błąd, aby obsłużyć go w funkcji wywołującej
+    		}
+	}
+
+	// PUT /markers:id Funkcja do aktualizacji istniejącego znacznika na serwerze
+	async function updateMarkerOnServer(markerId, markerData) {
+    		try {
+        		const token = localStorage.getItem('token');
+        		if (!token) {
+            			throw new Error('Brak tokena uwierzytelniającego');
+        		}
+
+        		const response = await fetch(`https://endore-map.onrender.com/markers/${markerId}`, {
+            			method: 'PUT',
+            			headers: {
+                			'Content-Type': 'application/json',
+                			'Authorization': `Bearer ${token}`
+            			},
+            			body: JSON.stringify(markerData)
+        		});
+
+        		if (!response.ok) {
+            			const errorMessage = await response.text();
+            			throw new Error(`Błąd podczas aktualizacji znacznika: ${response.status} - ${errorMessage}`);
+        		}
+
+        		const updatedMarker = await response.json();
+        		return updatedMarker; // Zwracamy zaktualizowany znacznik z serwera
+    		} catch (error) {
+        		console.error('Błąd podczas aktualizacji znacznika na serwerze:', error);
+        		alert('Nie udało się zaktualizować znacznika: ' + error.message);
+        		throw error; // Rzucamy błąd, aby obsłużyć go w funkcji wywołującej
+    		}
 	}
     </script>
 </body>
