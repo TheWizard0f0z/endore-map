@@ -408,6 +408,10 @@
                 		<li><input type="checkbox" id="showZamek" checked /> Zamki</li>
                 		<li><input type="checkbox" id="showMost" checked /> Mosty</li>
                 		<li><input type="checkbox" id="showWoda" checked /> Woda</li>
+				<li><input type="checkbox" id="showGory" checked /> Woda</li>
+				<li><input type="checkbox" id="showWyspa" checked /> Woda</li>
+				<li><input type="checkbox" id="showLodka" checked /> Woda</li>
+				<li><input type="checkbox" id="showLas" checked /> Woda</li>
         		</ul>
 			<label>
         			<input type="checkbox" id="toggleMarkerTooltips" />
@@ -449,7 +453,11 @@
         	</select>
         
         	<select id="markerIconDefault" class="marker-group" style="width: 100%; display: block;">
-    			<option value="default" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/default.png">Domyślna</option>
+    			<option value="default1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default1.png">Domyślna</option>
+			<option value="default2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default2.png">Domyślna</option>
+			<option value="default3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default3.png">Domyślna</option>
+			<option value="default4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default4.png">Domyślna</option>
+			<option value="default5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default5.png">Domyślna</option>
         	</select>
 		
         	<select id="markerIconMiasto" class="marker-group" style="width: 100%; display: none;">
@@ -552,9 +560,10 @@
     			<option value="zamek" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/zamek.png">Zamek</option>
     			<option value="most" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/most.png">Most</option>
         		<option value="woda" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/woda.png">Woda</option>
-			<option value="góry" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/góry.png">Góry</option>
+			<option value="gory" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/gory.png">Góry</option>
 			<option value="wyspa" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/wyspa.png">Wyspa</option>
-			<option value="statek" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/łódka.png">Łódka</option>
+			<option value="lodka" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/lodka.png">Łódka</option>
+			<option value="las" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/las.png">Las</option>
 		</select>
         
         	<button id="addMarkerButton">Dodaj znacznik</button>
@@ -573,8 +582,8 @@
 
         const markers = [];
         const icons = {
-            default: L.icon({
-                iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/default.png',
+            default1: L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default1.png',
                 iconSize: [31, 31],
                 iconAnchor: [15, 31],
                 popupAnchor: [0, -31],
@@ -582,6 +591,43 @@
                 shadowSize: [31, 31],
     		shadowAnchor: [11, 31]
             }),
+	    default2: L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default2.png',
+                iconSize: [31, 31],
+                iconAnchor: [15, 31],
+                popupAnchor: [0, -31],
+                shadowUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/robocze/default-shadow.png',
+                shadowSize: [31, 31],
+    		shadowAnchor: [11, 31]
+            }),
+	    default3: L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default3.png',
+                iconSize: [31, 31],
+                iconAnchor: [15, 31],
+                popupAnchor: [0, -31],
+                shadowUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/robocze/default-shadow.png',
+                shadowSize: [31, 31],
+    		shadowAnchor: [11, 31]
+            }),
+	    default4: L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default4.png',
+                iconSize: [31, 31],
+                iconAnchor: [15, 31],
+                popupAnchor: [0, -31],
+                shadowUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/robocze/default-shadow.png',
+                shadowSize: [31, 31],
+    		shadowAnchor: [11, 31]
+            }),
+	    default5: L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default5.png',
+                iconSize: [31, 31],
+                iconAnchor: [15, 31],
+                popupAnchor: [0, -31],
+                shadowUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/robocze/default-shadow.png',
+                shadowSize: [31, 31],
+    		shadowAnchor: [11, 31]
+            }),
+		
             	miasto1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
             	miasto2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
             	miasto3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
@@ -667,9 +713,10 @@
 		zamek: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/zamek.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		most: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/most.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		woda: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/woda.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		góry: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/góry.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		gory: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/gory.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		wyspa: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/wyspa.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		łódka: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/łódka.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] })
+		lodka: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/lodka.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		las: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/las.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] })
         };
 
 	    const dialog = document.getElementById('dialog');
@@ -690,6 +737,10 @@
 	    const showZamekCheckbox = document.getElementById('showZamek');
 	    const showMostCheckbox = document.getElementById('showMost');
 	    const showWodaCheckbox = document.getElementById('showWoda');
+	    const showWodaCheckbox = document.getElementById('showGory');
+	    const showWodaCheckbox = document.getElementById('showWyspa');
+	    const showWodaCheckbox = document.getElementById('showLodka');
+	    const showWodaCheckbox = document.getElementById('showLas');
 	    
         let pendingLatLng = null;
 
