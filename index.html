@@ -667,7 +667,7 @@
 	    const showLochCheckbox = document.getElementById('showLoch');
 	    const showMobCheckbox = document.getElementById('showMob');
 	    const showPotworCheckbox = document.getElementById('showPotwor');
-        const showZwierzeCheckbox = document.getElementById('showZwierze');
+            const showZwierzeCheckbox = document.getElementById('showZwierze');
 	    const showSkarbCheckbox = document.getElementById('showSkarb');
 	    const showZamekCheckbox = document.getElementById('showZamek');
 	    const showMostCheckbox = document.getElementById('showMost');
@@ -1019,23 +1019,6 @@ async function addOrUpdateMarker() {
         
         	const cursorCoordinates = document.getElementById('cursor-coordinates');
 
-/* oryginalna funckja bez pokazywania surowych współrzędnych
-	map.on('mousemove', (e) => {
-    		const lat = e.latlng.lat;
-    		const lng = e.latlng.lng;
-
-    		if (
-        		lat >= imageBounds[0][0] && lat <= imageBounds[1][0] &&
-        		lng >= imageBounds[0][1] && lng <= imageBounds[1][1]
-    		) {
-        		const transformed = transformCoordinates(lat, lng);
-        		cursorCoordinates.textContent = `Współrzędne: (${transformed.x}, ${transformed.y})`;
-    		} else {
-        		cursorCoordinates.textContent = "Współrzędne: (0, 0)";
-    		}
-	});
-*/
-
 		const showRawCoordinatesCheckbox = document.getElementById('showRawCoordinates');
 
 	map.on('mousemove', (e) => {
@@ -1143,7 +1126,7 @@ async function addOrUpdateMarker() {
 		});
         
         const menu = document.getElementById('menu');
-		const toggleButton = document.getElementById('toggle-menu-button');
+	const toggleButton = document.getElementById('toggle-menu-button');
     	const zoomButton = document.querySelector('.leaflet-left');
 
 	// Flaga określająca, czy menu jest widoczne
@@ -1208,9 +1191,9 @@ async function addOrUpdateMarker() {
     		{ lat: 63, lng: -71, icon: icons.miasto1, title: 'Bree', iconType: 'miasto' },
     		{ lat: 67, lng: -195, icon: icons.miasto2, title: 'Ered Luin', iconType: 'miasto' },
     		{ lat: 67, lng: 2, icon: icons.miasto4, title: 'Rivendell', iconType: 'miasto' },
-            { lat: 20, lng: -41, icon: icons.miasto3, title: 'Tharbad', iconType: 'miasto' }
+            	{ lat: 20, lng: -41, icon: icons.miasto3, title: 'Tharbad', iconType: 'miasto' }
     		// Dodaj więcej markerów, jeśli potrzeba
-		];
+	];
         
         let defaultMarkers = []; // Tablica przechowująca domyślne markery
 
@@ -1256,13 +1239,13 @@ async function addOrUpdateMarker() {
     		try {
         		const response = await fetch(url, options);
         		if (response.status === 401) {
-            			alert('Unauthorized! Please log in again.');
+            			alert('Nieautoryzowane! Proszę zalogować się ponownie.');
             			localStorage.removeItem('token');
         		}
         		return response.json();
     		} catch (error) {
         		console.error('Error fetching data:', error);
-        		alert('There was an error fetching the data.');
+        		alert('Wystąpił błąd podczas pobierania danych.');
     		}
 	}
         
@@ -1294,7 +1277,7 @@ async function addOrUpdateMarker() {
 
 	// Ogólne funkcje pomocnicze
 	function showLoading(message = 'Ładowanie...') {
-    		document.getElementById('loadingIndicator').innerText = message;
+    	document.getElementById('loadingIndicator').innerText = message;
     	document.getElementById('loadingOverlay').style.display = 'block';
 	}
 
@@ -1313,12 +1296,12 @@ async function addOrUpdateMarker() {
 
     		// Walidacja danych wejściowych
     		if (!username || !password) {
-        		alert('Username and password cannot be empty.');
+        		alert('Nazwa użytkownika i hasło nie mogą być puste.');
         		return;
     		}
 
     		if (password.length < 6) {
-        		alert('Password must be at least 6 characters long.');
+        		alert('Hasło musi mieć co najmniej 6 znaków.');
         		return;
     		}
 
@@ -1334,17 +1317,17 @@ async function addOrUpdateMarker() {
         		const data = await response.json();
 
         		if (response.ok && data.message === 'User registered') {
-            			alert('Registration successful! You can now log in.');
+            			alert('Rejestracja udana! Teraz możesz się zalogować.');
             			toggleButtons(); // Aktualizacja widoczności przycisków
             			document.getElementById('registerForm').reset(); // Wyczyść formularz
         		} else if (data.message === 'User already exists') {
-            			alert('The username is already taken. Please choose another one.');
+            			alert('Nazwa użytkownika jest już zajęta. Wybierz inną.');
         		} else {
-            			alert(`Registration failed: ${data.message || 'Unknown error'}`);
+            			alert(`Rejestracja nie powiodła się: ${data.message || 'Unknown error'}`);
         		}
     		} catch (error) {
-        		console.error('Error during registration:', error);
-        		alert('An error occurred while registering. Please try again.');
+        		console.error('Błąd podczas rejestracji:', error);
+        		alert('Wystąpił błąd podczas rejestracji. Spróbuj ponownie.');
     		} finally {
         		hideLoading();
     		}
@@ -1360,7 +1343,7 @@ async function addOrUpdateMarker() {
 
 		// Walidacja danych wejściowych
     		if (!username || !password) {
-        		alert('Username and password cannot be empty.');
+        		alert('Nazwa użytkownika i hasło nie mogą być puste.');
         		return;
     		}
 
@@ -1377,11 +1360,11 @@ async function addOrUpdateMarker() {
             			// Obsługa odpowiedzi błędnych
             			const errorData = await response.json();
             			if (response.status === 401) {
-                			alert('Invalid username or password. Please try again.');
+                			alert('Nieprawidłowa nazwa użytkownika lub hasło. Spróbuj ponownie.');
             			} else if (response.status === 404) {
-                			alert('User not found. Please register or check your username.');
+                			alert('Użytkownik nie znaleziony. Proszę się zarejestrować lub sprawdzić nazwę użytkownika.');
             			} else {
-                			alert(`Login failed: ${errorData.message || 'Unknown error'}`);
+                			alert(`Logowanie nie powiodło się: ${errorData.message || 'Unknown error'}`);
             			}
             			return;
         		}
@@ -1391,14 +1374,14 @@ async function addOrUpdateMarker() {
     			if (data.token) {
         			localStorage.setItem('token', data.token); // Zapis tokena
 				console.log("Token saved:", data.token);
-        			alert('Logged in successfully!');
+        			alert('Zalogowano pomyślnie!');
 				toggleButtons();  // Zaktualizuj widoczność przycisków po zalogowaniu
 				document.getElementById('loginForm').reset(); // Wyczyść formularz po logowaniu
 				await loadMarkers(); // 🟢 Wywołaj funkcję loadMarkers po zalogowaniu
     			}
 		} catch (error) {
 			console.error('Error during login:', error);
-			alert('An error occurred while logging in. Please try again.');
+			alert('Wystąpił błąd podczas logowania. Spróbuj ponownie.');
 		} finally {
 			hideLoading();
 		}
@@ -1412,7 +1395,7 @@ async function addOrUpdateMarker() {
     		markers.forEach(({ marker }) => map.removeLayer(marker));
     		// Wyczyść tablicę przechowującą znaczniki użytkownika
     		markers.length = 0;
-    		alert('Logged out successfully!');
+    		alert('Wylogowano pomyślnie!');
 		toggleButtons();  // Zaktualizuj widoczność przycisków po wylogowaniu
 		// Opcjonalnie wyczyść formularze
     		document.getElementById('loginForm').reset(); // Wyczyść formularz logowania
