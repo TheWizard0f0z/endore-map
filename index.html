@@ -758,6 +758,13 @@ $(document).ready(function () {
 
 // Funkcja otwierająca dialog
 function openDialog(lat, lng, markerToEdit = null) {
+    // Sprawdzenie, czy użytkownik jest zalogowany
+    const token = localStorage.getItem('token');
+    if (!token) {
+        alert("Musisz być zalogowany, aby dodać lub edytować znacznik.");
+        return;  // Zatrzymanie dalszej obsługi otwarcia dialogu
+    }
+	
     pendingLatLng = { lat, lng, markerToEdit };
 
     // Logowanie informacji o markerToEdit
@@ -877,14 +884,6 @@ async function addOrUpdateMarker() {
         alert("Proszę podać nazwę znacznika.");
         return;
     }
-
-    // Sprawdzenie, czy użytkownik jest zalogowany
-    const token = localStorage.setItem('token', data.token);
-    if (!token) {
-        alert("Musisz być zalogowany, aby dodać znacznik.");
-        return;
-    }
-
     try {
         if (pendingLatLng.markerToEdit) {
             const markerData = markers.find(m => m._id === pendingLatLng.markerToEdit._id);
