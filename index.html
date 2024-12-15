@@ -659,14 +659,6 @@
 	    const markerTitleInput = document.getElementById('markerTitle');
 	    const markerIconSelect = document.getElementById('markerIcon');
 	    const addMarkerButton = document.getElementById('addMarkerButton');
-
-	    // Ukryj lub pokaż przycisk "Dodaj znacznik" w zależności od tokena
-	    if (!localStorage.setItem('token', data.token)) {
-    		addMarkerButton.style.display = 'none'; // Ukryj przycisk
-	    } else {
-    		addMarkerButton.style.display = 'block'; // Pokaż przycisk
-	    }
-	    
 	    const deleteMarkerButton = document.getElementById('deleteMarkerButton');
 
 	    const showDefaultCheckbox = document.getElementById('showDefault');
