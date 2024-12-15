@@ -880,31 +880,60 @@ async function addOrUpdateMarker() {
 
     try {
         if (pendingLatLng.markerToEdit) {
-            // Wywołaj aktualizację na serwerze
-            const markerData = markers.find(m => m.marker === pendingLatLng.markerToEdit.marker);
-            if (markerData) {
-                await updateMarkerOnServer(markerData._id, { title, group: selectedGroup, iconType, coordinates: markerData.coordinates });
+            // 🔍 Znajdź marker, który aktualizujemy
+            const markerData = markers.find(m => m._id === pendingLatLng.markerToEdit._id);
+            console.log('🔄 Aktualizacja markera:', markerData);
+
+            if (markerData && markerData._id) {
+                const updatedData = { 
+                    title, 
+                    group: selectedGroup, 
+                    iconType, 
+                    coordinates: markerData.coordinates 
+                };
+                console.log('📡 Wysyłanie danych do PUT /markers/' + markerData._id, updatedData);
+
+                const response = await updateMarkerOnServer(markerData._id, updatedData);
+
+                if (!response.ok) {
+                    throw new Error(`Nie udało się zaktualizować markera o ID ${markerData._id}: ${response.statusText}`);
+                }
+
+                console.log('✅ Marker zaktualizowany na serwerze');
+            } else {
+                console.warn('⚠️ Nie znaleziono markera do aktualizacji');
             }
         } else {
-            // Wywołaj dodanie na serwerze
+            // 🔍 Dodaj nowy marker
             const newMarkerData = {
                 title,
                 group: selectedGroup,
                 iconType,
                 coordinates: { lat: pendingLatLng.lat, lng: pendingLatLng.lng }
             };
-            await addMarkerToServer(newMarkerData);
+            console.log('📡 Dodawanie nowego markera:', newMarkerData);
+
+            const response = await addMarkerToServer(newMarkerData);
+
+            if (!response.ok) {
+                throw new Error(`Nie udało się dodać nowego markera: ${response.statusText}`);
+            }
+
+            console.log('✅ Nowy marker dodany na serwerze');
         }
 
-        // Po dodaniu lub aktualizacji znacznika odśwież listę znaczników
+        // 📡 Odśwież znaki po aktualizacji lub dodaniu
+        console.log('♻️ Odświeżanie listy znaczników...');
         await loadMarkers();
 
     } catch (error) {
-        console.error('Błąd podczas dodawania lub aktualizowania znacznika:', error);
+        console.error('❌ Błąd podczas dodawania lub aktualizowania znacznika:', error);
+        alert('Wystąpił błąd: ' + error.message);
     }
 
     closeDialog();
 }
+
 
 
         function removeMarker(markerToEdit) {
