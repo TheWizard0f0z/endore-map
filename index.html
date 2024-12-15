@@ -879,53 +879,22 @@ async function addOrUpdateMarker() {
 
     try {
         if (pendingLatLng.markerToEdit) {
-            // 🔍 Znajdź marker, który aktualizujemy
             const markerData = markers.find(m => m._id === pendingLatLng.markerToEdit._id);
-            console.log('🔄 Aktualizacja markera:', markerData);
-
             if (markerData && markerData._id) {
-                const updatedData = { 
-                    title, 
-                    group: selectedGroup, 
-                    iconType, 
-                    coordinates: markerData.coordinates 
-                };
-                console.log('📡 Wysyłanie danych do PUT /markers/' + markerData._id, updatedData);
-
-                const response = await updateMarkerOnServer(markerData._id, updatedData);
-
-                if (!response.ok) {
-                    const errorMessage = await response.text();
-                    throw new Error(`Nie udało się zaktualizować markera o ID ${markerData._id}: ${response.status} - ${errorMessage}`);
-                }
-
-                console.log('✅ Marker zaktualizowany na serwerze');
-            } else {
-                console.warn('⚠️ Nie znaleziono markera do aktualizacji');
+                const updatedData = { title, group: selectedGroup, iconType, coordinates: markerData.coordinates };
+                await updateMarkerOnServer(markerData._id, updatedData);
             }
         } else {
-            // 🔍 Dodaj nowy marker
             const newMarkerData = {
                 title,
                 group: selectedGroup,
                 iconType,
                 coordinates: { lat: pendingLatLng.lat, lng: pendingLatLng.lng }
             };
-            console.log('📡 Dodawanie nowego markera:', newMarkerData);
-
-            const response = await addMarkerToServer(newMarkerData);
-
-            if (!response.ok) {
-                const errorMessage = await response.text();
-                throw new Error(`Nie udało się dodać nowego markera: ${response.status} - ${errorMessage}`);
-            }
-
-            console.log('✅ Nowy marker dodany na serwerze');
+            await addMarkerToServer(newMarkerData);
         }
 
-        console.log('♻️ Odświeżanie listy znaczników...');
         await loadMarkers();
-
     } catch (error) {
         console.error('❌ Błąd podczas dodawania lub aktualizowania znacznika:', error);
         alert('Wystąpił błąd: ' + error.message);
@@ -933,6 +902,7 @@ async function addOrUpdateMarker() {
 
     closeDialog();
 }
+
 
 
 
@@ -1530,9 +1500,6 @@ async function addOrUpdateMarker() {
             throw new Error('Brak tokena uwierzytelniającego');
         }
 
-        console.log('🔑 Token:', token);
-        console.log('📡 Wysyłanie POST /markers', markerData);
-
         const response = await fetch('https://endore-map.onrender.com/markers', {
             method: 'POST',
             headers: {
@@ -1543,16 +1510,15 @@ async function addOrUpdateMarker() {
         });
 
         if (!response.ok) {
-            const errorMessage = await response.text();
-            throw new Error(`Błąd podczas dodawania znacznika: ${response.status} - ${errorMessage}`);
+            const errorData = await response.json();
+            throw new Error(`Błąd podczas dodawania znacznika: ${response.status} - ${errorData.message || errorData}`);
         }
 
         const newMarker = await response.json();
-        console.log('✅ Marker dodany:', newMarker);
         return newMarker;
-
     } catch (error) {
-        console.error('❌ Błąd podczas dodawania znacznika na serwerze:', error);
+        console.error('Błąd podczas dodawania znacznika na serwerze:', error);
+        alert('Nie udało się dodać znacznika: ' + error.message);
         throw error;
     }
 }
@@ -1566,9 +1532,6 @@ async function addOrUpdateMarker() {
             throw new Error('Brak tokena uwierzytelniającego');
         }
 
-        console.log('🔑 Token:', token);
-        console.log('📡 Wysyłanie PUT /markers/' + markerId, markerData);
-
         const response = await fetch(`https://endore-map.onrender.com/markers/${markerId}`, {
             method: 'PUT',
             headers: {
@@ -1579,19 +1542,19 @@ async function addOrUpdateMarker() {
         });
 
         if (!response.ok) {
-            const errorMessage = await response.text();
-            throw new Error(`Błąd podczas aktualizacji znacznika: ${response.status} - ${errorMessage}`);
+            const errorData = await response.json();
+            throw new Error(`Błąd podczas aktualizacji znacznika: ${response.status} - ${errorData.message || errorData}`);
         }
 
         const updatedMarker = await response.json();
-        console.log('✅ Marker zaktualizowany:', updatedMarker);
         return updatedMarker;
-
     } catch (error) {
-        console.error('❌ Błąd podczas aktualizacji znacznika na serwerze:', error);
+        console.error('Błąd podczas aktualizacji znacznika na serwerze:', error);
+        alert('Nie udało się zaktualizować znacznika: ' + error.message);
         throw error;
     }
 }
+
 
     </script>
 </body>
