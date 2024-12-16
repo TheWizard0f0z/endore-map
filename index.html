@@ -398,6 +398,7 @@
 				<li><input type="checkbox" id="showZamek" checked /> Wieże/Zamki</li>
 				<li><input type="checkbox" id="showArena" checked /> Areny</li>
 				<li><input type="checkbox" id="showLoch" checked /> Lochy</li>
+				<li><input type="checkbox" id="showCmentarz" checked /> Cmentarne</li>
 				<li><input type="checkbox" id="showMob" checked /> Niebezpieczne lokacje</li>
 				<li><input type="checkbox" id="showPotwor" checked /> Potwory</li>
                 		<li><input type="checkbox" id="showZwierze" checked /> Zwierzęta</li>
@@ -410,7 +411,7 @@
 				<li><input type="checkbox" id="showLas" checked /> Lasy</li>
         		</ul>
 			<label>
-        			<input type="checkbox" id="toggleMarkerTooltips" />
+        			<input type="checkbox" id="toggleMarkerTooltips" checked />
         			Pokaż dymki znaczników
     			</label>
         	</div>
@@ -442,6 +443,7 @@
 			<option value="Zamek">Wieże/Zamki</option>
             		<option value="Arena">Areny</option>
             		<option value="Loch">Lochy</option>
+			<option value="Cmentarz">Cmentarne</option>
             		<option value="Mob">Niebezpieczne lokacje</option>
             		<option value="Potwor">Potwory</option>
             		<option value="Zwierze">Zwierzęta</option>
@@ -509,6 +511,23 @@
 			<option value="loch5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch5.png">Loch</option>
 			<option value="loch6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch6.png">Loch</option>
 			<option value="loch7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch7.png">Loch</option>
+        	</select>
+
+		<select id="markerIconCmentarz" class="marker-group" style="width: 100%; display: none;">
+			<option value="cmentarz1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz1.png">Nagrobek</option>
+			<option value="cmentarz2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz2.png">Nagrobek</option>
+			<option value="cmentarz3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz3.png">Nagrobek</option>
+			<option value="cmentarz4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz4.png">Nagrobek</option>
+			<option value="cmentarz5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz5.png">Nagrobek</option>
+			<option value="cmentarz6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz6.png">Nagrobek</option>
+			
+			<option value="cmentarz7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz7.png">Nagrobki</option>
+			<option value="cmentarz8" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz8.png">Nagrobki</option>
+			<option value="cmentarz9" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz9.png">Nagrobki</option>
+
+			<option value="cmentarz10" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz10.png">Kapliczka</option>
+			<option value="cmentarz11" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz11.png">Kapliczka</option>
+			<option value="cmentarz12" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz12.png">Kapliczka</option>
         	</select>
 		
         	<select id="markerIconMob" class="marker-group" style="width: 100%; display: none;">
@@ -697,6 +716,21 @@
 		loch6: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch6.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		loch7: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch7.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 
+		cmentarz1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		cmentarz2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		cmentarz3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		cmentarz4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		cmentarz5: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz5.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		cmentarz6: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz6.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
+		cmentarz7: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz7.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		cmentarz8: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz8.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		cmentarz9: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz9.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
+		cmentarz10: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz10.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		cmentarz11: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz11.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		cmentarz12: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz12.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
 		mob1nm: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB1NM.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		mob2nm: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB2NM.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		mob3nm: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB3NM.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
@@ -778,6 +812,7 @@
 	    const showZamekCheckbox = document.getElementById('showZamek');
 	    const showArenaCheckbox = document.getElementById('showArena');
 	    const showLochCheckbox = document.getElementById('showLoch');
+	    const showCmentarzCheckbox = document.getElementById('showCmentarz');
 	    const showMobCheckbox = document.getElementById('showMob');
 	    const showPotworCheckbox = document.getElementById('showPotwor');
             const showZwierzeCheckbox = document.getElementById('showZwierze');
