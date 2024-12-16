@@ -403,10 +403,10 @@
                 		<li><input type="checkbox" id="showMost" checked /> Mosty/Kładki</li>
                 		<li><input type="checkbox" id="showWodne" checked /> Rzeki/Jeziora</li>
 				<li><input type="checkbox" id="showWyspa" checked /> Wyspy</li>
+				<li><input type="checkbox" id="showStatek" checked /> Statki/Łodzie</li>
 				<li><input type="checkbox" id="showGora" checked /> Góry/Wzgórza</li>
 				<li><input type="checkbox" id="showLas" checked /> Lasy</li>
 				<li><input type="checkbox" id="showBagno" checked /> Bagna/Mokradła</li>
-				<li><input type="checkbox" id="showLodka" checked /> Łodzie</li>
         		</ul>
 			<label>
         			<input type="checkbox" id="toggleMarkerTooltips" />
@@ -449,10 +449,10 @@
 			<option value="Most">Mosty/Kładki</option>
 			<option value="Wodne">Rzeki/Jeziora</option>
 			<option value="Wyspa">Wyspy</option>
+			<option value="Statek">Statki/Łodzie</option>
 			<option value="Gora">Góry/Wzgórza</option>
 			<option value="Las">Lasy</option>
 			<option value="Bagno">Bagna/Mokradła</option>
-            		<option value="Inne">Inne</option>
         	</select>
         
         	<select id="markerIconDefault" class="marker-group" style="width: 100%; display: block;">
@@ -628,6 +628,14 @@
 			<option value="wyspa2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa2.png">Wyspa</option>
 			<option value="wyspa3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa3.png">Wyspa</option>
 			<option value="wyspa4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa4.png">Wyspa</option>
+		</select>
+
+		<select id="markerIconStatek" class="marker-group" style="width: 100%; display: none;">
+			<option value="statek1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/statki/statek1.png">Statek</option>
+			<option value="statek2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/statki/statek2.png">Statek</option>
+			<option value="statek3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/statki/statek3.png">Wrak</option>
+			<option value="statek4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/statki/statek4.png">Łódka</option>
+			<option value="statek5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/statki/statek5.png">Łódka</option>
 		</select>
 
 		<select id="markerIconGora" class="marker-group" style="width: 100%; display: none;">
@@ -870,6 +878,12 @@
 		wyspa2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		wyspa3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		wyspa4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
+		statek1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/statki/statek1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		statek2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/statki/statek2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		statek3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/statki/statek3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		statek4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/statki/statek4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		statek5: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/statki/statek5.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		
 		gora1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		gora2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
@@ -920,11 +934,10 @@
 	    const showMostCheckbox = document.getElementById('showMost');
 	    const showWodneCheckbox = document.getElementById('showWodne');
 	    const showWyspaCheckbox = document.getElementById('showWyspa');
+	    const showStatekCheckbox = document.getElementById('showStatek');
 	    const showGoraCheckbox = document.getElementById('showGora');
 	    const showLasCheckbox = document.getElementById('showLas');
 	    const showBagnoCheckbox = document.getElementById('showBagno');
-	    
-	    const showLodkaCheckbox = document.getElementById('showLodka');
 	    
         let pendingLatLng = null;
 
@@ -1267,6 +1280,9 @@ async function addOrUpdateMarker() {
 	showWyspaCheckbox.addEventListener('change', (e) => {
             toggleMarkers('wyspa', e.target.checked);
         });
+	showStatekCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('statek', e.target.checked);
+        });
 	showGoraCheckbox.addEventListener('change', (e) => {
             toggleMarkers('gora', e.target.checked);
         });
@@ -1275,9 +1291,6 @@ async function addOrUpdateMarker() {
         });
 	showBagnoCheckbox.addEventListener('change', (e) => {
             toggleMarkers('bagno', e.target.checked);
-        });
-	showLodkaCheckbox.addEventListener('change', (e) => {
-            toggleMarkers('lodka', e.target.checked);
         });
 
         deleteMarkerButton.addEventListener('click', () => {
