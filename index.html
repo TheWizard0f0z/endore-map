@@ -1683,6 +1683,7 @@ async function addOrUpdateMarker() {
 				}, 3000); // Czas wyświetlania komunikatu w milisekundach
 				toggleButtons();  // Zaktualizuj widoczność przycisków po zalogowaniu
 				document.getElementById('loginForm').reset(); // Wyczyść formularz po logowaniu
+				await addDefaultMarkers(); // 🟢 Wywołaj funkcję addDefaultMarkers po zalogowaniu
 				await loadMarkers(); // 🟢 Wywołaj funkcję loadMarkers po zalogowaniu
     			}
 		} catch (error) {
