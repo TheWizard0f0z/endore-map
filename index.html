@@ -361,9 +361,6 @@
         			<img src="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/media/wikilogofinal.gif" alt="Logo" class="menu-logo">
 			</a>
         	</div>
-        	<div class="menu-section auth-buttons">
-        		<button id="protectedDataButton">Fetch Protected Data</button>
-        	</div>
         	<div class="menu-section">
         		<form id="registerForm">
     				<input type="text" name="username" placeholder="Username" required />
@@ -403,7 +400,7 @@
 				<li><input type="checkbox" id="showPotwor" checked /> Potwory</li>
                 		<li><input type="checkbox" id="showZwierze" checked /> Zwierzęta</li>
 				<li><input type="checkbox" id="showSkarb" checked /> Skarby</li>
-                		<li><input type="checkbox" id="showMost" checked /> Mosty</li>
+                		<li><input type="checkbox" id="showMost" checked /> Mosty/Kładki</li>
                 		<li><input type="checkbox" id="showWoda" checked /> Woda</li>
 				<li><input type="checkbox" id="showGory" checked /> Góry</li>
 				<li><input type="checkbox" id="showWyspa" checked /> Wyspy</li>
@@ -448,6 +445,7 @@
             		<option value="Potwor">Potwory</option>
             		<option value="Zwierze">Zwierzęta</option>
             		<option value="Skarb">Skarby</option>
+			<option value="Most">Mosty/Kładki</option>
             		<option value="Inne">Inne</option>
         	</select>
         
@@ -598,6 +596,13 @@
 			<option value="skarb6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb6.png">Skarb poz.6</option>
 			<option value="skarb7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb7.png">Skarb poz.7</option>
 			<option value="skarb8" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb8.png">Skarb poz.8</option>
+        	</select>
+
+		<select id="markerIconMost" class="marker-group" style="width: 100%; display: none;">
+			<option value="most1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mosty/most1.png">Most kamienny</option>
+			<option value="most2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mosty/most2.png">Most kamienny</option>
+			<option value="most3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mosty/most3.png">Most drewniany</option>
+			<option value="most4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mosty/most4.png">Most drewniany</option>
         	</select>
 		
         	<select id="markerIconInne" class="marker-group" style="width: 100%; display: none;">
@@ -794,7 +799,11 @@
 		skarb7: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb7.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		skarb8: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb8.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 
-		most: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/most.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		most1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mosty/most1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		most2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mosty/most2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		most3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mosty/most3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		most4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mosty/most4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		
 		woda: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/woda.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		gory: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/gory.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		wyspa: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/wyspa.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
