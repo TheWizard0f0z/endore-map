@@ -403,6 +403,7 @@
                 		<li><input type="checkbox" id="showMost" checked /> Mosty/Kładki</li>
                 		<li><input type="checkbox" id="showWodne" checked /> Rzeki/Jeziora</li>
 				<li><input type="checkbox" id="showGora" checked /> Góry/Wzgórza</li>
+				<li><input type="checkbox" id="showBagno" checked /> Bagna/Mokradła</li>
 				<li><input type="checkbox" id="showWyspa" checked /> Wyspy</li>
 				<li><input type="checkbox" id="showLodka" checked /> Łodzie</li>
 				<li><input type="checkbox" id="showLas" checked /> Lasy</li>
@@ -448,6 +449,7 @@
 			<option value="Most">Mosty/Kładki</option>
 			<option value="Wodne">Rzeki/Jeziora</option>
 			<option value="Gora">Góry/Wzgórza</option>
+			<option value="Bagno">Bagna/Mokradła</option>
             		<option value="Inne">Inne</option>
         	</select>
         
@@ -620,17 +622,25 @@
 		</select>
 
 		<select id="markerIconGora" class="marker-group" style="width: 100%; display: none;">
-			<option value="gora1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora1.png">Rzeka</option>
-			<option value="gora2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora2.png">Rzeka</option>
-			<option value="gora3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora3.png">Rzeka</option>
-			<option value="gora4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora4.png">Rzeka</option>
-			<option value="gora5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora5.png">Rzeka</option>
-			<option value="gora6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora6.png">Rzeka</option>
-			<option value="gora7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora7.png">Rzeka</option>
-			<option value="gora8" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora8.png">Rzeka</option>
-			<option value="gora9" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora9.png">Rzeka</option>
-			<option value="gora10" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora10.png">Rzeka</option>
-			<option value="gora11" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora11.png">Rzeka</option>
+			<option value="gora1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora1.png">Góra</option>
+			<option value="gora2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora2.png">Góra</option>
+			<option value="gora3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora3.png">Góra</option>
+			<option value="gora4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora4.png">Góra</option>
+			<option value="gora5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora5.png">Góra</option>
+			<option value="gora6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora6.png">Góra</option>
+			<option value="gora7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora7.png">Góra</option>
+			<option value="gora8" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora8.png">Góra</option>
+			<option value="gora9" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora9.png">Góra</option>
+			<option value="gora10" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora10.png">Góra</option>
+			<option value="gora11" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora11.png">Góra</option>
+		</select>
+
+		<select id="markerIconBagno" class="marker-group" style="width: 100%; display: none;">
+			<option value="bagno1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/bagna/bagno1.png">Bagno</option>
+			<option value="bagno2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/bagna/bagno2.png">Bagno</option>
+			<option value="bagno3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/bagna/bagno3.png">Bagno</option>
+			<option value="bagno4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/bagna/bagno4.png">Bagno</option>
+			<option value="bagno5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/bagna/bagno5.png">Mokradło</option>
 		</select>
 		
         	<select id="markerIconInne" class="marker-group" style="width: 100%; display: none;">
@@ -850,6 +860,12 @@
 		gora9: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora9.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		gora10: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora10.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		gora11: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora11.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
+		bagno1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/bagna/bagno1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		bagno2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/bagna/bagno2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		bagno3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/bagna/bagno3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		bagno4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/bagna/bagno4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		bagno5: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/bagna/bagno5.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		
 		wyspa: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/wyspa.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		lodka: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/lodka.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
@@ -876,6 +892,7 @@
 	    const showMostCheckbox = document.getElementById('showMost');
 	    const showWodneCheckbox = document.getElementById('showWodne');
 	    const showGoraCheckbox = document.getElementById('showGora');
+	    const showBagnoCheckbox = document.getElementById('showBagno');
 	    
 	    const showWyspaCheckbox = document.getElementById('showWyspa');
 	    const showLodkaCheckbox = document.getElementById('showLodka');
@@ -1221,6 +1238,9 @@ async function addOrUpdateMarker() {
         });
 	showGoraCheckbox.addEventListener('change', (e) => {
             toggleMarkers('gora', e.target.checked);
+        });
+	showBagnoCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('bagno', e.target.checked);
         });
 	showWyspaCheckbox.addEventListener('change', (e) => {
             toggleMarkers('wyspa', e.target.checked);
