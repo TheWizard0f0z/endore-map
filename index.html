@@ -1071,7 +1071,7 @@ async function addOrUpdateMarker() {
     const iconType = markerIconSelect ? markerIconSelect.value : 'default';
 
     if (!title) {
-        alert('Proszę podać nazwę znacznika.');
+        // alert('Proszę podać nazwę znacznika.');
 	// Pokaż komunikat w overlay
 	showAlert('Proszę podać nazwę znacznika.');
 
@@ -1323,7 +1323,14 @@ async function addOrUpdateMarker() {
         		lat < imageBounds[0][0] || lat > imageBounds[1][0] ||
         		lng < imageBounds[0][1] || lng > imageBounds[1][1]
     		) {
-        		alert("Współrzędne znajdują się poza obszarem mapy.");
+        		// alert("Współrzędne znajdują się poza obszarem mapy.");
+			// Pokaż komunikat w overlay
+			showAlert('Współrzędne znajdują się poza obszarem mapy.');
+
+			// Ukryj komunikat po kilku sekundach
+			setTimeout(() => {
+				hideAlert();
+			}, 3000); // Czas wyświetlania komunikatu w milisekundach
         		return;
     		}
 
