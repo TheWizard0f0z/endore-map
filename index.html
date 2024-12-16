@@ -328,27 +328,23 @@
     	.select2-results__option:hover {
     		background-color: #928B76 !important; /* Kolor tła przy najechaniu */
 	}
-    
-    .password-container {
-    	position: relative;
-    	display: inline-block;
-        width: -webkit-fill-available;
+    	.password-container {
+    		position: relative;
+    		display: inline-block;
+        	width: -webkit-fill-available;
 	}
-
 	#togglePasswordVisibilityRegister, #togglePasswordVisibilityLogin {
-    	position: absolute;
-    	right: 10px;
-    	top: 50%;
-    	transform: translateY(-50%);
-    	background: transparent;
-    	border: none;
-    	cursor: pointer;
+    		position: absolute;
+    		right: 10px;
+    		top: 50%;
+    		transform: translateY(-50%);
+    		background: transparent;
+    		border: none;
+    		cursor: pointer;
 	}
-
 	#togglePasswordVisibilityRegister i, #togglePasswordVisibilityLogin i {
-    	font-size: 20px;
+    		font-size: 20px;
 	}
-
         
     </style>
 </head>
@@ -399,13 +395,13 @@
         		<ul>
             			<li><input type="checkbox" id="showDefault" checked /> Domyślny</li>
             			<li><input type="checkbox" id="showMiasto" checked /> Miasta</li>
+				<li><input type="checkbox" id="showZamek" checked /> Wieże/Zamki</li>
 				<li><input type="checkbox" id="showArena" checked /> Areny</li>
 				<li><input type="checkbox" id="showLoch" checked /> Lochy</li>
 				<li><input type="checkbox" id="showMob" checked /> Niebezpieczne lokacje</li>
 				<li><input type="checkbox" id="showPotwor" checked /> Potwory</li>
                 		<li><input type="checkbox" id="showZwierze" checked /> Zwierzęta</li>
 				<li><input type="checkbox" id="showSkarb" checked /> Skarby</li>
-                		<li><input type="checkbox" id="showZamek" checked /> Zamki</li>
                 		<li><input type="checkbox" id="showMost" checked /> Mosty</li>
                 		<li><input type="checkbox" id="showWoda" checked /> Woda</li>
 				<li><input type="checkbox" id="showGory" checked /> Góry</li>
@@ -443,6 +439,7 @@
         	<select id="groupSelect" style="width: 100%;">
         		<option value="Default">Domyślna</option>
             		<option value="Miasto">Miasta</option>
+			<option value="Zamek">Wieże/Zamki</option>
             		<option value="Arena">Areny</option>
             		<option value="Loch">Lochy</option>
             		<option value="Mob">Niebezpieczne lokacje</option>
@@ -465,6 +462,33 @@
     			<option value="miasto2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png">Miasto</option>
 			<option value="miasto3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png">Miasto</option>
     			<option value="miasto4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png">Miasto</option>
+        	</select>
+
+		<select id="markerIconZamek" class="marker-group" style="width: 100%; display: none;">
+    			<option value="zamek1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek1.png">Wieża</option>
+    			<option value="zamek2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek2.png">Wieża</option>
+			<option value="zamek3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek3.png">Wieża</option>
+    			<option value="zamek4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek4.png">Wieża</option>
+			<option value="zamek5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek5.png">Wieża</option>
+			<option value="zamek6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek6.png">Wieża</option>
+			<option value="zamek7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek7.png">Wieża</option>
+
+			<option value="zamek8" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek8.png">Zamek</option>
+    			<option value="zamek9" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek9.png">Zamek</option>
+			<option value="zamek10" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek10.png">Zamek</option>
+    			<option value="zamek11" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek11.png">Zamek</option>
+			<option value="zamek12" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek12.png">Zamek</option>
+			<option value="zamek13" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek13.png">Zamek</option>
+			<option value="zamek14" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek14.png">Zamek</option>
+			<option value="zamek15" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek15.png">Zamek</option>
+			<option value="zamek16" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek16.png">Zamek</option>
+
+			<option value="zamek17" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek17.png">Mroczny zamek</option>
+    			<option value="zamek18" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek18.png">Mroczny zamek</option>
+			<option value="zamek19" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek19.png">Mroczny zamek</option>
+    			<option value="zamek20" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek20.png">Mroczny zamek</option>
+			<option value="zamek21" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek21.png">Mroczny zamek</option>
+			<option value="zamek22" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek22.png">Mroczny zamek</option>
         	</select>
 		
         	<select id="markerIconArena" class="marker-group" style="width: 100%; display: none;">
@@ -557,7 +581,6 @@
         	</select>
 		
         	<select id="markerIconInne" class="marker-group" style="width: 100%; display: none;">
-    			<option value="zamek" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/zamek.png">Zamek</option>
     			<option value="most" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/most.png">Most</option>
         		<option value="woda" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/woda.png">Woda</option>
 			<option value="gory" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/gory.png">Góry</option>
@@ -632,6 +655,31 @@
             	miasto2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
             	miasto3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
             	miasto4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
+		zamek1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek5: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek5.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek6: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek6.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek7: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek7.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
+		zamek8: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek8.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek9: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek9.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek10: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek10.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek11: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek11.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek12: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek12.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek13: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek13.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek14: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek14.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek15: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek15.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek16: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek16.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
+		zamek17: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek17.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek18: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek18.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek19: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek19.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek20: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek20.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek21: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek21.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		zamek22: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek22.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 
 	    	arena1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		arena2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
@@ -710,7 +758,6 @@
 		skarb7: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb7.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		skarb8: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb8.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 
-		zamek: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/zamek.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		most: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/most.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		woda: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/woda.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		gory: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/gory.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
@@ -728,13 +775,13 @@
 
 	    const showDefaultCheckbox = document.getElementById('showDefault');
 	    const showMiastoCheckbox = document.getElementById('showMiasto');
+	    const showZamekCheckbox = document.getElementById('showZamek');
 	    const showArenaCheckbox = document.getElementById('showArena');
 	    const showLochCheckbox = document.getElementById('showLoch');
 	    const showMobCheckbox = document.getElementById('showMob');
 	    const showPotworCheckbox = document.getElementById('showPotwor');
             const showZwierzeCheckbox = document.getElementById('showZwierze');
 	    const showSkarbCheckbox = document.getElementById('showSkarb');
-	    const showZamekCheckbox = document.getElementById('showZamek');
 	    const showMostCheckbox = document.getElementById('showMost');
 	    const showWodaCheckbox = document.getElementById('showWoda');
 	    const showGoryCheckbox = document.getElementById('showGory');
