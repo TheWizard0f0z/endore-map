@@ -1507,7 +1507,6 @@ async function addOrUpdateMarker() {
 	function toggleButtons() {
     		const token = localStorage.getItem('token');
     		if (!token) {
-        		document.getElementById('protectedDataButton').style.display = 'none';
         		document.getElementById('logoutButton').style.display = 'none';
         		document.getElementById('loginForm').style.display = 'block'; // Zabezpiecz również przycisk logowania
         		document.getElementById('registerForm').style.display = 'block'; // I przycisk rejestracji
@@ -1758,12 +1757,6 @@ async function addOrUpdateMarker() {
     		document.getElementById('registerForm').reset(); // Wyczyść formularz rejestracji
 		// Dodaj przykładowe znaczniki z powrotem
     		// addDefaultMarkers();  // Ponownie dodaj przykładowe znaczniki
-	});
-
-	// Przykład użycia:
-	document.getElementById('protectedDataButton').addEventListener('click', async () => {
-    		const data = await fetchWithAuth('https://endore-map.onrender.com/protected');
-    		console.log(data); // Przetwórz dane z odpowiedzi
 	});
     
     // Funkcja do obsługi widoczności hasła
