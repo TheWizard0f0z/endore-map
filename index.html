@@ -46,7 +46,7 @@
     	    	margin: auto;
 	    	padding-top: 10px;
 		}
-		.auth-buttons {
+	.auth-buttons {
     		display: flex; /* Ustawia kontener na flexbox */
     		justify-content: center; /* Wyśrodkowanie przycisków */
     		gap: 10px; /* Odstęp między przyciskami */
@@ -402,10 +402,10 @@
 				<li><input type="checkbox" id="showSkarb" checked /> Skarby</li>
                 		<li><input type="checkbox" id="showMost" checked /> Mosty/Kładki</li>
                 		<li><input type="checkbox" id="showWodne" checked /> Rzeki/Jeziora</li>
+				<li><input type="checkbox" id="showWyspa" checked /> Wyspy</li>
 				<li><input type="checkbox" id="showGora" checked /> Góry/Wzgórza</li>
 				<li><input type="checkbox" id="showLas" checked /> Lasy</li>
 				<li><input type="checkbox" id="showBagno" checked /> Bagna/Mokradła</li>
-				<li><input type="checkbox" id="showWyspa" checked /> Wyspy</li>
 				<li><input type="checkbox" id="showLodka" checked /> Łodzie</li>
         		</ul>
 			<label>
@@ -448,6 +448,7 @@
             		<option value="Skarb">Skarby</option>
 			<option value="Most">Mosty/Kładki</option>
 			<option value="Wodne">Rzeki/Jeziora</option>
+			<option value="Wyspa">Wyspy</option>
 			<option value="Gora">Góry/Wzgórza</option>
 			<option value="Las">Lasy</option>
 			<option value="Bagno">Bagna/Mokradła</option>
@@ -620,6 +621,13 @@
 			<option value="wodne2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wodne/jezioro2.png">Jezioro</option>
 			<option value="wodne3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wodne/jezioro3.png">Jezioro</option>
 			<option value="wodne4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wodne/jezioro4.png">Jezioro</option>
+		</select>
+
+		<select id="markerIconWyspa" class="marker-group" style="width: 100%; display: none;">
+			<option value="wyspa1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa1.png">Wyspa</option>
+			<option value="wyspa2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa2.png">Wyspa</option>
+			<option value="wyspa3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa3.png">Wyspa</option>
+			<option value="wyspa4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa4.png">Wyspa</option>
 		</select>
 
 		<select id="markerIconGora" class="marker-group" style="width: 100%; display: none;">
@@ -857,6 +865,11 @@
 		wodne6: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wodne/jezioro2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		wodne7: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wodne/jezioro3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		wodne8: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wodne/jezioro4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+
+		wyspa1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		wyspa2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		wyspa3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		wyspa4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		
 		gora1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		gora2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
@@ -906,11 +919,11 @@
 	    const showSkarbCheckbox = document.getElementById('showSkarb');
 	    const showMostCheckbox = document.getElementById('showMost');
 	    const showWodneCheckbox = document.getElementById('showWodne');
+	    const showWyspaCheckbox = document.getElementById('showWyspa');
 	    const showGoraCheckbox = document.getElementById('showGora');
 	    const showLasCheckbox = document.getElementById('showLas');
 	    const showBagnoCheckbox = document.getElementById('showBagno');
 	    
-	    const showWyspaCheckbox = document.getElementById('showWyspa');
 	    const showLodkaCheckbox = document.getElementById('showLodka');
 	    
         let pendingLatLng = null;
@@ -1251,6 +1264,9 @@ async function addOrUpdateMarker() {
 	showWodneCheckbox.addEventListener('change', (e) => {
             toggleMarkers('wodne', e.target.checked);
         });
+	showWyspaCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('wyspa', e.target.checked);
+        });
 	showGoraCheckbox.addEventListener('change', (e) => {
             toggleMarkers('gora', e.target.checked);
         });
@@ -1259,9 +1275,6 @@ async function addOrUpdateMarker() {
         });
 	showBagnoCheckbox.addEventListener('change', (e) => {
             toggleMarkers('bagno', e.target.checked);
-        });
-	showWyspaCheckbox.addEventListener('change', (e) => {
-            toggleMarkers('wyspa', e.target.checked);
         });
 	showLodkaCheckbox.addEventListener('change', (e) => {
             toggleMarkers('lodka', e.target.checked);
