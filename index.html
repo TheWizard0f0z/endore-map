@@ -1243,6 +1243,13 @@ async function addOrUpdateMarker() {
         }
 
         await loadMarkers();
+
+	// Sprawdź, czy toggle dla domyślnych markerów jest zaznaczony
+        const isDefaultMarkersVisible = document.getElementById('toggleDefaultMarkersButton').checked;
+
+        if (isDefaultMarkersVisible) {
+            addDefaultMarkers(); // Dodaj domyślne markery, jeśli toggle jest zaznaczony
+        }
     } catch (error) {
         console.error('❌ Błąd podczas dodawania lub aktualizowania znacznika:', error);
         // alert('Wystąpił błąd: ' + error.message);
@@ -1276,6 +1283,13 @@ async function addOrUpdateMarker() {
         
         		// Odświeżenie znaczników na mapie
         		await loadMarkers();
+
+			// Sprawdź, czy toggle dla domyślnych markerów jest zaznaczony
+        		const isDefaultMarkersVisible = document.getElementById('toggleDefaultMarkersButton').checked;
+
+        		if (isDefaultMarkersVisible) {
+            			addDefaultMarkers(); // Dodaj domyślne markery, jeśli toggle jest zaznaczony
+        		}
 
         		// Zamknięcie okna dialogowego
         		closeDialog();
