@@ -1705,7 +1705,7 @@ async function addOrUpdateMarker() {
 	}
 
 	// Event listener, który wywoła toggleButtons po załadowaniu strony
-	document.addEventListener('DOMContentLoaded', () => {
+	document.addEventListener('DOMContentLoaded', async () => {
     		toggleButtons();  // Sprawdź, czy użytkownik jest zalogowany i ustaw przyciski
 		const token = localStorage.getItem('token'); // Pobierz token z localStorage
     		if (token) {
