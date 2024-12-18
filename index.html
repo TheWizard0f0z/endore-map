@@ -1709,7 +1709,23 @@ async function addOrUpdateMarker() {
     		toggleButtons();  // Sprawdź, czy użytkownik jest zalogowany i ustaw przyciski
 		const token = localStorage.getItem('token'); // Pobierz token z localStorage
     		if (token) {
-        		loadMarkers(); // 🟢 Wywołaj loadMarkers, aby pobrać znaczniki użytkownika
+        		await loadMarkers(); // 🟢 Wywołaj loadMarkers, aby pobrać znaczniki użytkownika
+
+			// Sprawdź, czy toggle dla domyślnych markerów jest zaznaczony
+        		const isDefaultMarkersVisible = document.getElementById('toggleDefaultMarkersButton').checked;
+
+        		if (isDefaultMarkersVisible) {
+            			addDefaultMarkers(); // Dodaj domyślne markery, jeśli toggle jest zaznaczony
+        		}
+
+			// Sprawdź, czy toggle dla dymków markerów jest zaznaczony
+        		const isMarkerTooltipsVisible = document.getElementById('toggleMarkerTooltips').checked;
+
+        		if (isMarkerTooltipsVisible) {
+    				toggleMarkerTooltips(true); // Otwórz tooltipy, jeśli toggle jest zaznaczony
+			} else {
+    				toggleMarkerTooltips(false); // Zamknij tooltipy, jeśli toggle nie jest zaznaczony
+			}
     		}
         	// addDefaultMarkers(); // Dodaj przykładowe znaczniki, które będą widoczne dla każdego użytkownika
 	});
