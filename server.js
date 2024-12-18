@@ -3,14 +3,15 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const authRoutes = require('./routes/auth');
-const Marker = require('./models/Marker'); // Import modelu Marker
+const Marker = require('./models/Marker');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-const PORT = 5000; // Port, na którym działa aplikacja
-const MONGO_URI = 'mongodb+srv://user123:Qcq0nPLsZbshQXwM@cluster0.o1fen.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'; // Wklej tutaj swoje URI z MongoDB Atlas
+const PORT = process.env.PORT || 5000; // Port, na którym działa aplikacja
+const MONGO_URI = process.env.MONGO_URI; // Pobierz URI z konfiguracji środowiska
+const JWT_SECRET = process.env.JWT_SECRET; // Pobierz tajny klucz z konfiguracji środowiska
 
 // Połączenie z MongoDB Atlas
 mongoose.connect(MONGO_URI, {
@@ -25,7 +26,7 @@ const authenticate = (req, res, next) => {
     if (!token) return res.status(403).send('Token required');
     
     try {
-        const decoded = jwt.verify(token, 'my_secret_key'); // Zmień na swój sekret
+        const decoded = jwt.verify(token, JWT_SECRET);
         req.user = decoded;
         console.log('Authenticated user:', req.user); // Dodaj logowanie
         next();
