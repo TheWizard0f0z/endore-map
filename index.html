@@ -460,8 +460,8 @@
         	<input type="text" id="markerTitle" placeholder="Wprowadź nazwę">
         	<label for="markerIcon">Wybierz rodzaj ikony:</label>
         	<select id="groupSelect" style="width: 100%;">
-        		<option value="Default">Domyślna</option>
-            		<option value="Miasto">Miasta</option>
+        		<option value="Default">Domyślne</option>
+            		<!-- <option value="Miasto">Miasta</option> -->
 			<option value="Zamek">Wieże/Zamki</option>
             		<option value="Arena">Areny</option>
             		<option value="Loch">Lochy</option>
@@ -493,6 +493,16 @@
 			<option value="miasto3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png">Miasto</option>
     			<option value="miasto4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png">Miasto</option>
 			<option value="miasto5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto5.png">Miasto</option>
+			<option value="miasto6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/amonsul.png">Amon Sûl</option>
+			<option value="miasto7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/annuminas.png">Annúminas</option>
+			<option value="miasto8" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/carndums.png">Carn Dûm</option>
+			<option value="miasto9" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/emynberaid.png">Emyn Beraid (Białe Wieże)</option>
+			<option value="miasto10" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/fornost.png">Fornost</option>
+			<option value="miasto11" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/forochel.png">Osada w Forochel</option>
+			<option value="miasto12" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/hobbiton.png">Hobbiton</option>
+			<option value="miasto13" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/londdaer.png">Lond Daer</option>
+			<option value="miasto14" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/mithlond.png">Mithlond (Szare Przystanie)</option>
+			<option value="miasto15" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/zachodniabramamorii.png">Zachodnia brama Morii</option>
         	</select>
 
 		<select id="markerIconZamek" class="marker-group" style="width: 100%; display: none;">
@@ -784,6 +794,15 @@
             	miasto3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
             	miasto4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		miasto5: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto5.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		miasto6: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/amonsul.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		miasto7: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/annuminas.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		miasto8: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/carndums.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		miasto9: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/emynberaid.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		miasto10: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/fornost.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		miasto11: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/forochel.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		miasto12: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/hobbiton.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		miasto13: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/londdaer.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		miasto14: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/zachodniabramamorii.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 
 		zamek1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		zamek2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
@@ -1617,7 +1636,17 @@ async function addOrUpdateMarker() {
     		{ lat: 63, lng: -71, icon: icons.miasto1, title: 'Bree', iconType: 'miasto' },
     		{ lat: 67, lng: -195, icon: icons.miasto2, title: 'Ered Luin', iconType: 'miasto' },
     		{ lat: 67, lng: 2, icon: icons.miasto4, title: 'Rivendell', iconType: 'miasto' },
-            	{ lat: 20, lng: -41, icon: icons.miasto3, title: 'Tharbad', iconType: 'miasto' }
+            	{ lat: 20, lng: -41, icon: icons.miasto3, title: 'Tharbad', iconType: 'miasto' },
+		{ lat: 61, lng: -98, icon: icons.miasto12, title: 'Hobbiton', iconType: 'miasto' },
+		{ lat: 58, lng: -156, icon: icons.miasto14, title: 'Mithlond (Szare Przystanie)', iconType: 'miasto' },
+		{ lat: 61, lng: -144, icon: icons.miasto9, title: 'Emyn Beraid (Białe Wieże)', iconType: 'miasto' },
+		{ lat: 71, lng: -106, icon: icons.miasto7, title: 'Annúminas', iconType: 'miasto' },
+		{ lat: 32, lng: 1, icon: icons.miasto15, title: 'Zachodnia brama Morii', iconType: 'miasto' },
+		{ lat: -32, lng: -106, icon: icons.miasto13, title: 'Lond Daer', iconType: 'miasto' },
+		{ lat: 83, lng: -117, icon: icons.miasto11, title: 'Osada w Forochel', iconType: 'miasto' },
+		{ lat: 78, lng: -84, icon: icons.miasto10, title: 'Fornost', iconType: 'miasto' },
+		{ lat: 81, lng: -36, icon: icons.miasto8, title: 'Carn Dûm', iconType: 'miasto' },
+		{ lat: 66, lng: -38, icon: icons.miasto6, title: 'Amon Sûl', iconType: 'miasto' }
     		// Dodaj więcej markerów, jeśli potrzeba
 	];
         
