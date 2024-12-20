@@ -2174,6 +2174,14 @@ async function addOrUpdateMarker() {
 
         const newMarker = await response.json();
         return newMarker;
+
+	// Pokaż komunikat w overlay
+	showAlert('Znacznik został pomyślnie dodany.');
+
+	// Ukryj komunikat po kilku sekundach
+	setTimeout(() => {
+		hideAlert();
+	}, 3000); // Czas wyświetlania komunikatu w milisekundach
     } catch (error) {
         console.error('Błąd podczas dodawania znacznika na serwerze:', error);
         // alert('Nie udało się dodać znacznika: ' + error.message);
@@ -2213,6 +2221,14 @@ async function addOrUpdateMarker() {
 
         const updatedMarker = await response.json();
         return updatedMarker;
+
+	// Pokaż komunikat w overlay
+	showAlert('Znacznik został pomyślnie edytowany.');
+
+	// Ukryj komunikat po kilku sekundach
+	setTimeout(() => {
+		hideAlert();
+	}, 3000); // Czas wyświetlania komunikatu w milisekundach
     } catch (error) {
         console.error('Błąd podczas aktualizacji znacznika na serwerze:', error);
         // alert('Nie udało się zaktualizować znacznika: ' + error.message);
