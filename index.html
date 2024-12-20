@@ -512,6 +512,7 @@
 			<option value="miasto22" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/ettenmoors.png">Wrzosowiska Etten</option>
 			<option value="miasto23" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/mokradla.png">Nîn-in-Eilph</option>
 			<option value="miasto24" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/jeziora.png">Jezioro Nenuial</option>
+			<option value="miasto25" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/lasy.png">Eryn Vorn</option>
         	</select>
 
 		<select id="markerIconZamek" class="marker-group" style="width: 100%; display: none;">
@@ -823,6 +824,7 @@
 		miasto22: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/ettenmoors.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		miasto23: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/mokradla.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		miasto24: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/jeziora.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		miasto25: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/lasy.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 
 		zamek1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		zamek2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
@@ -1679,9 +1681,10 @@ async function addOrUpdateMarker() {
 		{ lat: 72, lng: -104, icon: icons.miasto24, title: 'Jezioro Nenuial', iconType: 'miasto' },
 		{ lat: 28, lng: -172, icon: icons.miasto19, title: 'Góry Błękitne', iconType: 'miasto' },
 		{ lat: 58, lng: 17, icon: icons.miasto20, title: 'Góry Mgliste', iconType: 'miasto' },
-		{ lat: 81, lng: -20, icon: icons.miasto21, title: 'Góry Angmaru', iconType: 'miasto' },
+		{ lat: 82, lng: -20, icon: icons.miasto21, title: 'Góry Angmaru', iconType: 'miasto' },
 		{ lat: 76, lng: -14, icon: icons.miasto22, title: 'Wrzosowiska Etten', iconType: 'miasto' },
-		{ lat: 32, lng: -32, icon: icons.miasto23, title: 'Nîn-in-Eilph', iconType: 'miasto' }
+		{ lat: 32, lng: -32, icon: icons.miasto23, title: 'Nîn-in-Eilph', iconType: 'miasto' },
+		{ lat: -9, lng: -143, icon: icons.miasto25, title: 'Eryn Vorn', iconType: 'miasto' }
     		// Dodaj więcej markerów, jeśli potrzeba
 	];
         
