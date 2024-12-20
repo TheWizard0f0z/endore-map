@@ -414,8 +414,9 @@
     				Pokaż podstawowe znaczniki
 			</label>
         		<ul>
-            			<li><input type="checkbox" id="showMiasto" checked /> Startowe</li>
-				<li><input type="checkbox" id="showDefault" checked /> Domyślny</li>
+            			<li><input type="checkbox" id="showStartowe" checked /> Startowe</li>
+				<li><input type="checkbox" id="showMiasto" checked /> Miasta</li>
+				<li><input type="checkbox" id="showDefault" checked /> Domyślne</li>
 				<li><input type="checkbox" id="showZamek" checked /> Wieże/Zamki</li>
 				<li><input type="checkbox" id="showArena" checked /> Areny</li>
 				<li><input type="checkbox" id="showLoch" checked /> Lochy</li>
@@ -460,8 +461,9 @@
         	<input type="text" id="markerTitle" placeholder="Wprowadź nazwę">
         	<label for="markerIcon">Wybierz rodzaj ikony:</label>
         	<select id="groupSelect" style="width: 100%;">
-        		<option value="Default">Domyślne</option>
-            		<!-- <option value="Miasto">Miasta</option> -->
+        		<!-- <option value="Startowe">Startowe</option> -->
+			<!-- <option value="Miasto">Miasta</option> -->
+			<option value="Default">Domyślne</option>
 			<option value="Zamek">Wieże/Zamki</option>
             		<option value="Arena">Areny</option>
             		<option value="Loch">Lochy</option>
@@ -479,40 +481,43 @@
 			<option value="Bagno">Bagna/Mokradła</option>
         	</select>
         
-        	<select id="markerIconDefault" class="marker-group" style="width: 100%; display: block;">
-    			<option value="default" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default.png">Domyślna</option>
-			<option value="default2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default2.png">Domyślna</option>
-			<option value="default3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default3.png">Domyślna</option>
-			<option value="default4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default4.png">Domyślna</option>
-			<option value="default5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default5.png">Domyślna</option>
+        	<select id="markerIconStartowe" class="marker-group" style="width: 100%; display: block;">
+    			<option value="startowe6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/amonsul.png">Amon Sûl</option>
+			<option value="startowe7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/annuminas.png">Annúminas</option>
+			<option value="startowe8" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/carndum.png">Carn Dûm</option>
+			<option value="startowe9" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/emynberaid.png">Emyn Beraid (Białe Wieże)</option>
+			<option value="startowe10" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/fornost.png">Fornost</option>
+			<option value="startowe11" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/forochel.png">Osada w Forochel</option>
+			<option value="startowe12" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/hobbiton.png">Hobbiton</option>
+			<option value="startowe13" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/londdaer.png">Lond Daer</option>
+			<option value="startowe14" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/mithlond.png">Mithlond (Szare Przystanie)</option>
+			<option value="startowe15" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/zachodniabramamorii.png">Zachodnia brama Morii</option>
+			<option value="startowe16" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/wysokaprzelecz.png">Wysoka przełęcz</option>
+			<option value="startowe17" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/isengard.png">Isengard</option>
+			<option value="startowe18" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/rzeki.png">Główne rzeki</option>
+			<option value="startowe19" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/goryblekitne.png">Góry Błękitne</option>
+			<option value="startowe20" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/gorymgliste.png">Góry Mgliste</option>
+			<option value="startowe21" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/goryangmaru.png">Góry Angmaru</option>
+			<option value="startowe22" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/ettenmoors.png">Wrzosowiska Etten</option>
+			<option value="startowe23" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/mokradla.png">Nîn-in-Eilph</option>
+			<option value="startowe24" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/jeziora.png">Jezioro Nenuial</option>
+			<option value="startowe25" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/lasy.png">Eryn Vorn</option>
         	</select>
-		
-        	<select id="markerIconMiasto" class="marker-group" style="width: 100%; display: none;">
+
+		<select id="markerIconMiasto" class="marker-group" style="width: 100%; display: none;">
     			<option value="miasto1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png">Miasto</option>
     			<option value="miasto2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png">Miasto</option>
 			<option value="miasto3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png">Miasto</option>
     			<option value="miasto4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png">Miasto</option>
 			<option value="miasto5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto5.png">Miasto</option>
-			<option value="miasto6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/amonsul.png">Amon Sûl</option>
-			<option value="miasto7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/annuminas.png">Annúminas</option>
-			<option value="miasto8" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/carndum.png">Carn Dûm</option>
-			<option value="miasto9" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/emynberaid.png">Emyn Beraid (Białe Wieże)</option>
-			<option value="miasto10" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/fornost.png">Fornost</option>
-			<option value="miasto11" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/forochel.png">Osada w Forochel</option>
-			<option value="miasto12" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/hobbiton.png">Hobbiton</option>
-			<option value="miasto13" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/londdaer.png">Lond Daer</option>
-			<option value="miasto14" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/mithlond.png">Mithlond (Szare Przystanie)</option>
-			<option value="miasto15" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/zachodniabramamorii.png">Zachodnia brama Morii</option>
-			<option value="miasto16" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/wysokaprzelecz.png">Wysoka przełęcz</option>
-			<option value="miasto17" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/isengard.png">Isengard</option>
-			<option value="miasto18" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/rzeki.png">Główne rzeki</option>
-			<option value="miasto19" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/goryblekitne.png">Góry Błękitne</option>
-			<option value="miasto20" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/gorymgliste.png">Góry Mgliste</option>
-			<option value="miasto21" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/goryangmaru.png">Góry Angmaru</option>
-			<option value="miasto22" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/ettenmoors.png">Wrzosowiska Etten</option>
-			<option value="miasto23" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/mokradla.png">Nîn-in-Eilph</option>
-			<option value="miasto24" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/jeziora.png">Jezioro Nenuial</option>
-			<option value="miasto25" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/lasy.png">Eryn Vorn</option>
+        	</select>
+		
+		<select id="markerIconDefault" class="marker-group" style="width: 100%; display: block;">
+    			<option value="default" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default.png">Domyślna</option>
+			<option value="default2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default2.png">Domyślna</option>
+			<option value="default3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default3.png">Domyślna</option>
+			<option value="default4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default4.png">Domyślna</option>
+			<option value="default5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default5.png">Domyślna</option>
         	</select>
 
 		<select id="markerIconZamek" class="marker-group" style="width: 100%; display: none;">
@@ -799,32 +804,33 @@
                 shadowSize: [31, 31],
     		shadowAnchor: [11, 31]
             }),
+
+		startowe6: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/amonsul.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe7: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/annuminas.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe8: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/carndum.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe9: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/emynberaid.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe10: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/fornost.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe11: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/forochel.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe12: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/hobbiton.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe13: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/londdaer.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe14: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/mithlond.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe15: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/zachodniabramamorii.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe16: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/wysokaprzelecz.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe17: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/isengard.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe18: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/rzeki.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe19: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/goryblekitne.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe20: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/gorymgliste.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe21: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/goryangmaru.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe22: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/ettenmoors.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe23: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/mokradla.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe24: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/jeziora.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe25: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/lasy.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		
             	miasto1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
             	miasto2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
             	miasto3: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
             	miasto4: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		miasto5: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto5.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto6: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/amonsul.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto7: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/annuminas.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto8: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/carndum.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto9: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/emynberaid.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto10: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/fornost.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto11: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/forochel.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto12: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/hobbiton.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto13: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/londdaer.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto14: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/mithlond.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto15: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/zachodniabramamorii.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto16: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/wysokaprzelecz.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto17: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/isengard.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto18: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/rzeki.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto19: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/goryblekitne.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto20: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/gorymgliste.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto21: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/goryangmaru.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto22: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/ettenmoors.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto23: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/mokradla.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto24: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/jeziora.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
-		miasto25: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/lasy.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 
 		zamek1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		zamek2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
@@ -1024,6 +1030,7 @@
 	    const addMarkerButton = document.getElementById('addMarkerButton');
 	    const deleteMarkerButton = document.getElementById('deleteMarkerButton');
 
+	    const showStartoweCheckbox = document.getElementById('showStartowe');
 	    const showDefaultCheckbox = document.getElementById('showDefault');
 	    const showMiastoCheckbox = document.getElementById('showMiasto');
 	    const showZamekCheckbox = document.getElementById('showZamek');
@@ -1379,6 +1386,9 @@ async function addOrUpdateMarker() {
         showDefaultCheckbox.addEventListener('change', (e) => {
             toggleMarkers('default', e.target.checked);
         });
+	showDefaultCheckbox.addEventListener('change', (e) => {
+            toggleMarkers('startowe', e.target.checked);
+        });
         showMiastoCheckbox.addEventListener('change', (e) => {
             toggleMarkers('miasto', e.target.checked);
         });
@@ -1660,31 +1670,31 @@ async function addOrUpdateMarker() {
     		{ lat: 67, lng: -195, icon: icons.miasto2, title: 'Ered Luin', iconType: 'miasto' },
     		{ lat: 67, lng: 2, icon: icons.miasto4, title: 'Rivendell', iconType: 'miasto' },
             	{ lat: 20, lng: -41, icon: icons.miasto3, title: 'Tharbad', iconType: 'miasto' },
-		{ lat: 61, lng: -98, icon: icons.miasto12, title: 'Hobbiton', iconType: 'miasto' },
-		{ lat: 57, lng: -156, icon: icons.miasto14, title: 'Mithlond (Szare Przystanie)', iconType: 'miasto' },
-		{ lat: 61, lng: -144, icon: icons.miasto9, title: 'Emyn Beraid (Białe Wieże)', iconType: 'miasto' },
-		{ lat: 70, lng: -106, icon: icons.miasto7, title: 'Annúminas', iconType: 'miasto' },
-		{ lat: 32, lng: 1, icon: icons.miasto15, title: 'Zachodnia brama Morii', iconType: 'miasto' },
-		{ lat: -33, lng: -106, icon: icons.miasto13, title: 'Lond Daer', iconType: 'miasto' },
-		{ lat: 83, lng: -117, icon: icons.miasto11, title: 'Osada w Forochel', iconType: 'miasto' },
-		{ lat: 78, lng: -84, icon: icons.miasto10, title: 'Fornost', iconType: 'miasto' },
-		{ lat: 81, lng: -36, icon: icons.miasto8, title: 'Carn Dûm', iconType: 'miasto' },
-		{ lat: 65, lng: -38, icon: icons.miasto6, title: 'Amon Sûl', iconType: 'miasto' },
-		{ lat: 66, lng: 17, icon: icons.miasto16, title: 'Wysoka przełęcz', iconType: 'miasto' },
-		{ lat: -24, lng: -13, icon: icons.miasto17, title: 'Isengard', iconType: 'miasto' },
-		{ lat: -15, lng: -89, icon: icons.miasto18, title: 'Rzeka Gwathló', iconType: 'miasto' },
-		{ lat: 22, lng: -115, icon: icons.miasto18, title: 'Rzeka Baranduina', iconType: 'miasto' },
-		{ lat: 52, lng: -18, icon: icons.miasto18, title: 'Rzeka Bruinen', iconType: 'miasto' },
-		{ lat: 56, lng: -25, icon: icons.miasto18, title: 'Rzeka Mitheithel', iconType: 'miasto' },
-		{ lat: 26, lng: -17, icon: icons.miasto18, title: 'Rzeka Glanduina', iconType: 'miasto' },
-		{ lat: 70, lng: -148, icon: icons.miasto18, title: 'Rzeka Lhûn', iconType: 'miasto' },
-		{ lat: 72, lng: -104, icon: icons.miasto24, title: 'Jezioro Nenuial', iconType: 'miasto' },
-		{ lat: 28, lng: -172, icon: icons.miasto19, title: 'Góry Błękitne', iconType: 'miasto' },
-		{ lat: 58, lng: 17, icon: icons.miasto20, title: 'Góry Mgliste', iconType: 'miasto' },
-		{ lat: 82, lng: -20, icon: icons.miasto21, title: 'Góry Angmaru', iconType: 'miasto' },
-		{ lat: 76, lng: -14, icon: icons.miasto22, title: 'Wrzosowiska Etten', iconType: 'miasto' },
-		{ lat: 32, lng: -32, icon: icons.miasto23, title: 'Nîn-in-Eilph', iconType: 'miasto' },
-		{ lat: -9, lng: -143, icon: icons.miasto25, title: 'Eryn Vorn', iconType: 'miasto' }
+		{ lat: 61, lng: -98, icon: icons.miasto12, title: 'Hobbiton', iconType: 'startowe' },
+		{ lat: 57, lng: -156, icon: icons.miasto14, title: 'Mithlond (Szare Przystanie)', iconType: 'startowe' },
+		{ lat: 61, lng: -144, icon: icons.miasto9, title: 'Emyn Beraid (Białe Wieże)', iconType: 'startowe' },
+		{ lat: 70, lng: -106, icon: icons.miasto7, title: 'Annúminas', iconType: 'startowe' },
+		{ lat: 32, lng: 1, icon: icons.miasto15, title: 'Zachodnia brama Morii', iconType: 'startowe' },
+		{ lat: -33, lng: -106, icon: icons.miasto13, title: 'Lond Daer', iconType: 'startowe' },
+		{ lat: 83, lng: -117, icon: icons.miasto11, title: 'Osada w Forochel', iconType: 'startowe' },
+		{ lat: 78, lng: -84, icon: icons.miasto10, title: 'Fornost', iconType: 'startowe' },
+		{ lat: 81, lng: -36, icon: icons.miasto8, title: 'Carn Dûm', iconType: 'startowe' },
+		{ lat: 65, lng: -38, icon: icons.miasto6, title: 'Amon Sûl', iconType: 'startowe' },
+		{ lat: 66, lng: 17, icon: icons.miasto16, title: 'Wysoka przełęcz', iconType: 'startowe' },
+		{ lat: -24, lng: -13, icon: icons.miasto17, title: 'Isengard', iconType: 'startowe' },
+		{ lat: -15, lng: -89, icon: icons.miasto18, title: 'Rzeka Gwathló', iconType: 'startowe' },
+		{ lat: 22, lng: -115, icon: icons.miasto18, title: 'Rzeka Baranduina', iconType: 'startowe' },
+		{ lat: 52, lng: -18, icon: icons.miasto18, title: 'Rzeka Bruinen', iconType: 'startowe' },
+		{ lat: 56, lng: -25, icon: icons.miasto18, title: 'Rzeka Mitheithel', iconType: 'startowe' },
+		{ lat: 26, lng: -17, icon: icons.miasto18, title: 'Rzeka Glanduina', iconType: 'startowe' },
+		{ lat: 70, lng: -148, icon: icons.miasto18, title: 'Rzeka Lhûn', iconType: 'startowe' },
+		{ lat: 72, lng: -104, icon: icons.miasto24, title: 'Jezioro Nenuial', iconType: 'startowe' },
+		{ lat: 28, lng: -172, icon: icons.miasto19, title: 'Góry Błękitne', iconType: 'startowe' },
+		{ lat: 58, lng: 17, icon: icons.miasto20, title: 'Góry Mgliste', iconType: 'startowe' },
+		{ lat: 82, lng: -20, icon: icons.miasto21, title: 'Góry Angmaru', iconType: 'startowe' },
+		{ lat: 76, lng: -14, icon: icons.miasto22, title: 'Wrzosowiska Etten', iconType: 'startowe' },
+		{ lat: 32, lng: -32, icon: icons.miasto23, title: 'Nîn-in-Eilph', iconType: 'startowe' },
+		{ lat: -9, lng: -143, icon: icons.miasto25, title: 'Eryn Vorn', iconType: 'startowe' }
     		// Dodaj więcej markerów, jeśli potrzeba
 	];
         
