@@ -502,6 +502,11 @@
 			<option value="startowe23" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/mokradla.png">Nîn-in-Eilph</option>
 			<option value="startowe24" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/jeziora.png">Jezioro Nenuial</option>
 			<option value="startowe25" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/lasy.png">Eryn Vorn</option>
+			<option value="startowe26" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/kurhany.png">Tyrn Gorthad (Wzgórza Kurhanów)</option>
+			<option value="startowe27" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/potok.png">Potok Sirannon</option>
+			<option value="startowe28" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/wzgorza.png">Wichrowe Wzgórza</option>
+			<option value="startowe29" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/wzgorzatrolli.png">Wzgórza Trolli</option>
+			<option value="startowe30" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/zatoka.png">Zatoka Forochel/option>
         	</select>
 
 		<select id="markerIconMiasto" class="marker-group" style="width: 100%; display: none;">
@@ -825,6 +830,11 @@
 		startowe23: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/mokradla.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		startowe24: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/jeziora.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		startowe25: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/lasy.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe26: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/kurhany.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe27: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/potok.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe28: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/wzgorza.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe29: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/wzgorzatrolli.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		startowe30: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/zatoka.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		
             	miasto1: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
             	miasto2: L.icon({ iconUrl: 'https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
@@ -1698,7 +1708,12 @@ async function addOrUpdateMarker() {
 		{ lat: 82, lng: -20, icon: icons.startowe21, title: 'Góry Angmaru', iconType: 'startowe' },
 		{ lat: 75, lng: -21, icon: icons.startowe22, title: 'Wrzosowiska Etten', iconType: 'startowe' },
 		{ lat: 32, lng: -32, icon: icons.startowe23, title: 'Nîn-in-Eilph', iconType: 'startowe' },
-		{ lat: -9, lng: -143, icon: icons.startowe25, title: 'Eryn Vorn', iconType: 'startowe' }
+		{ lat: -9, lng: -143, icon: icons.startowe25, title: 'Eryn Vorn', iconType: 'startowe' },
+		{ lat: 56, lng: -68, icon: icons.startowe26, title: 'Tyrn Gorthad (Wzgórza Kurhanów)', iconType: 'startowe' },
+		{ lat: 28, lng: -5, icon: icons.startowe27, title: 'Potok Sirannon', iconType: 'startowe' },
+		{ lat: 67, lng: -52, icon: icons.startowe28, title: 'Wichrowe Wzgórza', iconType: 'startowe' },
+		{ lat: 65, lng: -28, icon: icons.startowe29, title: 'Wzgórza Trolli', iconType: 'startowe' },
+		{ lat: 83, lng: -129, icon: icons.startowe30, title: 'Zatoka Forochel', iconType: 'startowe' }
     		// Dodaj więcej markerów, jeśli potrzeba
 	];
         
