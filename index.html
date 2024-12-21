@@ -414,7 +414,7 @@
     				Pokaż podstawowe znaczniki
 			</label>
         		<ul>
-            			<li><input type="checkbox" id="showStartowe" checked /> Startowe</li>
+            			<li><input type="checkbox" id="showLore" checked /> Lore</li>
 				<li><input type="checkbox" id="showMiasto" checked /> Miasta</li>
 				<li><input type="checkbox" id="showDefault" checked /> Domyślne</li>
 				<li><input type="checkbox" id="showZamek" checked /> Wieże/Zamki</li>
@@ -426,7 +426,7 @@
                 		<li><input type="checkbox" id="showZwierze" checked /> Zwierzęta</li>
 				<li><input type="checkbox" id="showSkarb" checked /> Skarby</li>
                 		<li><input type="checkbox" id="showMost" checked /> Mosty/Kładki</li>
-                		<li><input type="checkbox" id="showWodne" checked /> Rzeki/Jeziora</li>
+                		<li><input type="checkbox" id="showWoda" checked /> Rzeki/Jeziora</li>
 				<li><input type="checkbox" id="showWyspa" checked /> Wyspy</li>
 				<li><input type="checkbox" id="showStatek" checked /> Statki/Łodzie</li>
 				<li><input type="checkbox" id="showGora" checked /> Góry/Wzgórza</li>
@@ -461,7 +461,7 @@
         	<input type="text" id="markerTitle" placeholder="Wprowadź nazwę">
         	<label for="markerIcon">Wybierz rodzaj ikony:</label>
         	<select id="groupSelect" style="width: 100%;">
-        		<!-- <option value="Startowe">Startowe</option> -->
+        		<!-- <option value="Lore">Startowe</option> -->
 			<!-- <option value="Miasto">Miasta</option> -->
 			<option value="Default">Domyślne</option>
 			<option value="Zamek">Wieże/Zamki</option>
@@ -473,7 +473,7 @@
             		<option value="Zwierze">Zwierzęta</option>
             		<option value="Skarb">Skarby</option>
 			<option value="Most">Mosty/Kładki</option>
-			<option value="Wodne">Rzeki/Jeziora</option>
+			<option value="Woda">Rzeki/Jeziora</option>
 			<option value="Wyspa">Wyspy</option>
 			<option value="Statek">Statki/Łodzie</option>
 			<option value="Gora">Góry/Wzgórza</option>
@@ -481,271 +481,254 @@
 			<option value="Bagno">Bagna/Mokradła</option>
         	</select>
         
-        	<select id="markerIconStartowe" class="marker-group" style="width: 100%; display: block;">
-    			<option value="startowe6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/amonsul.png">Amon Sûl</option>
-			<option value="startowe7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/annuminas.png">Annúminas</option>
-			<option value="startowe8" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/carndum.png">Carn Dûm</option>
-			<option value="startowe9" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/emynberaid.png">Emyn Beraid (Białe Wieże)</option>
-			<option value="startowe10" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/fornost.png">Fornost</option>
-			<option value="startowe11" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/forochel.png">Osada w Forochel</option>
-			<option value="startowe12" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/hobbiton.png">Hobbiton</option>
-			<option value="startowe13" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/londdaer.png">Lond Daer</option>
-			<option value="startowe14" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/mithlond.png">Mithlond (Szare Przystanie)</option>
-			<option value="startowe15" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/zachodniabramamorii.png">Zachodnia brama Morii</option>
-			<option value="startowe16" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/wysokaprzelecz.png">Wysoka przełęcz</option>
-			<option value="startowe17" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/isengard.png">Isengard</option>
-			<option value="startowe18" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/rzeki.png">Główne rzeki</option>
-			<option value="startowe19" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/goryblekitne.png">Góry Błękitne</option>
-			<option value="startowe20" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/gorymgliste.png">Góry Mgliste</option>
-			<option value="startowe21" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/goryangmaru.png">Góry Angmaru</option>
-			<option value="startowe22" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/ettenmoors.png">Wrzosowiska Etten</option>
-			<option value="startowe23" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/mokradla.png">Nîn-in-Eilph</option>
-			<option value="startowe24" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/jeziora.png">Jezioro Nenuial</option>
-			<option value="startowe25" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/lasy.png">Eryn Vorn</option>
-			<option value="startowe26" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/kurhany.png">Tyrn Gorthad (Wzgórza Kurhanów)</option>
-			<option value="startowe27" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/potok.png">Potok Sirannon</option>
-			<option value="startowe28" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/wzgorza.png">Wichrowe Wzgórza</option>
-			<option value="startowe29" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/wzgorzatrolli.png">Wzgórza Trolli</option>
-			<option value="startowe30" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/startowe/zatoka.png">Zatoka Forochel/option>
+        	<select id="markerIconLore" class="marker-group" style="width: 100%; display: block;">
+    			<option value="lore1" data-icon="ikony/lore/amonsul.png">Amon Sûl</option>
+			<option value="lore2" data-icon="ikony/lore/annuminas.png">Annúminas</option>
+			<option value="lore3" data-icon="ikony/lore/carndum.png">Carn Dûm</option>
+			<option value="lore4" data-icon="ikony/lore/emynberaid.png">Emyn Beraid (Białe Wieże)</option>
+			<option value="lore5" data-icon="ikony/lore/fornost.png">Fornost</option>
+			<option value="lore6" data-icon="ikony/lore/osadaforochel.png">Osada w Forochel</option>
+			<option value="lore7" data-icon="ikony/lore/hobbiton.png">Hobbiton</option>
+			<option value="lore8" data-icon="ikony/lore/londdaer.png">Lond Daer</option>
+			<option value="lore9" data-icon="ikony/lore/mithlond.png">Mithlond (Szare Przystanie)</option>
+			<option value="lore10" data-icon="ikony/lore/zachodniabramamorii.png">Zachodnia brama Morii</option>
+			<option value="lore11" data-icon="ikony/lore/wysokaprzelecz.png">Wysoka przełęcz</option>
+			<option value="lore12" data-icon="ikony/lore/isengard.png">Isengard</option>
+			<option value="lore13" data-icon="ikony/lore/rzeki.png">Główne rzeki</option>
+			<option value="lore14" data-icon="ikony/lore/goryblekitne.png">Góry Błękitne</option>
+			<option value="lore15" data-icon="ikony/lore/gorymgliste.png">Góry Mgliste</option>
+			<option value="lore16" data-icon="ikony/lore/goryangmaru.png">Góry Angmaru</option>
+			<option value="lore17" data-icon="ikony/lore/ettenmoors.png">Wrzosowiska Etten</option>
+			<option value="lore18" data-icon="ikony/lore/mokradlaninineilph.png">Nîn-in-Eilph</option>
+			<option value="lore19" data-icon="ikony/lore/jezioronenuial.png">Jezioro Nenuial</option>
+			<option value="lore20" data-icon="ikony/lore/laserynvorn.png">Eryn Vorn</option>
+			<option value="lore21" data-icon="ikony/lore/kurhanytyrngorthhad.png">Tyrn Gorthad (Wzgórza Kurhanów)</option>
+			<option value="lore22" data-icon="ikony/lore/potoksirannon.png">Potok Sirannon</option>
+			<option value="lore23" data-icon="ikony/lore/wichrowewzgorza.png">Wichrowe Wzgórza</option>
+			<option value="lore24" data-icon="ikony/lore/wzgorzatrolli.png">Wzgórza Trolli</option>
+			<option value="lore25" data-icon="ikony/lore/zatokaforochel.png">Zatoka Forochel/option>
         	</select>
 
 		<select id="markerIconMiasto" class="marker-group" style="width: 100%; display: none;">
-    			<option value="miasto1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto1.png">Miasto</option>
-    			<option value="miasto2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto2.png">Miasto</option>
-			<option value="miasto3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto3.png">Miasto</option>
-    			<option value="miasto4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto4.png">Miasto</option>
-			<option value="miasto5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/miasta/miasto5.png">Miasto</option>
+    			<option value="miasto1" data-icon="ikony/miasto/miasto1.png">Miasto</option>
+    			<option value="miasto2" data-icon="ikony/miasto/miasto2.png">Miasto</option>
+			<option value="miasto3" data-icon="ikony/miasto/miasto3.png">Miasto</option>
+    			<option value="miasto4" data-icon="ikony/miasto/miasto4.png">Miasto</option>
+			<option value="miasto5" data-icon="ikony/miasto/miasto5.png">Miasto</option>
         	</select>
 		
 		<select id="markerIconDefault" class="marker-group" style="width: 100%; display: block;">
-    			<option value="default" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default.png">Domyślna</option>
-			<option value="default2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default2.png">Domyślna</option>
-			<option value="default3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default3.png">Domyślna</option>
-			<option value="default4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default4.png">Domyślna</option>
-			<option value="default5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/default/default5.png">Domyślna</option>
+    			<option value="default" data-icon="ikony/default/default.png">Domyślna</option>
+			<option value="default2" data-icon="ikony/default/default2.png">Domyślna</option>
+			<option value="default3" data-icon="ikony/default/default3.png">Domyślna</option>
+			<option value="default4" data-icon="ikony/default/default4.png">Domyślna</option>
+			<option value="default5" data-icon="ikony/default/default5.png">Domyślna</option>
         	</select>
 
 		<select id="markerIconZamek" class="marker-group" style="width: 100%; display: none;">
-    			<option value="zamek1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek1.png">Wieża</option>
-    			<option value="zamek2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek2.png">Wieża</option>
-			<option value="zamek3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek3.png">Wieża</option>
-    			<option value="zamek4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek4.png">Wieża</option>
-			<option value="zamek5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek5.png">Wieża</option>
-			<option value="zamek6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek6.png">Wieża</option>
-			<option value="zamek7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek7.png">Wieża</option>
+    			<option value="zamek1" data-icon="ikony/zamek/zamek1.png">Wieża</option>
+    			<option value="zamek2" data-icon="ikony/zamek/zamek2.png">Wieża</option>
+			<option value="zamek3" data-icon="ikony/zamek/zamek3.png">Wieża</option>
+    			<option value="zamek4" data-icon="ikony/zamek/zamek4.png">Wieża</option>
+			<option value="zamek5" data-icon="ikony/zamek/zamek5.png">Wieża</option>
+			<option value="zamek6" data-icon="ikony/zamek/zamek6.png">Wieża</option>
+			<option value="zamek7" data-icon="ikony/zamek/zamek7.png">Wieża</option>
 
-			<option value="zamek8" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek8.png">Zamek</option>
-    			<option value="zamek9" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek9.png">Zamek</option>
-			<option value="zamek10" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek10.png">Zamek</option>
-    			<option value="zamek11" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek11.png">Zamek</option>
-			<option value="zamek12" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek12.png">Zamek</option>
-			<option value="zamek13" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek13.png">Zamek</option>
-			<option value="zamek14" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek14.png">Zamek</option>
-			<option value="zamek15" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek15.png">Zamek</option>
-			<option value="zamek16" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek16.png">Zamek</option>
+			<option value="zamek8" data-icon="ikony/zamek/zamek8.png">Zamek</option>
+    			<option value="zamek9" data-icon="ikony/zamek/zamek9.png">Zamek</option>
+			<option value="zamek10" data-icon="ikony/zamek/zamek10.png">Zamek</option>
+    			<option value="zamek11" data-icon="ikony/zamek/zamek11.png">Zamek</option>
+			<option value="zamek12" data-icon="ikony/zamek/zamek12.png">Zamek</option>
+			<option value="zamek13" data-icon="ikony/zamek/zamek13.png">Zamek</option>
+			<option value="zamek14" data-icon="ikony/zamek/zamek14.png">Zamek</option>
+			<option value="zamek15" data-icon="ikony/zamek/zamek15.png">Zamek</option>
+			<option value="zamek16" data-icon="ikony/zamek/zamek16.png">Zamek</option>
 
-			<option value="zamek17" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek17.png">Mroczny zamek</option>
-    			<option value="zamek18" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek18.png">Mroczny zamek</option>
-			<option value="zamek19" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek19.png">Mroczny zamek</option>
-    			<option value="zamek20" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek20.png">Mroczny zamek</option>
-			<option value="zamek21" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek21.png">Mroczny zamek</option>
-			<option value="zamek22" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zamki/zamek22.png">Mroczny zamek</option>
+			<option value="zamek17" data-icon="ikony/zamek/zamek17.png">Mroczny zamek</option>
+    			<option value="zamek18" data-icon="ikony/zamek/zamek18.png">Mroczny zamek</option>
+			<option value="zamek19" data-icon="ikony/zamek/zamek19.png">Mroczny zamek</option>
+    			<option value="zamek20" data-icon="ikony/zamek/zamek20.png">Mroczny zamek</option>
+			<option value="zamek21" data-icon="ikony/zamek/zamek21.png">Mroczny zamek</option>
+			<option value="zamek22" data-icon="ikony/zamek/zamek22.png">Mroczny zamek</option>
         	</select>
 		
         	<select id="markerIconArena" class="marker-group" style="width: 100%; display: none;">
-			<option value="arena1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena1.png">Arena</option>
-			<option value="arena2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena2.png">Arena</option>
-			<option value="arena3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena3.png">Arena</option>
-			<option value="arena4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena4.png">Arena</option>
-			<option value="arena5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena5.png">Arena</option>
-			<option value="arena6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena6.png">Arena</option>
-			<option value="arena7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/arena/arena7.png">Arena</option>
+			<option value="arena1" data-icon="ikony/arena/arena1.png">Arena</option>
+			<option value="arena2" data-icon="ikony/arena/arena2.png">Arena</option>
+			<option value="arena3" data-icon="ikony/arena/arena3.png">Arena</option>
+			<option value="arena4" data-icon="ikony/arena/arena4.png">Arena</option>
+			<option value="arena5" data-icon="ikony/arena/arena5.png">Arena</option>
+			<option value="arena6" data-icon="ikony/arena/arena6.png">Arena</option>
+			<option value="arena7" data-icon="ikony/arena/arena7.png">Arena</option>
         	</select>
 		
         	<select id="markerIconLoch" class="marker-group" style="width: 100%; display: none;">
-			<option value="loch1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch1.png">Loch</option>
-			<option value="loch2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch2.png">Loch</option>
-			<option value="loch3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch3.png">Loch</option>
-			<option value="loch4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch4.png">Loch</option>
-			<option value="loch5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch5.png">Loch</option>
-			<option value="loch6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch6.png">Loch</option>
-			<option value="loch7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lochy/loch7.png">Loch</option>
+			<option value="loch1" data-icon="ikony/loch/loch1.png">Loch</option>
+			<option value="loch2" data-icon="ikony/loch/loch2.png">Loch</option>
+			<option value="loch3" data-icon="ikony/loch/loch3.png">Loch</option>
+			<option value="loch4" data-icon="ikony/loch/loch4.png">Loch</option>
+			<option value="loch5" data-icon="ikony/loch/loch5.png">Loch</option>
+			<option value="loch6" data-icon="ikony/loch/loch6.png">Loch</option>
+			<option value="loch7" data-icon="ikony/loch/loch7.png">Loch</option>
         	</select>
 
 		<select id="markerIconCmentarz" class="marker-group" style="width: 100%; display: none;">
-			<option value="cmentarz1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz1.png">Nagrobek</option>
-			<option value="cmentarz2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz2.png">Nagrobek</option>
-			<option value="cmentarz3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz3.png">Nagrobek</option>
-			<option value="cmentarz4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz4.png">Nagrobek</option>
-			<option value="cmentarz5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz5.png">Nagrobek</option>
-			<option value="cmentarz6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz6.png">Nagrobek</option>
+			<option value="cmentarz1" data-icon="ikony/cmentarz/cmentarz1.png">Nagrobek</option>
+			<option value="cmentarz2" data-icon="ikony/cmentarz/cmentarz2.png">Nagrobek</option>
+			<option value="cmentarz3" data-icon="ikony/cmentarz/cmentarz3.png">Nagrobek</option>
+			<option value="cmentarz4" data-icon="ikony/cmentarz/cmentarz4.png">Nagrobek</option>
+			<option value="cmentarz5" data-icon="ikony/cmentarz/cmentarz5.png">Nagrobek</option>
+			<option value="cmentarz6" data-icon="ikony/cmentarz/cmentarz6.png">Nagrobek</option>
 			
-			<option value="cmentarz7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz7.png">Nagrobki</option>
-			<option value="cmentarz8" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz8.png">Nagrobki</option>
-			<option value="cmentarz9" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz9.png">Nagrobki</option>
+			<option value="cmentarz7" data-icon="ikony/cmentarz/cmentarz7.png">Nagrobki</option>
+			<option value="cmentarz8" data-icon="ikony/cmentarz/cmentarz8.png">Nagrobki</option>
+			<option value="cmentarz9" data-icon="ikony/cmentarz/cmentarz9.png">Nagrobki</option>
 
-			<option value="cmentarz10" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz10.png">Kapliczka</option>
-			<option value="cmentarz11" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz11.png">Kapliczka</option>
-			<option value="cmentarz12" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/cmentarz/cmentarz12.png">Kapliczka</option>
+			<option value="cmentarz10" data-icon="ikony/cmentarz/cmentarz10.png">Kapliczka</option>
+			<option value="cmentarz11" data-icon="ikony/cmentarz/cmentarz11.png">Kapliczka</option>
+			<option value="cmentarz12" data-icon="ikony/cmentarz/cmentarz12.png">Kapliczka</option>
         	</select>
 		
         	<select id="markerIconMob" class="marker-group" style="width: 100%; display: none;">
-			<option value="mob1nm" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB1NM.png">Niebezpieczna lokacja poz.1</option>
-			<option value="mob2nm" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB2NM.png">Niebezpieczna lokacja poz.2</option>
-			<option value="mob3nm" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB3NM.png">Niebezpieczna lokacja poz.3</option>
-			<option value="mob4nm" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB4NM.png">Niebezpieczna lokacja poz.4</option>
-			<option value="mob5nm" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB5NM.png">Niebezpieczna lokacja poz.5</option>
-			<option value="mob6nm" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB6NM.png">Niebezpieczna lokacja poz.6</option>
-			<option value="mob7nm" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob1/MOB7NM.png">Niebezpieczna lokacja poz.7</option>
+			<option value="mob1nm" data-icon="ikony/mob/mob1/MOB1NM.png">Niebezpieczna lokacja poz.1</option>
+			<option value="mob2nm" data-icon="ikony/mob/mob1/MOB2NM.png">Niebezpieczna lokacja poz.2</option>
+			<option value="mob3nm" data-icon="ikony/mob/mob1/MOB3NM.png">Niebezpieczna lokacja poz.3</option>
+			<option value="mob4nm" data-icon="ikony/mob/mob1/MOB4NM.png">Niebezpieczna lokacja poz.4</option>
+			<option value="mob5nm" data-icon="ikony/mob/mob1/MOB5NM.png">Niebezpieczna lokacja poz.5</option>
+			<option value="mob6nm" data-icon="ikony/mob/mob1/MOB6NM.png">Niebezpieczna lokacja poz.6</option>
+			<option value="mob7nm" data-icon="ikony/mob/mob1/MOB7NM.png">Niebezpieczna lokacja poz.7</option>
 
-			<option value="mob1ps" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB1PS.png">Niebezpieczna lokacja poz.1</option>
-			<option value="mob2ps" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB2PS.png">Niebezpieczna lokacja poz.2</option>
-			<option value="mob3ps" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB3PS.png">Niebezpieczna lokacja poz.3</option>
-			<option value="mob4ps" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB4PS.png">Niebezpieczna lokacja poz.4</option>
-			<option value="mob5ps" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB5PS.png">Niebezpieczna lokacja poz.5</option>
-			<option value="mob6ps" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB6PS.png">Niebezpieczna lokacja poz.6</option>
-			<option value="mob7ps" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob2/MOB7PS.png">Niebezpieczna lokacja poz.7</option>
+			<option value="mob1ps" data-icon="ikony/mob/mob2/MOB1PS.png">Niebezpieczna lokacja poz.1</option>
+			<option value="mob2ps" data-icon="ikony/mob/mob2/MOB2PS.png">Niebezpieczna lokacja poz.2</option>
+			<option value="mob3ps" data-icon="ikony/mob/mob2/MOB3PS.png">Niebezpieczna lokacja poz.3</option>
+			<option value="mob4ps" data-icon="ikony/mob/mob2/MOB4PS.png">Niebezpieczna lokacja poz.4</option>
+			<option value="mob5ps" data-icon="ikony/mob/mob2/MOB5PS.png">Niebezpieczna lokacja poz.5</option>
+			<option value="mob6ps" data-icon="ikony/mob/mob2/MOB6PS.png">Niebezpieczna lokacja poz.6</option>
+			<option value="mob7ps" data-icon="ikony/mob/mob2/MOB7PS.png">Niebezpieczna lokacja poz.7</option>
 
-			<option value="mob1sa" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB1SA.png">Niebezpieczna lokacja poz.1</option>
-			<option value="mob2sa" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB2SA.png">Niebezpieczna lokacja poz.2</option>
-			<option value="mob3sa" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB3SA.png">Niebezpieczna lokacja poz.3</option>
-			<option value="mob4sa" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB4SA.png">Niebezpieczna lokacja poz.4</option>
-			<option value="mob5sa" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB5SA.png">Niebezpieczna lokacja poz.5</option>
-			<option value="mob6sa" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB6SA.png">Niebezpieczna lokacja poz.6</option>
-			<option value="mob7sa" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob3/MOB7SA.png">Niebezpieczna lokacja poz.7</option>
+			<option value="mob1sa" data-icon="ikony/mob/mob3/MOB1SA.png">Niebezpieczna lokacja poz.1</option>
+			<option value="mob2sa" data-icon="ikony/mob/mob3/MOB2SA.png">Niebezpieczna lokacja poz.2</option>
+			<option value="mob3sa" data-icon="ikony/mob/mob3/MOB3SA.png">Niebezpieczna lokacja poz.3</option>
+			<option value="mob4sa" data-icon="ikony/mob/mob3/MOB4SA.png">Niebezpieczna lokacja poz.4</option>
+			<option value="mob5sa" data-icon="ikony/mob/mob3/MOB5SA.png">Niebezpieczna lokacja poz.5</option>
+			<option value="mob6sa" data-icon="ikony/mob/mob3/MOB6SA.png">Niebezpieczna lokacja poz.6</option>
+			<option value="mob7sa" data-icon="ikony/mob/mob3/MOB7SA.png">Niebezpieczna lokacja poz.7</option>
 
-			<option value="mob1sp" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB1SP.png">Niebezpieczna lokacja poz.1</option>
-			<option value="mob2sp" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB2SP.png">Niebezpieczna lokacja poz.2</option>
-			<option value="mob3sp" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB3SP.png">Niebezpieczna lokacja poz.3</option>
-			<option value="mob4sp" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB4SP.png">Niebezpieczna lokacja poz.4</option>
-			<option value="mob5sp" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB5SP.png">Niebezpieczna lokacja poz.5</option>
-			<option value="mob6sp" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB6SP.png">Niebezpieczna lokacja poz.6</option>
-			<option value="mob7sp" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mob4/MOB7SP.png">Niebezpieczna lokacja poz.7</option>
+			<option value="mob1sp" data-icon="ikony/mob/mob4/MOB1SP.png">Niebezpieczna lokacja poz.1</option>
+			<option value="mob2sp" data-icon="ikony/mob/mob4/MOB2SP.png">Niebezpieczna lokacja poz.2</option>
+			<option value="mob3sp" data-icon="ikony/mob/mob4/MOB3SP.png">Niebezpieczna lokacja poz.3</option>
+			<option value="mob4sp" data-icon="ikony/mob/mob4/MOB4SP.png">Niebezpieczna lokacja poz.4</option>
+			<option value="mob5sp" data-icon="ikony/mob/mob4/MOB5SP.png">Niebezpieczna lokacja poz.5</option>
+			<option value="mob6sp" data-icon="ikony/mob/mob4/MOB6SP.png">Niebezpieczna lokacja poz.6</option>
+			<option value="mob7sp" data-icon="ikony/mob/mob4/MOB7SP.png">Niebezpieczna lokacja poz.7</option>
         	</select>
 		
         	<select id="markerIconPotwor" class="marker-group" style="width: 100%; display: none;">
-			<option value="potworbandyta" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/bandyta.png">Bandyta</option>
-			<option value="potworcyklop" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/cyklop.png">Cyklop</option>
-			<option value="potworduch" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/duch.png">Duch</option>
-			<option value="potworettin" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/ettin.png">Ettin</option>
-			<option value="potworharpia" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/harpia.png">Harpia</option>
-			<option value="potworlicz" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/licz.png">Licz</option>
-			<option value="potwormumia" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/mumia.png">Mumia</option>
-			<option value="potworogr" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/ogr.png">Ogr</option>
-			<option value="potworork" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/ork.png">Ork</option>
-			<option value="potwororkkapitan" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/orkkapitan.png">Uruk-hai</option>
-			<option value="potworsmok1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/smok1.png">Smok</option>
-			<option value="potworsmok2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/smok2.png">Smok</option>
-			<option value="potworsmok3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/smok3.png">Smok</option>
-			<option value="potworsmok4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/smok4.png">Smok</option>
-			<option value="potworwarg" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/warg.png">Warg</option>
-			<option value="potworszkielet" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/szkielet.png">Szkielet</option>
-			<option value="potwortroll" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/troll.png">Troll</option>
-			<option value="potworzombi" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/potwory/zombi.png">Zombi</option>
+			<option value="potworbandyta" data-icon="ikony/potwor/bandyta.png">Bandyta</option>
+			<option value="potworcyklop" data-icon="ikony/potwor/cyklop.png">Cyklop</option>
+			<option value="potworduch" data-icon="ikony/potwor/duch.png">Duch</option>
+			<option value="potworettin" data-icon="ikony/potwor/ettin.png">Ettin</option>
+			<option value="potworharpia" data-icon="ikony/potwor/harpia.png">Harpia</option>
+			<option value="potworlicz" data-icon="ikony/potwor/licz.png">Licz</option>
+			<option value="potwormumia" data-icon="ikony/potwor/mumia.png">Mumia</option>
+			<option value="potworogr" data-icon="ikony/potwor/ogr.png">Ogr</option>
+			<option value="potworork" data-icon="ikony/potwor/ork.png">Ork</option>
+			<option value="potwororkkapitan" data-icon="ikony/potwor/orkkapitan.png">Uruk-hai</option>
+			<option value="potworsmok1" data-icon="ikony/potwor/smok1.png">Smok</option>
+			<option value="potworsmok2" data-icon="ikony/potwor/smok2.png">Smok</option>
+			<option value="potworsmok3" data-icon="ikony/potwor/smok3.png">Smok</option>
+			<option value="potworsmok4" data-icon="ikony/potwor/smok4.png">Smok</option>
+			<option value="potworwarg" data-icon="ikony/potwor/warg.png">Warg</option>
+			<option value="potworszkielet" data-icon="ikony/potwor/szkielet.png">Szkielet</option>
+			<option value="potwortroll" data-icon="ikony/potwor/troll.png">Troll</option>
+			<option value="potworzombi" data-icon="ikony/potwor/zombi.png">Zombi</option>
         	</select>
         
         	<select id="markerIconZwierze" class="marker-group" style="width: 100%; display: none;">
-			<option value="zwierzelama1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/lama1.png">Lama</option>
-			<option value="zwierzekon1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/kon1.png">Koń</option>
-			<option value="zwierzekon2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/kon2.png">Koń</option>
-			<option value="zwierzekon3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/kon3.png">Koń</option>
-			<option value="zwierzekon4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/kon4.png">Koń</option>
-			<option value="zwierzekon5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/kon5.png">Koń</option>
-			<option value="zwierzekon6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/kon6.png">Nieumarły Koń</option>
-			<option value="zwierzegrizzly" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/grizzly.png">Grizzly</option>
-			<option value="zwierzeniedzwiedzpolarny" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/niedzwiedzpolarny.png">Niedźwiedź polarny</option>
-			<option value="zwierzepajak1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/pajak1.png">Pająk</option>
-			<option value="zwierzepajak3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/pajak3.png">Pająk</option>
-			<option value="zwierzepajak4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/pajak4.png">Pająk</option>
-			<option value="zwierzeskorpion" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/skorpion.png">Skorpion</option>
-			<option value="zwierzewaz1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/waz1.png">Wąż</option>
-			<option value="zwierzewaz2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/waz2.png">Wąż</option>
-			<option value="zwierzewaz3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/waz3.png">Wąż</option>
-			<option value="zwierzewaz4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/waz4.png">Wąż</option>
-			<option value="zwierzewilk1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/wilk1.png">Wilk</option>
-			<option value="zwierzewilk2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/wilk2.png">Wilk</option>
-			<option value="zwierzewilk3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/zwierzeta/wilk3.png">Wilk</option>
+			<option value="zwierzelama1" data-icon="ikony/zwierzeta/lama1.png">Lama</option>
+			<option value="zwierzekon1" data-icon="ikony/zwierzeta/kon1.png">Koń</option>
+			<option value="zwierzekon2" data-icon="ikony/zwierzeta/kon2.png">Koń</option>
+			<option value="zwierzekon3" data-icon="ikony/zwierzeta/kon3.png">Koń</option>
+			<option value="zwierzekon4" data-icon="ikony/zwierzeta/kon4.png">Koń</option>
+			<option value="zwierzekon5" data-icon="ikony/zwierzeta/kon5.png">Koń</option>
+			<option value="zwierzekon6" data-icon="ikony/zwierzeta/kon6.png">Nieumarły Koń</option>
+			<option value="zwierzegrizzly" data-icon="ikony/zwierzeta/grizzly.png">Grizzly</option>
+			<option value="zwierzeniedzwiedzpolarny" data-icon="ikony/zwierzeta/niedzwiedzpolarny.png">Niedźwiedź polarny</option>
+			<option value="zwierzepajak1" data-icon="ikony/zwierzeta/pajak1.png">Pająk</option>
+			<option value="zwierzepajak3" data-icon="ikony/zwierzeta/pajak3.png">Pająk</option>
+			<option value="zwierzepajak4" data-icon="ikony/zwierzeta/pajak4.png">Pająk</option>
+			<option value="zwierzeskorpion" data-icon="ikony/zwierzeta/skorpion.png">Skorpion</option>
+			<option value="zwierzewaz1" data-icon="ikony/zwierzeta/waz1.png">Wąż</option>
+			<option value="zwierzewaz2" data-icon="ikony/zwierzeta/waz2.png">Wąż</option>
+			<option value="zwierzewaz3" data-icon="ikony/zwierzeta/waz3.png">Wąż</option>
+			<option value="zwierzewaz4" data-icon="ikony/zwierzeta/waz4.png">Wąż</option>
+			<option value="zwierzewilk1" data-icon="ikony/zwierzeta/wilk1.png">Wilk</option>
+			<option value="zwierzewilk2" data-icon="ikony/zwierzeta/wilk2.png">Wilk</option>
+			<option value="zwierzewilk3" data-icon="ikony/zwierzeta/wilk3.png">Wilk</option>
         	</select>
 		
         	<select id="markerIconSkarb" class="marker-group" style="width: 100%; display: none;">
-			<option value="skarb1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb1.png">Skarb poz.1</option>
-			<option value="skarb2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb2.png">Skarb poz.2</option>
-			<option value="skarb3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb3.png">Skarb poz.3</option>
-			<option value="skarb4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb4.png">Skarb poz.4</option>
-			<option value="skarb5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb5.png">Skarb poz.5</option>
-			<option value="skarb6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb6.png">Skarb poz.6</option>
-			<option value="skarb7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb7.png">Skarb poz.7</option>
-			<option value="skarb8" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/skarby/skarb8.png">Skarb poz.8</option>
+			<option value="skarb1" data-icon="ikony/skarb/skarb1.png">Skarb poz.1</option>
+			<option value="skarb2" data-icon="ikony/skarb/skarb2.png">Skarb poz.2</option>
+			<option value="skarb3" data-icon="ikony/skarb/skarb3.png">Skarb poz.3</option>
+			<option value="skarb4" data-icon="ikony/skarb/skarb4.png">Skarb poz.4</option>
+			<option value="skarb5" data-icon="ikony/skarb/skarb5.png">Skarb poz.5</option>
+			<option value="skarb6" data-icon="ikony/skarb/skarb6.png">Skarb poz.6</option>
+			<option value="skarb7" data-icon="ikony/skarb/skarb7.png">Skarb poz.7</option>
+			<option value="skarb8" data-icon="ikony/skarb/skarb8.png">Skarb poz.8</option>
         	</select>
 
 		<select id="markerIconMost" class="marker-group" style="width: 100%; display: none;">
-			<option value="most1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mosty/most1.png">Most kamienny</option>
-			<option value="most2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mosty/most2.png">Most kamienny</option>
-			<option value="most3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mosty/most3.png">Most drewniany</option>
-			<option value="most4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/mosty/most4.png">Most drewniany</option>
+			<option value="most1" data-icon="ikony/most/most1.png">Most kamienny</option>
+			<option value="most2" data-icon="ikony/most/most2.png">Most kamienny</option>
+			<option value="most3" data-icon="ikony/most/most3.png">Most drewniany</option>
+			<option value="most4" data-icon="ikony/most/most4.png">Most drewniany</option>
         	</select>
 
-		<select id="markerIconWodne" class="marker-group" style="width: 100%; display: none;">
-			<option value="wodne1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wodne/rzeka1.png">Rzeka</option>
-			<option value="wodne2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wodne/rzeka2.png">Rzeka</option>
-			<option value="wodne3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wodne/rzeka3.png">Rzeka</option>
-			<option value="wodne4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wodne/rzeka4.png">Rzeka</option>
+		<select id="markerIconWoda" class="marker-group" style="width: 100%; display: none;">
+			<option value="woda1" data-icon="ikony/woda/rzeka1.png">Rzeka</option>
+			<option value="woda2" data-icon="ikony/woda/rzeka2.png">Rzeka</option>
 
-			<option value="wodne1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wodne/jezioro1.png">Jezioro</option>
-			<option value="wodne2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wodne/jezioro2.png">Jezioro</option>
-			<option value="wodne3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wodne/jezioro3.png">Jezioro</option>
-			<option value="wodne4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wodne/jezioro4.png">Jezioro</option>
+			<option value="woda3" data-icon="ikony/woda/jezioro1.png">Jezioro</option>
+			<option value="woda4" data-icon="ikony/woda/jezioro2.png">Jezioro</option>
+			<option value="woda5" data-icon="ikony/woda/jezioro3.png">Jezioro</option>
+			<option value="woda6" data-icon="ikony/woda/jezioro4.png">Jezioro</option>
 		</select>
 
 		<select id="markerIconWyspa" class="marker-group" style="width: 100%; display: none;">
-			<option value="wyspa1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa1.png">Wyspa</option>
-			<option value="wyspa2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa2.png">Wyspa</option>
-			<option value="wyspa3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa3.png">Wyspa</option>
-			<option value="wyspa4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/wyspy/wyspa4.png">Wyspa</option>
+			<option value="wyspa1" data-icon="ikony/wyspa/wyspa1.png">Wyspa</option>
+			<option value="wyspa2" data-icon="ikony/wyspa/wyspa2.png">Wyspa</option>
+			<option value="wyspa3" data-icon="ikony/wyspa/wyspa3.png">Wyspa</option>
+			<option value="wyspa4" data-icon="ikony/wyspa/wyspa4.png">Wyspa</option>
 		</select>
 
 		<select id="markerIconStatek" class="marker-group" style="width: 100%; display: none;">
-			<option value="statek1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/statki/statek1.png">Statek</option>
-			<option value="statek2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/statki/statek2.png">Statek</option>
-			<option value="statek3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/statki/statek3.png">Wrak</option>
-			<option value="statek4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/statki/statek4.png">Łódka</option>
-			<option value="statek5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/statki/statek5.png">Łódka</option>
+			<option value="statek1" data-icon="ikony/statek/statek1.png">Statek</option>
+			<option value="statek2" data-icon="ikony/statek/statek2.png">Statek</option>
+			<option value="statek3" data-icon="ikony/statek/statek3.png">Wrak</option>
+			<option value="statek4" data-icon="ikony/statek/statek4.png">Łódka</option>
+			<option value="statek5" data-icon="ikony/statek/statek5.png">Łódka</option>
 		</select>
 
 		<select id="markerIconGora" class="marker-group" style="width: 100%; display: none;">
-			<option value="gora1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora1.png">Góra</option>
-			<option value="gora2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora2.png">Góra</option>
-			<option value="gora3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora3.png">Góra</option>
-			<option value="gora4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora4.png">Góra</option>
-			<!-- <option value="gora5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora5.png">Góra</option> -->
-			<!-- <option value="gora6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora6.png">Góra</option> -->
-			<option value="gora7" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora7.png">Góra</option>
-			<option value="gora8" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora8.png">Góra</option>
-			<!-- <option value="gora9" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora9.png">Góra</option> -->
-			<option value="gora10" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora10.png">Góra</option>
-			<option value="gora11" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/gory/gora11.png">Góra</option>
+			<option value="gora1" data-icon="ikony/gora/gora1.png">Góra</option>
+			<option value="gora2" data-icon="ikony/gora/gora2.png">Góra</option>
+			<option value="gora3" data-icon="ikony/gora/gora3.png">Góra</option>
+			<option value="gora4" data-icon="ikony/gora/gora4.png">Góra</option>
+			<option value="gora5" data-icon="ikony/gora/gora5.png">Góra</option>
 		</select>
 
 		<select id="markerIconLas" class="marker-group" style="width: 100%; display: none;">
-			<option value="las1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lasy/las1.png">Las</option>
-			<option value="las2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lasy/las2.png">Las</option>
-			<option value="las3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lasy/las3.png">Las</option>
-			<option value="las4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lasy/las4.png">Las</option>
-			<option value="las5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lasy/las5.png">Las</option>
-			<option value="las6" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/lasy/las6.png">Las</option>
+			<option value="las1" data-icon="ikony/las/las1.png">Las</option>
+			<option value="las2" data-icon="ikony/las/las2.png">Las</option>
+			<option value="las3" data-icon="ikony/las/las3.png">Las</option>
+			<option value="las4" data-icon="ikony/las/las4.png">Las</option>
 		</select>
 
 		<select id="markerIconBagno" class="marker-group" style="width: 100%; display: none;">
-			<option value="bagno1" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/bagna/bagno1.png">Bagno</option>
-			<option value="bagno2" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/bagna/bagno2.png">Bagno</option>
-			<option value="bagno3" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/bagna/bagno3.png">Bagno</option>
-			<option value="bagno4" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/bagna/bagno4.png">Bagno</option>
-			<!-- <option value="bagno5" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/bagna/bagno5.png">Mokradło</option> -->
-		</select>
-		
-        	<select id="markerIconInne" class="marker-group" style="width: 100%; display: none;">
-			<option value="wyspa" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/wyspa.png">Wyspa</option>
-			<option value="lodka" data-icon="https://raw.githubusercontent.com/TheWizard0f0z/endore-map/refs/heads/main/ikony/inne/lodka.png">Łódka</option>
+			<option value="bagno1" data-icon="ikony/bagno/bagno1.png">Bagno</option>
+			<option value="bagno2" data-icon="ikony/bagno/bagno2.png">Bagno</option>
+			<option value="bagno3" data-icon="ikony/bagno/bagno3.png">Bagno</option>
 		</select>
         
         	<button id="addMarkerButton">Dodaj znacznik</button>
