@@ -506,7 +506,14 @@
 			<option value="lore22" data-icon="ikony/lore/potoksirannon.png">Potok Sirannon</option>
 			<option value="lore23" data-icon="ikony/lore/wichrowewzgorza.png">Wichrowe Wzgórza</option>
 			<option value="lore24" data-icon="ikony/lore/wzgorzatrolli.png">Wzgórza Trolli</option>
-			<option value="lore25" data-icon="ikony/lore/zatokaforochel.png">Zatoka Forochel/option>
+			<option value="lore25" data-icon="ikony/lore/zatokaforochel.png">Zatoka Forochel</option>
+			<option value="lore26" data-icon="ikony/lore/fortwulfa.png">Fort Wulfa</option>
+			<option value="lore27" data-icon="ikony/lore/ostinedhil.png">Ruiny Ost-in-Edhil</option>
+			<option value="lore28" data-icon="ikony/lore/polnocnewzgorza.png">Północne Wzgórza</option>
+			<option value="lore29" data-icon="ikony/lore/combe.png">Combe</option>
+			<option value="lore30" data-icon="ikony/lore/staddle.png">Staddle</option>
+			<option value="lore31" data-icon="ikony/lore/archet.png">Archet</option>
+			<option value="lore32" data-icon="ikony/lore/lasarchet.png">Las Archet</option>
         	</select>
 
 		<select id="markerIconMiasto" class="marker-group" style="width: 100%; display: none;">
@@ -818,6 +825,13 @@
 		lore23: L.icon({ iconUrl: 'ikony/lore/wichrowewzgorza.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		lore24: L.icon({ iconUrl: 'ikony/lore/wzgorzatrolli.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		lore25: L.icon({ iconUrl: 'ikony/lore/zatokaforochel.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		lore26: L.icon({ iconUrl: 'ikony/lore/fortwulfa.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		lore27: L.icon({ iconUrl: 'ikony/lore/ostinedhil.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		lore28: L.icon({ iconUrl: 'ikony/lore/polnocnewzgorza.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		lore29: L.icon({ iconUrl: 'ikony/lore/combe.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		lore30: L.icon({ iconUrl: 'ikony/lore/staddle.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		lore31: L.icon({ iconUrl: 'ikony/lore/archet.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
+		lore32: L.icon({ iconUrl: 'ikony/lore/lasarchet.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
 		
             	miasto1: L.icon({ iconUrl: 'ikony/miasto/miasto1.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
             	miasto2: L.icon({ iconUrl: 'ikony/miasto/miasto2.png', iconSize: [31, 31], iconAnchor: [15, 31], popupAnchor: [0, -31] }),
@@ -1681,7 +1695,14 @@ async function addOrUpdateMarker() {
 		{ lat: 28, lng: -5, icon: icons.lore22, title: 'Potok Sirannon', iconType: 'lore' },
 		{ lat: 67, lng: -52, icon: icons.lore23, title: 'Wichrowe Wzgórza', iconType: 'lore' },
 		{ lat: 64, lng: -28, icon: icons.lore24, title: 'Wzgórza Trolli', iconType: 'lore' },
-		{ lat: 82, lng: -130, icon: icons.lore25, title: 'Zatoka Forochel', iconType: 'lore' }
+		{ lat: 82, lng: -130, icon: icons.lore25, title: 'Zatoka Forochel', iconType: 'lore' },
+		{ lat: -4, lng: -13, icon: icons.lore26, title: 'Fort Wulfa', iconType: 'lore' },
+		{ lat: 33, lng: -29, icon: icons.lore27, title: 'Ruiny Ost-in-Edhil', iconType: 'lore' },
+		{ lat: 79, lng: -85, icon: icons.lore28, title: 'Północne Wzgórza', iconType: 'lore' },
+		{ lat: 68, lng: -75, icon: icons.lore29, title: 'Miasteczko Combe', iconType: 'lore' },
+		{ lat: 68, lng: -67, icon: icons.lore30, title: 'Miasteczko Staddle', iconType: 'lore' },
+		{ lat: 63, lng: -63, icon: icons.lore31, title: 'Miasteczko Archet', iconType: 'lore' },
+		{ lat: 65, lng: -65, icon: icons.lore32, title: 'Las Archet', iconType: 'lore' }
     		// Dodaj więcej markerów, jeśli potrzeba
 	];
         
