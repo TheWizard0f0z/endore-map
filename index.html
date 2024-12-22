@@ -2368,9 +2368,12 @@ async function addOrUpdateMarker() {
     }
 }
 
-// Obsługa filtorwania podstawowcyh znaczników
+// Obsługa filtorwania podstawowych znaczników
 const markerSelect = document.getElementById('marker-select');
 const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
+
+// Zmienna przechowująca tymczasowy znacznik
+let highlightMarker = null;
 
 // Funkcja do aktualizacji listy rozwijanej na podstawie zaznaczonych filtrów
 function updateMarkerSelect() {
@@ -2387,8 +2390,13 @@ function updateMarkerSelect() {
 
     // Dodawanie opcji do Select2
     $('#marker-select').html('<option value="">Wybierz znacznik...</option>' + options.join('')).trigger('change');
-}
 
+    // Usunięcie tymczasowego znacznika przy zmianie filtrów
+    if (highlightMarker) {
+        map.removeLayer(highlightMarker);
+        highlightMarker = null;
+    }
+}
 
 // Inicjalizacja listy na początku
 $(document).ready(function () {
@@ -2420,11 +2428,17 @@ $('#marker-select').on('change', function () {
     if (selectedIndex) {
         const markerData = defaultMarkersData[selectedIndex];
 
-        const marker = L.marker([markerData.lat, markerData.lng], {
+        // Usunięcie poprzedniego tymczasowego znacznika
+        if (highlightMarker) {
+            map.removeLayer(highlightMarker);
+        }
+
+        // Dodanie nowego tymczasowego znacznika
+        highlightMarker = L.marker([markerData.lat, markerData.lng], {
             icon: markerData.icon
         }).addTo(map);
 
-        marker.bindPopup(markerData.title).openPopup();
+        highlightMarker.bindPopup(markerData.title).openPopup();
         map.setView([markerData.lat, markerData.lng], 4);
     }
 });
