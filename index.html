@@ -417,7 +417,7 @@
             	<div class="menu-section">
 			<div>
             			<ul>
-        				<li><input type="checkbox" id="toggleMarkerTooltips" />
+        				<li><input type="checkbox" class="filter-checkbox" id="toggleMarkerTooltips" />
         				Pokaż dymki znaczników
     				</ul>
 			</div>
@@ -426,7 +426,7 @@
             	<div class="menu-section">
 			<div>
 				<ul>
-    					<li><input type="checkbox" id="toggleDefaultMarkersButton" checked />
+    					<li><input type="checkbox" class="filter-checkbox" id="toggleDefaultMarkersButton" checked />
     					Pokaż podstawowe znaczniki
 				</ul>
 			</div>
@@ -456,31 +456,31 @@
 			<div>
 				<label>Filtruj wszystkie (podstawowe i własne) znaczniki według typu:</label>
         			<ul>
-            				<li><input type="checkbox" id="showLore" checked /> Lore</li>
-					<li><input type="checkbox" id="showMiasto" checked /> Miasta</li>
-					<li><input type="checkbox" id="showDefault" checked /> Domyślne</li>
-					<li><input type="checkbox" id="showZamek" checked /> Wieże/Zamki</li>
-					<li><input type="checkbox" id="showArena" checked /> Areny</li>
-					<li><input type="checkbox" id="showLoch" checked /> Lochy</li>
-					<li><input type="checkbox" id="showCmentarz" checked /> Cmentarne</li>
-					<li><input type="checkbox" id="showMob" checked /> Niebezpieczne lokacje</li>
-					<li><input type="checkbox" id="showPotwor" checked /> Potwory</li>
-                			<li><input type="checkbox" id="showZwierze" checked /> Zwierzęta</li>
-					<li><input type="checkbox" id="showSkarb" checked /> Skarby</li>
-                			<li><input type="checkbox" id="showMost" checked /> Mosty/Kładki</li>
-                			<li><input type="checkbox" id="showWoda" checked /> Rzeki/Jeziora</li>
-					<li><input type="checkbox" id="showWyspa" checked /> Wyspy</li>
-					<li><input type="checkbox" id="showStatek" checked /> Statki/Łodzie</li>
-					<li><input type="checkbox" id="showGora" checked /> Góry/Wzgórza</li>
-					<li><input type="checkbox" id="showLas" checked /> Lasy</li>
-					<li><input type="checkbox" id="showBagno" checked /> Bagna/Mokradła</li>
+            				<li><input type="checkbox" class="filter-checkbox" id="showLore" checked /> Lore</li>
+					<li><input type="checkbox" class="filter-checkbox" id="showMiasto" checked /> Miasta</li>
+					<li><input type="checkbox" class="filter-checkbox" id="showDefault" checked /> Domyślne</li>
+					<li><input type="checkbox" class="filter-checkbox" id="showZamek" checked /> Wieże/Zamki</li>
+					<li><input type="checkbox" class="filter-checkbox" id="showArena" checked /> Areny</li>
+					<li><input type="checkbox" class="filter-checkbox" id="showLoch" checked /> Lochy</li>
+					<li><input type="checkbox" class="filter-checkbox" id="showCmentarz" checked /> Cmentarne</li>
+					<li><input type="checkbox" class="filter-checkbox" id="showMob" checked /> Niebezpieczne lokacje</li>
+					<li><input type="checkbox" class="filter-checkbox" id="showPotwor" checked /> Potwory</li>
+                			<li><input type="checkbox" class="filter-checkbox" id="showZwierze" checked /> Zwierzęta</li>
+					<li><input type="checkbox" class="filter-checkbox" id="showSkarb" checked /> Skarby</li>
+                			<li><input type="checkbox" class="filter-checkbox" id="showMost" checked /> Mosty/Kładki</li>
+                			<li><input type="checkbox" class="filter-checkbox" id="showWoda" checked /> Rzeki/Jeziora</li>
+					<li><input type="checkbox" class="filter-checkbox" id="showWyspa" checked /> Wyspy</li>
+					<li><input type="checkbox" class="filter-checkbox" id="showStatek" checked /> Statki/Łodzie</li>
+					<li><input type="checkbox" class="filter-checkbox" id="showGora" checked /> Góry/Wzgórza</li>
+					<li><input type="checkbox" class="filter-checkbox" id="showLas" checked /> Lasy</li>
+					<li><input type="checkbox" class="filter-checkbox" id="showBagno" checked /> Bagna/Mokradła</li>
         			</ul>
 			</div>
         	</div>
      		<div class="menu-section" id="coordinates-section">
     			<p id="cursor-coordinates">Współrzędne: (0, 0)</p>
             		<ul>
-        			<li><input type="checkbox" id="showRawCoordinates" />
+        			<li><input type="checkbox" class="filter-checkbox" id="showRawCoordinates" />
         			Pokaż surowe współrzędne
 	    		</ul>
 		</div>
@@ -2403,7 +2403,15 @@ $(document).ready(function () {
 
 // Nasłuchiwanie zmian na checkboxach
 filterCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', updateMarkerSelect);
+    checkbox.addEventListener('change', () => {
+        updateMarkerSelect();
+
+        // Usunięcie tymczasowego znacznika przy zmianie filtrów
+        if (highlightMarker) {
+            map.removeLayer(highlightMarker);
+            highlightMarker = null;
+        }
+    });
 });
 
 // Obsługa wyboru znacznika
