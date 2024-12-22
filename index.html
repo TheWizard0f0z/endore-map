@@ -2422,8 +2422,45 @@ filterCheckboxes.forEach(checkbox => {
     });
 });
 
+// Sprawdzenie, czy użytkownik jest zalogowany
+function isUserLoggedIn() {
+    return localStorage.getItem('token') !== null;
+}
+
+// Obsługa otwarcia listy rozwijanej
+$('#marker-select').on('select2:open', function () {
+    if (!isUserLoggedIn()) {
+        // Zatrzymaj rozwijanie listy
+        $('#marker-select').select2('close'); 
+
+        // Wyświetl komunikat alert
+        showAlert('Musisz być zalogowany, aby wybrać znacznik.');
+
+        // Ukryj komunikat po kilku sekundach
+        setTimeout(() => {
+            hideAlert();
+        }, 3000); // Czas wyświetlania komunikatu w milisekundach
+
+        // Zatrzymaj dalszą obsługę
+        return;
+    }
+});
+
 // Obsługa wyboru znacznika
 $('#marker-select').on('change', function () {
+    if (!isUserLoggedIn()) {
+        // Wyświetl komunikat alert
+        showAlert('Musisz być zalogowany aby korzystac z aplikacji.');
+
+        // Ukryj komunikat po kilku sekundach
+        setTimeout(() => {
+            hideAlert();
+        }, 3000); // Czas wyświetlania komunikatu w milisekundach
+
+        // Zatrzymaj dalszą obsługę zmiany
+        return;
+    }
+
     const selectedIndex = $(this).val();
     if (selectedIndex) {
         const markerData = defaultMarkersData[selectedIndex];
@@ -2442,6 +2479,7 @@ $('#marker-select').on('change', function () {
         map.setView([markerData.lat, markerData.lng], 4);
     }
 });
+
 
     </script>
 </body>
