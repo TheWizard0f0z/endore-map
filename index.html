@@ -2363,62 +2363,8 @@ async function addOrUpdateMarker() {
     }
 }
 
-
-
-
+// Obsługa filtorwania podstawowcyh znaczników
 const markerSelect = document.getElementById('marker-select');
-const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
-
-// Funkcja do aktualizacji listy rozwijanej na podstawie zaznaczonych filtrów
-function updateMarkerSelect() {
-    const activeFilters = Array.from(filterCheckboxes)
-        .filter(checkbox => checkbox.checked)
-        .map(checkbox => checkbox.value);
-
-    // Oczyszczanie listy
-    const options = defaultMarkersData
-        .filter(marker => activeFilters.includes(marker.iconType))
-        .map((marker, index) => {
-            return `<option value="${index}">${marker.title}</option>`;
-        });
-
-    // Dodawanie opcji do Select2
-    $('#marker-select').html('<option value="">Wybierz znacznik...</option>' + options.join('')).trigger('change');
-}
-
-
-// Inicjalizacja listy na początku
-$(document).ready(function () {
-    $('#marker-select').select2({
-        placeholder: "Wybierz znacznik...",
-        allowClear: true
-    });
-
-    // Inicjalizacja listy opcji
-    updateMarkerSelect();
-});
-
-// Nasłuchiwanie zmian na checkboxach
-filterCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', updateMarkerSelect);
-});
-
-// Obsługa wyboru znacznika (bez zmian)
-$('#marker-select').on('change', function () {
-    const selectedIndex = $(this).val();
-    if (selectedIndex) {
-        const markerData = defaultMarkersData[selectedIndex];
-
-        const marker = L.marker([markerData.lat, markerData.lng], {
-            icon: markerData.icon
-        }).addTo(map);
-
-        marker.bindPopup(markerData.title).openPopup();
-        map.setView([markerData.lat, markerData.lng], 4);
-    }
-});
-
-// Obsługa filtorwania podstawowych znaczników
 const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
 
 // Funkcja do aktualizacji listy rozwijanej na podstawie zaznaczonych filtrów
