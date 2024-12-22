@@ -105,7 +105,7 @@
             	align-items: center;
             	margin: 5px 0;
         }
-        #menu ul li input {
+        #menu ul li input, .filter-checkbox {
             	margin-right: 10px;
             	appearance: none;
             	width: 20px;
@@ -115,10 +115,10 @@
             	cursor: pointer;
             	position: relative;
         }
-        #menu ul li input:checked {
+        #menu ul li input:checked, .filter-checkbox:checked {
             	background-color: #c69c6d;
         }
-        #menu ul li input:checked::before {
+        #menu ul li input:checked::before, .filter-checkbox:checked::before {
             	content: '✓'; /* Znak wyboru */
     	    	color: #fff;
     	    	font-size: 16px;
@@ -367,7 +367,10 @@
 	#togglePasswordVisibilityRegister i, #togglePasswordVisibilityLogin i {
     		font-size: 20px;
 	}
-        
+    	.select2-container--default .select2-selection--single .select2-selection__clear {
+    		margin-top: 5px;
+        	color: rgb(150, 150, 150);
+    	}   
     </style>
 </head>
 <body>
@@ -408,11 +411,46 @@
 			</form>
             		<button id="logoutButton" class="logout-btn" style="display: none;">Wyloguj</button>
         	</div>
+            
+            	<div class="menu-section">
+			<div>
+            			<ul>
+        				<li><input type="checkbox" id="toggleMarkerTooltips" />
+        				Pokaż dymki znaczników
+    				</ul>
+			</div>div>
+            	</div>
+
+            	<div class="menu-section">
+			<div>
+				<ul>
+    					<li><input type="checkbox" id="toggleDefaultMarkersButton" checked />
+    					Pokaż podstawowe znaczniki
+				</ul>
+			</div>
+			
+			<div>
+    				<label>Filtruj podstawowe znaczniki według typu:</label>
+    				<div>
+                    			<ul>
+    						<li><input type="checkbox" class="filter-checkbox" value="lore" checked /> Lore</label><br>
+        					<li><input type="checkbox" class="filter-checkbox" value="miasto" checked /> Miasta</label><br>
+        					<li><input type="checkbox" class="filter-checkbox" value="arena" checked /> Areny</label><br>
+        					<li><input type="checkbox" class="filter-checkbox" value="potwor" checked /> Potwory</label><br>
+        					<li><input type="checkbox" class="filter-checkbox" value="zwierze" checked /> Zwierzęta</label>
+					</ul>
+    				</div>
+			</div>
+			
+    			<div>
+    				<label for="marker-select">Wybierz znacznik:</label>
+    				<select id="marker-select" style="width: 100%;">
+        				<option value="">Wybierz znacznik...</option>
+    				</select>
+			</div>
+		</div>  
+		
         	<div class="menu-section">
-			<label>
-    				<input type="checkbox" id="toggleDefaultMarkersButton" checked />
-    				Pokaż podstawowe znaczniki
-			</label>
         		<ul>
             			<li><input type="checkbox" id="showLore" checked /> Lore</li>
 				<li><input type="checkbox" id="showMiasto" checked /> Miasta</li>
@@ -433,17 +471,13 @@
 				<li><input type="checkbox" id="showLas" checked /> Lasy</li>
 				<li><input type="checkbox" id="showBagno" checked /> Bagna/Mokradła</li>
         		</ul>
-			<label>
-        			<input type="checkbox" id="toggleMarkerTooltips" />
-        			Pokaż dymki znaczników
-    			</label>
         	</div>
      		<div class="menu-section" id="coordinates-section">
     			<p id="cursor-coordinates">Współrzędne: (0, 0)</p>
-            		<label>
-        			<input type="checkbox" id="showRawCoordinates" />
+            		<ul>
+        			<li><input type="checkbox" id="showRawCoordinates" />
         			Pokaż surowe współrzędne
-	    		</label>
+	    		</ul>
 		</div>
         	<div class="menu-section" id="marker-section">
         		<label for="lng-input">Długość geograficzna:</label>
@@ -2328,6 +2362,114 @@ async function addOrUpdateMarker() {
 	}, 3000); // Czas wyświetlania komunikatu w milisekundach
     }
 }
+
+
+
+
+const markerSelect = document.getElementById('marker-select');
+const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
+
+// Funkcja do aktualizacji listy rozwijanej na podstawie zaznaczonych filtrów
+function updateMarkerSelect() {
+    const activeFilters = Array.from(filterCheckboxes)
+        .filter(checkbox => checkbox.checked)
+        .map(checkbox => checkbox.value);
+
+    // Oczyszczanie listy
+    const options = defaultMarkersData
+        .filter(marker => activeFilters.includes(marker.iconType))
+        .map((marker, index) => {
+            return `<option value="${index}">${marker.title}</option>`;
+        });
+
+    // Dodawanie opcji do Select2
+    $('#marker-select').html('<option value="">Wybierz znacznik...</option>' + options.join('')).trigger('change');
+}
+
+
+// Inicjalizacja listy na początku
+$(document).ready(function () {
+    $('#marker-select').select2({
+        placeholder: "Wybierz znacznik...",
+        allowClear: true
+    });
+
+    // Inicjalizacja listy opcji
+    updateMarkerSelect();
+});
+
+// Nasłuchiwanie zmian na checkboxach
+filterCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', updateMarkerSelect);
+});
+
+// Obsługa wyboru znacznika (bez zmian)
+$('#marker-select').on('change', function () {
+    const selectedIndex = $(this).val();
+    if (selectedIndex) {
+        const markerData = defaultMarkersData[selectedIndex];
+
+        const marker = L.marker([markerData.lat, markerData.lng], {
+            icon: markerData.icon
+        }).addTo(map);
+
+        marker.bindPopup(markerData.title).openPopup();
+        map.setView([markerData.lat, markerData.lng], 4);
+    }
+});
+
+// Obsługa filtorwania podstawowych znaczników
+const markerSelect = document.getElementById('marker-select');
+const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
+
+// Funkcja do aktualizacji listy rozwijanej na podstawie zaznaczonych filtrów
+function updateMarkerSelect() {
+    const activeFilters = Array.from(filterCheckboxes)
+        .filter(checkbox => checkbox.checked)
+        .map(checkbox => checkbox.value);
+
+    // Oczyszczanie listy
+    const options = defaultMarkersData
+        .filter(marker => activeFilters.includes(marker.iconType))
+        .map((marker, index) => {
+            return `<option value="${index}">${marker.title}</option>`;
+        });
+
+    // Dodawanie opcji do Select2
+    $('#marker-select').html('<option value="">Wybierz znacznik...</option>' + options.join('')).trigger('change');
+}
+
+
+// Inicjalizacja listy na początku
+$(document).ready(function () {
+    $('#marker-select').select2({
+        placeholder: "Wybierz znacznik...",
+        allowClear: true
+    });
+
+    // Inicjalizacja listy opcji
+    updateMarkerSelect();
+});
+
+// Nasłuchiwanie zmian na checkboxach
+filterCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', updateMarkerSelect);
+});
+
+// Obsługa wyboru znacznika (bez zmian)
+$('#marker-select').on('change', function () {
+    const selectedIndex = $(this).val();
+    if (selectedIndex) {
+        const markerData = defaultMarkersData[selectedIndex];
+
+        const marker = L.marker([markerData.lat, markerData.lng], {
+            icon: markerData.icon
+        }).addTo(map);
+
+        marker.bindPopup(markerData.title).openPopup();
+        map.setView([markerData.lat, markerData.lng], 4);
+    }
+});
 
     </script>
 </body>
