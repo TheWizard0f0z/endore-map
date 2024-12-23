@@ -2427,30 +2427,31 @@ function isUserLoggedIn() {
     return localStorage.getItem('token') !== null;
 }
 
-// Obsługa otwarcia listy rozwijanej
-$('#marker-select').on('select2:open', function () {
+// Wspólna funkcja sprawdzająca, czy użytkownik jest zalogowany
+function ensureUserLoggedIn(message) {
     if (!isUserLoggedIn()) {
-        // Zatrzymaj rozwijanie listy
-        $('#marker-select').select2('close'); 
-
-        // Wyświetl komunikat alert
-        showAlert('Musisz być zalogowany, aby wybrać znacznik.');
+        showAlert(message);
 
         // Ukryj komunikat po kilku sekundach
-        setTimeout(() => {
-            hideAlert();
-        }, 3000); // Czas wyświetlania komunikatu w milisekundach
+        setTimeout(hideAlert, 3000);
 
-        // Zatrzymaj dalszą obsługę
-        return;
+        // Zatrzymaj dalsze przetwarzanie
+        return false;
+    }
+    return true;
+}
+
+// Obsługa otwarcia listy rozwijanej
+$('#marker-select').on('select2:open', function () {
+    if (!ensureUserLoggedIn('Musisz być zalogowany, aby wybrać znacznik.')) {
+        // Zamknij listę rozwijaną
+        $('#marker-select').select2('close');
     }
 });
 
 // Obsługa wyboru znacznika
 $('#marker-select').on('change', function () {
-    if (!isUserLoggedIn()) {
-        showAlert('Musisz być zalogowany, aby korzystać z aplikacji.');
-        setTimeout(hideAlert, 3000);
+    if (!ensureUserLoggedIn('Musisz być zalogowany, aby korzystać z aplikacji.')) {
         return;
     }
 
