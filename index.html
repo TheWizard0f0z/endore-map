@@ -2383,10 +2383,10 @@ function updateMarkerSelect() {
 
     // Oczyszczanie listy
     const options = defaultMarkersData
-        .filter(marker => activeFilters.includes(marker.basic))
-        .map((marker, index) => {
-            return `<option value="${index}">${marker.title}</option>`;
-        });
+    	.filter(marker => activeFilters.includes(marker.basic))
+    	.map(marker => {
+        	return `<option value="${marker.title}">${marker.title}</option>`;
+    	});
 
     // Dodawanie opcji do Select2
     $('#marker-select').html('<option value="">Wybierz znacznik...</option>' + options.join('')).trigger('change');
@@ -2449,37 +2449,31 @@ $('#marker-select').on('select2:open', function () {
 // Obsługa wyboru znacznika
 $('#marker-select').on('change', function () {
     if (!isUserLoggedIn()) {
-        // Wyświetl komunikat alert
-        showAlert('Musisz być zalogowany aby korzystac z aplikacji.');
-
-        // Ukryj komunikat po kilku sekundach
-        setTimeout(() => {
-            hideAlert();
-        }, 3000); // Czas wyświetlania komunikatu w milisekundach
-
-        // Zatrzymaj dalszą obsługę zmiany
+        showAlert('Musisz być zalogowany, aby korzystać z aplikacji.');
+        setTimeout(hideAlert, 3000);
         return;
     }
 
-    const selectedIndex = $(this).val();
-    if (selectedIndex) {
-        const markerData = defaultMarkersData[selectedIndex];
+    const selectedTitle = $(this).val(); // Wartość to teraz title
+    if (selectedTitle) {
+        const markerData = defaultMarkersData.find(marker => marker.title === selectedTitle);
 
-        // Usunięcie poprzedniego tymczasowego znacznika
-        if (highlightMarker) {
-            map.removeLayer(highlightMarker);
+        if (markerData) {
+            // Usunięcie poprzedniego tymczasowego znacznika
+            if (highlightMarker) {
+                map.removeLayer(highlightMarker);
+            }
+
+            // Dodanie nowego tymczasowego znacznika
+            highlightMarker = L.marker([markerData.lat, markerData.lng], {
+                icon: markerData.icon
+            }).addTo(map);
+
+            highlightMarker.bindPopup(markerData.title).openPopup();
+            map.setView([markerData.lat, markerData.lng], 4);
         }
-
-        // Dodanie nowego tymczasowego znacznika
-        highlightMarker = L.marker([markerData.lat, markerData.lng], {
-            icon: markerData.icon
-        }).addTo(map);
-
-        highlightMarker.bindPopup(markerData.title).openPopup();
-        map.setView([markerData.lat, markerData.lng], 4);
     }
 });
-
 
     </script>
 </body>
