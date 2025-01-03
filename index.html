@@ -2217,14 +2217,6 @@ async function addOrUpdateMarker() {
     		} catch (error) {
         		console.error('Błąd podczas ładowania znaczników:', error);
         		// alert('Nie udało się pobrać znaczników: ' + error.message);
-			// Pokaż komunikat w overlay
-			showAlert('Nie udało się pobrać znaczników!');
-
-			// Ukryj komunikat po kilku sekundach
-			setTimeout(() => {
-				hideAlert();
-			}, 1000); // Czas wyświetlania komunikatu w milisekundach
-
 			// Wyloguj użytkownika
         		localStorage.removeItem('token'); // Usuń token
         		markers.forEach(({ marker }) => map.removeLayer(marker)); // Usuń znaczniki z mapy
@@ -2232,7 +2224,7 @@ async function addOrUpdateMarker() {
         		showAlert('Zostałeś wylogowany z powodu błędu!');
         		setTimeout(() => {
 				hideAlert();
-			}, 2000);
+			}, 3000);
 			toggleButtons(); // Zaktualizuj widoczność przycisków
         		document.getElementById('loginForm').reset(); // Wyczyść formularz logowania
         		document.getElementById('registerForm').reset(); // Wyczyść formularz rejestracji
