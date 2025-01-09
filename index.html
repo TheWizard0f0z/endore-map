@@ -436,7 +436,7 @@
 		
         	<div class="menu-section">
 			<div>
-				<label>Filtruj wszystkie (podstawowe i własne) znaczniki według typu:</label>
+				<label>Pokaż wszystkie (podstawowe i własne) znaczniki według typu:</label>
         			<ul>
             				<li><input type="checkbox" class="filter-checkbox" id="showLore" checked /> Lore</li>
 					<li><input type="checkbox" class="filter-checkbox" id="showMiasto" checked /> Miasta</li>
@@ -2203,7 +2203,7 @@ async function addOrUpdateMarker() {
         		localStorage.removeItem('token'); // Usuń token
         		markers.forEach(({ marker }) => map.removeLayer(marker)); // Usuń znaczniki z mapy
         		markers.length = 0; // Wyczyść tablicę znaczników
-        		showAlert('Zostałeś wylogowany z powodu błędu!');
+        		showAlert('Zostałeś wylogowany!');
         		setTimeout(() => {
 				hideAlert();
 			}, 3000);
